@@ -18,8 +18,7 @@ interface Props {
   };
 }
 export default async function PropertyDetailsPage({ params }: Props) {
-  const awaitedParams = await params; // await params here
-  const propertyId = awaitedParams.property_id;
+  const propertyId = params.property_id;
   console.log(`propertyId => ${propertyId}`);
   let property: Property | null = null;
 
