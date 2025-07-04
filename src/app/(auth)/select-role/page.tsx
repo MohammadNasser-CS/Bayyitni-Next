@@ -1,7 +1,6 @@
 // File: src/app/select-role/page.tsx (Server Component)
 import { redirect } from "next/navigation";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { RoleType } from "@/components/select-role/RoleCard";
 import ClientRoleSelector from "@/components/select-role/ClientRoleSelector";
 
 export default async function SelectRolePage() {

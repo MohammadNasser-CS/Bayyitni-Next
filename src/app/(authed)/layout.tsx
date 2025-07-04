@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser, useClerk } from "@clerk/nextjs";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -48,7 +49,7 @@ export default function AuthLayout({
           <div className="flex justify-between items-center h-16">
             {/* Left side: Logo + Nav */}
             <div className="flex items-center space-x-6">
-              <img
+              <Image
                 src="/images/branding/Bayyitni_logo_transparent_1.png"
                 alt="Bayyitni Logo"
                 width={120}

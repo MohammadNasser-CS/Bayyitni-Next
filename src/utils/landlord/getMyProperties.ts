@@ -1,5 +1,3 @@
-import { strict } from "assert";
-
 // src/utils/landlord/getMyProperties.ts
 export async function getMyProperties(landlord_id :string) {
       const res = await fetch(`https://bayyinti-project.onrender.com/property-listings/landlord/${landlord_id}`, {

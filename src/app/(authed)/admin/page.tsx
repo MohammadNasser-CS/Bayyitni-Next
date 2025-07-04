@@ -1,5 +1,5 @@
 // src/app/student/page.tsx
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default async function AdminPage() {
   const user = await currentUser();

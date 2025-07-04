@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -21,7 +22,7 @@ export default function ClientRedirectHandler() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white">
       {/* Logo */}
-      <img
+      <Image
         src="/images/branding/Bayyitni_logo_transparent_1.png"
         alt="Bayyitni Logo"
         className="mb-3 animate-bounce w-100 h-44"

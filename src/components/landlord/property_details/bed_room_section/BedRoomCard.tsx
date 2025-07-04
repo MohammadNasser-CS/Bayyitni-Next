@@ -1,4 +1,5 @@
 import { BedRoom } from "@/types/rooms";
+import Image from "next/image";
 
 export default function BedRoomCard({
   room,
@@ -52,7 +53,7 @@ export default function BedRoomCard({
                   key={index}
                   className="photo-preview relative rounded-lg overflow-hidden h-20"
                 >
-                  <img
+                  <Image
                     src={url}
                     alt={`Photo ${index + 1}`}
                     className="w-full h-full object-cover"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, NavigationControl } from "react-map-gl/mapbox";
 

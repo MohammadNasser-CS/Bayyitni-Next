@@ -4,6 +4,7 @@
 import React from "react";
 import MapPreview from "../map_preview/MapPreview";
 import { Property } from "@/types/property";
+import Image from "next/image";
 
 interface PropertyHeaderProps {
   title: string;
@@ -49,7 +50,7 @@ export default function PropertyHeader({ property }: { property: Property }) {
     <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
       {/* Image Section */}
       <div className="relative h-80">
-        <img
+        <Image
           src={property.property_image}
           alt={property.title}
           className="w-full h-full object-cover"
