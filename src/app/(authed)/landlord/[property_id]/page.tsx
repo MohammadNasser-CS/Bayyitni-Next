@@ -11,12 +11,13 @@ import { BedRoom } from "@/types/rooms";
 import { SharedSpaces } from "@/types/sharedSpaces/sharedSpaces";
 import { getPropertyDetails } from "@/utils/landlord/getPropertyDetails";
 import { notFound } from "next/navigation";
-
-export default async function PropertyDetailsPage({
-  params,
-}: {
-  params: { property_id: string };
-}) {
+// Correct typing for dynamic route page
+interface Props {
+  params: {
+    property_id: string;
+  };
+}
+export default async function PropertyDetailsPage({ params }: Props) {
   const awaitedParams = await params; // await params here
   const propertyId = awaitedParams.property_id;
   console.log(`propertyId => ${propertyId}`);
