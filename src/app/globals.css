@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F2F2F2;
+  --foreground: #2C3E50;
+  /* Flutter-based color variables */
+  --primary-color: #ff8904;
+  --secondary-color: #2C3E50;
+  --labels-color: #2C3E50CC;
+  --hints-color: #2C3E5099;
+  --placeholders-color: #2C3E5066;
+  --success-color: #A8D5BA;
+  --error-color: #E57373;
+  --disabled-color: #2C3E5066;
+
+
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary-color);
+  --color-secondary: var(--secondary-color);
+  --color-labels: var(--labels-color);
+  --color-hints: var(--hints-color);
+  --color-placeholders: var(--placeholders-color);
+  --color-success: var(--success-color);
+  --color-error: var(--error-color);
+  --color-disabled: var(--disabled-color);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --breakpoint-md: 55rem;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg-primary-color {
+  background-color: #F57C00;
+}
+
+.bg-secondary-color {
+  background-color: #2C3E50;
+}
+
+.bg-labels-color {
+  background-color: #2C3E50CC;
+}
+
+.bg-hints-color {
+  background-color: #2C3E5099;
+}
+
+.bg-placeholders-color {
+  background-color: #2C3E5066;
+}
+
+.bg-disabled-color {
+  background-color: #2C3E5066;
+}
+
+.bg-success-color {
+  background-color: #A8D5BA;
+}
+
+.bg-error-color {
+  background-color: #E57373;
 }
