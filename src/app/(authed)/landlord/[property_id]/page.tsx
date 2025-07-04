@@ -12,11 +12,9 @@ import { SharedSpaces } from "@/types/sharedSpaces/sharedSpaces";
 import { getPropertyDetails } from "@/utils/landlord/getPropertyDetails";
 import { notFound } from "next/navigation";
 // Correct typing for dynamic route page
-interface Props {
-  params: {
-    property_id: string;
-  };
-}
+type Props = {
+  params: { property_id: string };
+};
 export default async function PropertyDetailsPage({ params }: Props) {
   const propertyId = params.property_id;
   console.log(`propertyId => ${propertyId}`);
