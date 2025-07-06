@@ -6,6 +6,7 @@ import PropertyStatusBanner from "@/components/landlord/property_details/propert
 import RoomTabs from "@/components/landlord/property_details/roomTabs/roomTabs";
 import StudentInquiriesCard from "@/components/landlord/property_details/StudentInquiriesCard";
 import TopActionsBar from "@/components/landlord/property_details/top_actions_bar/TopActionsBar";
+import { EditModeProvider } from "@/context/EditModeContext";
 import { Property } from "@/types/property";
 import { BedRoom } from "@/types/rooms";
 import { SharedSpaces } from "@/types/sharedSpaces/sharedSpaces";
@@ -30,6 +31,7 @@ export default async function PropertyDetailsPage({
   if (!property) {
     notFound(); // or render a fallback message instead
   }
+
   const bedRooms: BedRoom[] = [
     {
       id: 1,
@@ -149,34 +151,36 @@ export default async function PropertyDetailsPage({
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* <!-- Top Navigation --> */}
-        <TopActionsBar />
-        {/* <!-- Property Status Banner --> */}
-        <PropertyStatusBanner />
+      <EditModeProvider>
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          {/* <!-- Top Navigation --> */}
+          <TopActionsBar />
+          {/* <!-- Property Status Banner --> */}
+          <PropertyStatusBanner />
 
-        {/* <!-- Main Content --> */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* <!-- Left Column - Property Details --> */}
-          <div className="lg:col-span-2">
-            {/* <!-- Property Header --> */}
-            <PropertyHeader property={property} />
+          {/* <!-- Main Content --> */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* <!-- Left Column - Property Details --> */}
+            <div className="lg:col-span-2">
+              {/* <!-- Property Header --> */}
+              <PropertyHeader property={property} />
 
-            {/* <!-- Tabs Navigation --> */}
-            <RoomTabs bedRooms={bedRooms} sharedSpaces={sharedSpaces} />
-          </div>
+              {/* <!-- Tabs Navigation --> */}
+              <RoomTabs bedRooms={bedRooms} sharedSpaces={sharedSpaces} />
+            </div>
 
-          {/* <!-- Right Column - Sidebar --> */}
-          <div className="lg:col-span-1">
-            {/* <!-- Availability Card --> */}
-            <AvailabilityCard />
-            {/* <!-- Student Inquiries Card --> */}
-            <StudentInquiriesCard />
-            {/* <!-- Chat Support Card --> */}
-            <ChatSupportCard />
+            {/* <!-- Right Column - Sidebar --> */}
+            <div className="lg:col-span-1">
+              {/* <!-- Availability Card --> */}
+              <AvailabilityCard />
+              {/* <!-- Student Inquiries Card --> */}
+              <StudentInquiriesCard />
+              {/* <!-- Chat Support Card --> */}
+              <ChatSupportCard />
+            </div>
           </div>
         </div>
-      </div>
+      </EditModeProvider>
     </>
   );
 }

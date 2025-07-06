@@ -1,6 +1,5 @@
 // app/(auth)/select-role/layout.tsx
 
-import Image from "next/image";
 import Link from "next/link";
 
 export default function SelectRoleLayout({
@@ -12,7 +11,7 @@ export default function SelectRoleLayout({
 
       <nav className="w-full px-4 py-3 shadow-sm bg-primary">
         <div className="max-w-5xl w-full mx-auto flex justify-between items-center">
-          <Image
+          <img
             src="images/branding/Bayyitni_logo_transparent_1.png" // Relative to the public folder
             alt="Bayyitni Logo"
             width={120}

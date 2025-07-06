@@ -7,7 +7,10 @@ export default async function HomePage() {
   const user = await currentUser();
 
   // If not logged in, redirect to sign-in
-  if (!user) return redirect("/sign-in");
+  if (!user) {
+    redirect("/sign-in");
+    return <ClientRedirectHandler />;
+  }
 
   // If user has a role already, handle redirection here
   const role = user.publicMetadata?.role;

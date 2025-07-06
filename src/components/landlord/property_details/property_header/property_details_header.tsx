@@ -1,11 +1,11 @@
 // File: src/components/landlord/property_details/PropertyHeader.tsx
 "use client";
 
-import React from "react";
 import MapPreview from "../map_preview/MapPreview";
 import { Property } from "@/types/property";
-import Image from "next/image";
-
+import { useState, useEffect } from "react";
+import { useEditMode } from "@/context/EditModeContext";
+import LocationEditor from "../map_preview/LocationEditor";
 interface PropertyHeaderProps {
   title: string;
   type: string;
@@ -46,11 +46,44 @@ const UtilityBadge = ({
 };
 
 export default function PropertyHeader({ property }: { property: Property }) {
+  const { isEditMode } = useEditMode();
+  // Local state for gender preference and utilities
+  const [genderPreference, setGenderPreference] = useState(
+    property.gender_preference
+  );
+  const [location, setLocation] = useState({
+    lat: property.location_lat,
+    lon: property.location_lon,
+  });
+  const [utilities, setUtilities] = useState({
+    has_water: property.has_water,
+    has_gas: property.has_gas,
+    has_internet: property.has_internet,
+    has_electricity: property.has_electricity,
+  });
+
+  // If the property prop changes (optional)
+  useEffect(() => {
+    setGenderPreference(property.gender_preference);
+    setUtilities({
+      has_water: property.has_water,
+      has_gas: property.has_gas,
+      has_internet: property.has_internet,
+      has_electricity: property.has_electricity,
+    });
+    setLocation({
+      lat: property.location_lat,
+      lon: property.location_lon,
+    });
+  }, [property]);
+  console.log("Updated Gender:", genderPreference);
+  console.log("Updated Utilities:", utilities);
+  console.log("Updated Location:", location);
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
       {/* Image Section */}
       <div className="relative h-80">
-        <Image
+        <img
           src={property.property_image}
           alt={property.title}
           className="w-full h-full object-cover"
@@ -59,8 +92,8 @@ export default function PropertyHeader({ property }: { property: Property }) {
           <div className="p-6 text-white w-full">
             <div className="flex justify-between items-center mb-2">
               <h1 className="text-3xl font-bold">{property.title}</h1>
-              <span className="bg-blue-500 text-white text-sm font-semibold px-3 py-1 rounded-full">
-                {property.property_type}
+              <span className="bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full">
+                Property Type: {property.property_type}
               </span>
             </div>
             <div className="flex items-center mb-2">
@@ -92,20 +125,20 @@ export default function PropertyHeader({ property }: { property: Property }) {
       <div className="p-6 space-y-6">
         {/* Description */}
         <div>
-          <h2 className="text-xl font-bold text-gray-800 mb-2">
+          <h2 className="text-xl font-bold text-secondary mb-2">
             Property Description
           </h2>
-          <p className="text-gray-600">{property.description}</p>
+          <p className="text-labels">{property.description}</p>
         </div>
 
         {/* Grid Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-500 mb-2">
+            <h3 className="text-sm font-semibold text-secondary mb-2">
               BUILDING DETAILS
             </h3>
-            <div className="space-y-2 text-sm text-gray-700">
+            <div className="space-y-2 text-sm text-labels">
               <p className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -177,10 +210,10 @@ export default function PropertyHeader({ property }: { property: Property }) {
 
           {/* Right */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-500 mb-2">
+            <h3 className="text-sm font-semibold text-secondary mb-2">
               PROPERTY DETAILS
             </h3>
-            <div className="space-y-2 text-sm text-gray-700">
+            <div className="space-y-2 text-sm text-labels">
               <p className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -198,8 +231,20 @@ export default function PropertyHeader({ property }: { property: Property }) {
                   <path d="M16 3.128a4 4 0 0 1 0 7.744" />
                   <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                   <circle cx="9" cy="7" r="4" />
-                </svg>{" "}
-                Gender Preference: {property.gender_preference}
+                </svg>
+                {isEditMode ? (
+                  <select
+                    value={genderPreference}
+                    onChange={(e) => setGenderPreference(e.target.value)}
+                    className="border border-gray-300 rounded px-2 py-1"
+                  >
+                    <option value="Any">Any</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                ) : (
+                  <>Gender Preference: {genderPreference}</>
+                )}
               </p>
               <p className="flex items-center">
                 <svg
@@ -243,43 +288,91 @@ export default function PropertyHeader({ property }: { property: Property }) {
 
         {/* Utilities */}
         <div>
-          <h3 className="text-sm font-semibold text-gray-500 mb-2">
+          <h3 className="text-sm font-semibold text-secondary mb-2">
             INCLUDED UTILITIES
           </h3>
           <div className="flex flex-wrap gap-2">
-            <UtilityBadge label="Water" isActive={property.has_water} />
-            <UtilityBadge label="WiFi" isActive={property.has_internet} />
-            <UtilityBadge
-              label="Electricity"
-              isActive={property.has_electricity}
-            />
-            <UtilityBadge label="Gas" isActive={property.has_gas} />
+            {isEditMode ? (
+              <>
+                {Object.entries(utilities).map(([key, value]) => (
+                  <label key={key} className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={value}
+                      onChange={() =>
+                        setUtilities((prev) => ({
+                          ...prev,
+                          [key]: !prev[key as keyof typeof prev],
+                        }))
+                      }
+                    />
+                    {key.replace("has_", "").replace("_", " ")}
+                  </label>
+                ))}
+              </>
+            ) : (
+              <>
+                <UtilityBadge label="Water" isActive={utilities.has_water} />
+                <UtilityBadge label="WiFi" isActive={utilities.has_internet} />
+                <UtilityBadge
+                  label="Electricity"
+                  isActive={utilities.has_electricity}
+                />
+                <UtilityBadge label="Gas" isActive={utilities.has_gas} />
+              </>
+            )}
           </div>
         </div>
 
         {/* Location */}
         <div className="mb-6">
-          <h3 className="text-sm font-semibold text-gray-500 mb-2">LOCATION</h3>
-          <div className="bg-gray-100 rounded-lg h-48 mb-3 flex items-center justify-center">
-            <MapPreview
-              lat={`${property.location_lat}`}
-              lon={`${property.location_lon}`}
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gray-50 rounded p-2">
-              <label className="text-xs font-medium text-gray-500">
-                Latitude
-              </label>
-              <p className="text-sm text-gray-700">{property.location_lat}</p>
-            </div>
-            <div className="bg-gray-50 rounded p-2">
-              <label className="text-xs font-medium text-gray-500">
-                Longitude
-              </label>
-              <p className="text-sm text-gray-700">{property.location_lon}</p>
-            </div>
-          </div>
+          <h3 className="text-sm font-semibold text-secondary mb-2">
+            LOCATION
+          </h3>
+
+          {isEditMode ? (
+            <>
+              <LocationEditor
+                lat={location.lat}
+                lon={location.lon}
+                onChange={(lat, lon) => setLocation({ lat, lon })}
+              />
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <div className="bg-gray-50 rounded p-2">
+                  <label className="text-xs font-medium text-secondary">
+                    Latitude
+                  </label>
+                  <p className="text-sm text-gray-700">{location.lat}</p>
+                </div>
+                <div className="bg-gray-50 rounded p-2">
+                  <label className="text-xs font-medium text-secondary">
+                    Longitude
+                  </label>
+                  <p className="text-sm text-gray-700">{location.lon}</p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="bg-gray-100 rounded-lg h-48 mb-3 flex items-center justify-center">
+                <MapPreview lat={location.lat} lon={location.lon} />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-gray-50 rounded p-2">
+                  <label className="text-xs font-medium text-secondary">
+                    Latitude
+                  </label>
+                  <p className="text-sm text-gray-700">{location.lat}</p>
+                </div>
+                <div className="bg-gray-50 rounded p-2">
+                  <label className="text-xs font-medium text-secondary">
+                    Longitude
+                  </label>
+                  <p className="text-sm text-gray-700">{location.lon}</p>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

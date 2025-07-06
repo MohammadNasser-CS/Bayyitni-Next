@@ -10,11 +10,10 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.23.2",
-    "mapbox-gl": "^3.13.0",
+    "@react-google-maps/api": "^2.20.7",
     "next": "15.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-map-gl": "^8.0.4"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

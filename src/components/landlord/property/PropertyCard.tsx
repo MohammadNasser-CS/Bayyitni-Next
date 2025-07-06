@@ -1,7 +1,6 @@
 // components/PropertyCard.tsx
 
 import { Property } from "@/types/property";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function PropertyCard({
@@ -16,7 +15,7 @@ export default function PropertyCard({
       <div className="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden flex flex-col h-full min-h-[420px]">
         {/* Image Section */}
         <div className="relative h-48">
-          <Image
+          <img
             src={property.property_image || "/fallback.jpg"}
             alt={property.title}
             className="w-full h-full object-cover"

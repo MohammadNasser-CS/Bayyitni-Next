@@ -1,5 +1,4 @@
 import { SharedSpaces } from "@/types/sharedSpaces/sharedSpaces";
-import Image from "next/image";
 
 export default function SharedSpacesCard({
   space,
@@ -60,7 +59,7 @@ export default function SharedSpacesCard({
                   key={index}
                   className="photo-preview relative rounded-lg overflow-hidden h-20"
                 >
-                  <Image
+                  <img
                     src={image}
                     alt={space.room_type}
                     className="w-full h-full object-cover"

@@ -77,7 +77,7 @@ export default function AuthLayout({
                   "User"}
               </span>
               <button
-                onClick={() => signOut()}
+                onClick={() => signOut({ redirectUrl: "/sign-in" })}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg text-red-600 bg-red-50 hover:bg-red-100 hover:text-red-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
               >
                 <span className="text-sm font-medium">Log out</span>
@@ -164,7 +164,7 @@ export default function AuthLayout({
                   "User"}
               </span>
               <button
-                onClick={() => signOut()}
+                onClick={() => signOut({ redirectUrl: "/sign-in" })}
                 className="flex items-center gap-2 px-4 py-2 rounded-md text-red-600 bg-red-50 hover:bg-red-100 hover:text-red-700 transition duration-200"
               >
                 <span className="text-sm font-medium">Log out</span>
