@@ -15,7 +15,7 @@ import { notFound } from "next/navigation";
 export default async function PropertyDetailsPage({
   params,
 }: {
-  params: { property_id: string };
+  params: Promise<{ property_id: string }>;
 }) {
   const awaitedParams = await params; // await params here
   const propertyId = awaitedParams.property_id;
