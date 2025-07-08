@@ -8,7 +8,7 @@ export default async function HomePage() {
 
   // If not logged in, redirect to sign-in
   if (!user) {
-    redirect("/sign-in");
+    redirect("https://resolved-dragon-23.accounts.dev/sign-in");
     return <ClientRedirectHandler />;
   }
 
@@ -25,6 +25,6 @@ export default async function HomePage() {
       // Show client logic if role is undefined
       return <ClientRedirectHandler />;
     default:
-      return redirect("/sign-in");
+      return redirect("https://resolved-dragon-23.accounts.dev/sign-in");
   }
 }

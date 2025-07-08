@@ -126,7 +126,7 @@ export default async function LandlordPage() {
                 listings.
               </p>
               <Link
-                href="/landlord/new"
+                href="/landlord/add-new-property"
                 className="bg-indigo-600 hover:bg-indigo-700 transition text-white py-3 px-6 rounded-lg font-medium flex items-center"
               >
                 <svg
