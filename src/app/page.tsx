@@ -25,6 +25,6 @@ export default async function HomePage() {
       // Show client logic if role is undefined
       return <ClientRedirectHandler />;
     default:
-      return redirect("https://resolved-dragon-23.accounts.dev/sign-in");
+      return <ClientRedirectHandler />;
   }
 }
