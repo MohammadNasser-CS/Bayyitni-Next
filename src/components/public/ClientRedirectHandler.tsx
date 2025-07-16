@@ -12,7 +12,7 @@ export default function ClientRedirectHandler() {
     if (!isLoaded) return;
 
     if (!isSignedIn) {
-      window.location.href = "https://resolved-dragon-23.accounts.dev/sign-in";
+      router.replace("/sign-in");
     } else {
       router.replace("/select-role");
     }
