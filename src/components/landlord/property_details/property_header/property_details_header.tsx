@@ -2,7 +2,7 @@
 "use client";
 
 import MapPreview from "../map_preview/MapPreview";
-import { Property } from "@/types/property";
+import { Property } from "@/types/property/property";
 import { useState, useEffect } from "react";
 import { useEditMode } from "@/context/EditModeContext";
 import LocationEditor from "../map_preview/LocationEditor";
@@ -22,8 +22,8 @@ interface PropertyHeaderProps {
   hasElectricity: boolean;
   hasWater: boolean;
   hasInternet: boolean;
-  lat: string;
-  lon: string;
+  lat: number;
+  lon: number;
 }
 
 const UtilityBadge = ({

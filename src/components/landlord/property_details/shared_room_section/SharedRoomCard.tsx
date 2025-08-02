@@ -1,4 +1,4 @@
-import { SharedSpaces } from "@/types/sharedSpaces/sharedSpaces";
+import { SharedSpaces } from "@/types/rooms/sharedSpaces";
 
 export default function SharedSpacesCard({
   space,

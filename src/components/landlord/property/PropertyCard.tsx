@@ -1,6 +1,6 @@
 // components/PropertyCard.tsx
 
-import { Property } from "@/types/property";
+import { Property } from "@/types/property/property";
 import Link from "next/link";
 
 export default function PropertyCard({

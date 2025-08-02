@@ -4,18 +4,16 @@ import { useRef, useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 type MapPreviewProps = {
-  lat: string;
-  lon: string;
+  lat: number;
+  lon: number;
 };
 
 export default function MapPreview({ lat, lon }: MapPreviewProps) {
-  const latitude = parseFloat(lat);
-  const longitude = parseFloat(lon);
-  const isValid = !isNaN(latitude) && !isNaN(longitude);
+  const isValid = !isNaN(lat) && !isNaN(lon);
 
   const [viewState, setViewState] = useState({
-    latitude: isValid ? latitude : 31.7683, // fallback: Palestine center
-    longitude: isValid ? longitude : 35.2137,
+    latitude: isValid ? lat : 31.7683, // fallback: Palestine center
+    longitude: isValid ? lon : 35.2137,
     zoom: 14,
   });
   const mapRef = useRef<google.maps.Map | null>(null);
@@ -53,15 +51,12 @@ export default function MapPreview({ lat, lon }: MapPreviewProps) {
     <div className="relative w-full h-48 rounded-md overflow-hidden border border-gray-200 shadow-sm">
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100%" }}
-        center={{ lat: latitude, lng: longitude }}
+        center={{ lat: lat, lng: lon }}
         zoom={zoom}
         onLoad={handleOnLoad}
         options={{ disableDefaultUI: true }}
       >
-        <Marker
-          position={{ lat: latitude, lng: longitude }}
-          title="Hello World!"
-        />
+        <Marker position={{ lat: lat, lng: lon }} title="Hello World!" />
       </GoogleMap>
 
       {/* Zoom Buttons */}

@@ -1,4 +1,4 @@
-import { BedRoom } from "@/types/rooms";
+import { BedRoom } from "@/types/rooms/rooms";
 
 export default function BedRoomCard({
   room,

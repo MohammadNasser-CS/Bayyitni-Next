@@ -1,82 +1,34 @@
-// src/app/landlord/page.tsx
+"use client";
 
+import { useEffect, useState } from "react";
 import LandlordHeader from "@/components/landlord/property/LandlordHeader";
 import Pagination from "@/components/landlord/property/Pagination";
 import PropertyCard from "@/components/landlord/property/PropertyCard";
 import PropertyFilters from "@/components/landlord/property/PropertyFilters";
-import { Property } from "@/types/property";
+import { Property } from "@/types/property/property";
 import Link from "next/link";
-import { currentUser } from "@clerk/nextjs/server";
 import { getMyProperties } from "@/utils/landlord/getMyProperties";
-export default async function LandlordPage() {
-  const user = await currentUser();
-  let properties: Property[] = [];
-  let hasError = false;
-  console.log(`userId => ${user!.id}`);
+import { useAuth } from "@/context/AuthContext";
 
-  try {
-    properties = await getMyProperties(user!.id);
-  } catch (error) {
-    console.error("Error fetching properties:", error);
-    hasError = true;
-  }
-  // console.log(`properties=>${properties}`);
-  // const properties: Property[] = [
-  //   {
-  //     id: 1,
-  //     title: "Modern Family Home",
-  //     building_name: "Sunset Tower",
-  //     building_number: "12A",
-  //     landlord_id: "landlord_123",
-  //     description:
-  //       "A beautiful modern family home located near parks and schools.",
-  //     floor_number: 3,
-  //     location_lat: "34.0522",
-  //     location_lon: "-118.2437",
-  //     is_active: true,
-  //     gender_preference: "Any",
-  //     has_gas: true,
-  //     has_electricity: true,
-  //     has_water: true,
-  //     has_internet: true,
-  //     property_type: "House",
-  //     property_image:
-  //       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=60",
-  //     city: "Los Angeles",
-  //     country: "USA",
-  //     number_of_rooms: 4,
-  //     created_at: "2025-06-27 01:02:51",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Urban Loft",
-  //     building_name: "Broadway Lofts",
-  //     building_number: "333B",
-  //     landlord_id: "landlord_456",
-  //     description:
-  //       "Cozy urban loft in the heart of the city with stunning skyline views.",
-  //     floor_number: 7,
-  //     location_lat: "40.7128",
-  //     location_lon: "-74.006",
-  //     is_active: false,
-  //     gender_preference: "Male Only",
-  //     has_gas: false,
-  //     has_electricity: true,
-  //     has_water: true,
-  //     has_internet: false,
-  //     property_type: "Apartment",
-  //     property_image:
-  //       "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=60",
-  //     city: "New York",
-  //     country: "USA",
-  //     number_of_rooms: 2,
-  //     created_at: "2025-05-15 14:22:30",
-  //   },
-  //   // Add more properties as needed...
-  // ];
+export default function LandlordPage() {
+  const { userId, fullName, isLoading } = useAuth();
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && userId) {
+      getMyProperties(userId)
+        .then((data) => setProperties(data))
+        .catch((error) => {
+          console.error("Error fetching properties:", error);
+          setHasError(true);
+        });
+    }
+  }, [isLoading, userId]);
+
+  if (isLoading) return <div>Loading...</div>;
 
   const hasProperties = !hasError && properties.length > 0;
-  // const hasProperties = false;
 
   return (
     <div className="py-8">
@@ -90,7 +42,7 @@ export default async function LandlordPage() {
                 <PropertyCard
                   key={property.id}
                   property={property}
-                  userName={`${user!.fullName}`}
+                  userName={fullName ?? ""}
                 />
               ))}
             </div>
@@ -100,6 +52,7 @@ export default async function LandlordPage() {
           <div className="flex min-h-[70vh] sm:min-h-[80vh] items-center justify-center text-center">
             <div className="flex flex-col items-center">
               <div className="mb-6 text-indigo-500">
+                {/* House icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="64"

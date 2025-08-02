@@ -9,16 +9,14 @@ const containerStyle = {
 };
 
 type Props = {
-  lat: string;
-  lon: string;
-  onChange: (lat: string, lon: string) => void;
+  lat: number;
+  lon: number;
+  onChange: (lat: number, lon: number) => void;
 };
 
 export default function LocationEditor({ lat, lon, onChange }: Props) {
-  const latitude = parseFloat(lat);
-  const longitude = parseFloat(lon);
-  const isValid = !isNaN(latitude) && !isNaN(longitude);
-  const [markerPos, setMarkerPos] = useState({ lat: latitude, lng: longitude });
+  const isValid = !isNaN(lat) && !isNaN(lon);
+  const [markerPos, setMarkerPos] = useState({ lat: lat, lng: lon });
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
@@ -31,7 +29,7 @@ export default function LocationEditor({ lat, lon, onChange }: Props) {
         lng: pos.coords.longitude,
       };
       setMarkerPos(newPos);
-      onChange(newPos.lat.toString(), newPos.lng.toString());
+      onChange(newPos.lat, newPos.lng);
     });
   };
 
@@ -58,7 +56,7 @@ export default function LocationEditor({ lat, lon, onChange }: Props) {
             const lng = e.latLng?.lng();
             if (lat && lng) {
               setMarkerPos({ lat, lng });
-              onChange(lat.toString(), lng.toString());
+              onChange(lat, lng);
             }
           }}
         >
@@ -70,7 +68,7 @@ export default function LocationEditor({ lat, lon, onChange }: Props) {
               const newLng = e.latLng?.lng();
               if (newLat && newLng) {
                 setMarkerPos({ lat: newLat, lng: newLng });
-                onChange(newLat.toString(), newLng.toString());
+                onChange(newLat, newLng);
               }
             }}
           />

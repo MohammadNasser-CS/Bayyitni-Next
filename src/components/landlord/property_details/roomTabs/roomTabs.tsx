@@ -1,8 +1,8 @@
 // src/components/landlord/property_details/PropertyTabs.tsx
 "use client";
 import { useState } from "react";
-import { BedRoom } from "@/types/rooms";
-import { SharedSpaces } from "@/types/sharedSpaces/sharedSpaces";
+import { BedRoom } from "@/types/rooms/rooms";
+import { SharedSpaces } from "@/types/rooms/sharedSpaces";
 import SectionHeader from "../bed_room_section/SectionHeader";
 import BedRoomCard from "../bed_room_section/BedRoomCard";
 import SharedSpacesCard from "../shared_room_section/SharedRoomCard";

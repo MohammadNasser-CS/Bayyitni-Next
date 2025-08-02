@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.23.2",
+    "@headlessui/react": "^2.2.6",
     "@react-google-maps/api": "^2.20.7",
     "next": "15.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-multi-date-picker": "^4.5.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

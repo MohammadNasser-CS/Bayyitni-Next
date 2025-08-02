@@ -7,9 +7,9 @@ import RoomTabs from "@/components/landlord/property_details/roomTabs/roomTabs";
 import StudentInquiriesCard from "@/components/landlord/property_details/StudentInquiriesCard";
 import TopActionsBar from "@/components/landlord/property_details/top_actions_bar/TopActionsBar";
 import { EditModeProvider } from "@/context/EditModeContext";
-import { Property } from "@/types/property";
-import { BedRoom } from "@/types/rooms";
-import { SharedSpaces } from "@/types/sharedSpaces/sharedSpaces";
+import { Property } from "@/types/property/property";
+import { BedRoom } from "@/types/rooms/rooms";
+import { SharedSpaces } from "@/types/rooms/sharedSpaces";
 import { getPropertyDetails } from "@/utils/landlord/getPropertyDetails";
 import { notFound } from "next/navigation";
 export default async function PropertyDetailsPage({
