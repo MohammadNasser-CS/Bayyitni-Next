@@ -48,7 +48,7 @@ export default async function PropertyDetailsPage({
       has_office: false,
       property_listing_id: 101,
       created_at: "2025-07-01T10:00:00Z",
-      photos: [
+      images: [
         "https://images.unsplash.com/photo-1540518614846-7eded433c457",
         "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
       ],
@@ -68,7 +68,7 @@ export default async function PropertyDetailsPage({
       has_office: true,
       property_listing_id: 101,
       created_at: "2025-07-01T11:00:00Z",
-      photos: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af"],
+      images: ["https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af"],
     },
     {
       id: 3,
@@ -85,7 +85,7 @@ export default async function PropertyDetailsPage({
       has_office: false,
       property_listing_id: 101,
       created_at: "2025-07-01T12:00:00Z",
-      photos: [
+      images: [
         "https://images.unsplash.com/photo-1540518614846-7eded433c457",
         "https://images.unsplash.com/photo-1540518614846-7eded433c457",
       ],
