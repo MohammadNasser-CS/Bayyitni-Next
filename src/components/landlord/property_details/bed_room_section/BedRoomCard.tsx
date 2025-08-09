@@ -47,7 +47,7 @@ export default function BedRoomCard({
           <div className="mb-4">
             <p className="text-sm text-gray-500 mb-2">Photos</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-              {room.photos.map((url, index) => (
+              {room.images.map((url, index) => (
                 <div
                   key={index}
                   className="photo-preview relative rounded-lg overflow-hidden h-20"
