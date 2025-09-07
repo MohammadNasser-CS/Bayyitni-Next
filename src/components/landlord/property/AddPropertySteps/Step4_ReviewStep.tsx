@@ -151,14 +151,14 @@ export default function Step4({
             />
           </div>
 
-          {propertyData.image && (
+          {propertyData.property_image && (
             <div className="mt-4">
               <h3 className="text-lg font-semibold mb-3">Property Image</h3>
               <img
                 src={
-                  typeof propertyData.image === "string"
-                    ? propertyData.image
-                    : URL.createObjectURL(propertyData.image)
+                  typeof propertyData.property_image === "string"
+                    ? propertyData.property_image
+                    : URL.createObjectURL(propertyData.property_image)
                 }
                 alt="Property Preview"
                 className="w-full h-40 object-cover rounded-md"

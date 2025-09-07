@@ -40,7 +40,7 @@ export default function Step2({
   onNext,
   onBack,
 }: Step2Props) {
-  const { userId, isLoading } = useAuth(); // Get user from context
+  const { user, isLoading } = useAuth(); // Get user from context
   // Load Google Maps
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
@@ -67,13 +67,13 @@ export default function Step2({
 
   // Ensure landlord_id is set once the user is loaded
   useEffect(() => {
-    if (!isLoading && userId) {
+    if (!isLoading && user?.id) {
       setLocalData((prev) => ({
         ...prev,
-        landlord_id: userId, // <-- set landlord_id from context
+        landlord_id: user?.id, // <-- set landlord_id from context
       }));
     }
-  }, [isLoading, userId]);
+  }, [isLoading, user?.id]);
   // Handlers
   const handleNext = async () => {
     setPropertyData((prev) => ({
@@ -319,15 +319,16 @@ export default function Step2({
               }}
               className="w-full border border-gray-300 rounded-md p-2.5 text-sm bg-white file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
             />
-            {localData.image && localData.image instanceof File && (
-              <div className="mt-2">
-                <img
-                  src={URL.createObjectURL(localData.image)}
-                  alt="معاينة الصورة"
-                  className="w-full h-50 rounded shadow"
-                />
-              </div>
-            )}
+            {localData.property_image &&
+              localData.property_image instanceof File && (
+                <div className="mt-2">
+                  <img
+                    src={URL.createObjectURL(localData.property_image)}
+                    alt="معاينة الصورة"
+                    className="w-full h-50 rounded shadow"
+                  />
+                </div>
+              )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">

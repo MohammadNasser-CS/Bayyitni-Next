@@ -31,7 +31,7 @@ const initialFormData: CreatePropertyRequest = {
   city: "",
   country: "",
   property_image: undefined,
-  verification_status: "",
+  verification_status: "verified",
 };
 
 export default function AddPropertyForm() {
