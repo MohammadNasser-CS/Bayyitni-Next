@@ -1,0 +1,233 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "getStarted": "Get Started",
+    "signUp": "Sign Up",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "open": "Open",
+    "view": "View",
+    "manage": "Manage",
+    "add": "Add",
+    "remove": "Remove",
+    "update": "Update",
+    "confirm": "Confirm",
+    "reject": "Reject",
+    "approve": "Approve",
+    "pending": "Pending",
+    "active": "Active",
+    "inactive": "Inactive",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "allProperties": "All Properties",
+    "allTypes": "All Types",
+    "house": "House",
+    "apartment": "Apartment",
+    "studio": "Studio"
+  },
+  "navigation": {
+    "home": "Home",
+    "explore": "Explore",
+    "bookings": "My Bookings",
+    "bookmarks": "Bookmarks",
+    "payments": "Payments",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "addListing": "Add Listing",
+    "manageListings": "Manage Listings",
+    "tenantRequests": "Tenant Requests",
+    "verification": "Verification",
+    "bookingManagement": "Booking Management"
+  },
+  "homepage": {
+    "title": "Welcome to Bayyitni",
+    "subtitle": "Your trusted platform for finding the perfect student accommodation. Connect with verified landlords and discover your ideal home away from home.",
+    "whyChoose": "Why Choose Bayyitni?",
+    "whyChooseSubtitle": "We make student housing simple, safe, and accessible",
+    "forStudents": "For Students",
+    "forStudentsDesc": "Find your perfect accommodation with advanced search and verified listings",
+    "forLandlords": "For Landlords",
+    "forLandlordsDesc": "List your properties and connect with quality student tenants",
+    "trustedPlatform": "Trusted Platform",
+    "trustedPlatformDesc": "Built with security and cultural awareness at its core",
+    "features": {
+      "advancedSearch": "Advanced search filters",
+      "verifiedLandlords": "Verified landlords",
+      "secureBooking": "Secure booking process",
+      "support247": "24/7 support",
+      "easyManagement": "Easy property management",
+      "tenantScreening": "Tenant screening",
+      "securePayments": "Secure payments",
+      "analytics": "Analytics dashboard",
+      "verifiedListings": "Verified listings",
+      "secureTransactions": "Secure transactions",
+      "culturalSensitivity": "Cultural sensitivity",
+      "localSupport": "Local support"
+    }
+  },
+  "auth": {
+    "loginTitle": "Welcome Back",
+    "loginSubtitle": "Sign in to your Bayyitni account",
+    "registerTitle": "Create Account",
+    "registerSubtitle": "Join Bayyitni today",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone Number",
+    "role": "I am a",
+    "student": "Student",
+    "landlord": "Landlord",
+    "admin": "Admin",
+    "university": "University",
+    "budget": "Budget (per month)",
+    "emergencyContact": "Emergency Contact",
+    "emergencyPhone": "Emergency Phone",
+    "demoAccount": "Demo Account",
+    "demoCredentials": "Use demo credentials for quick access",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "signInHere": "Sign in here",
+    "signUpHere": "Sign up here"
+  },
+  "student": {
+    "exploreTitle": "Explore Accommodations",
+    "searchPlaceholder": "Search by location, university, or property name...",
+    "filters": "Filters",
+    "priceRange": "Price Range",
+    "gender": "Gender Preference",
+    "male": "Male",
+    "female": "Female",
+    "mixed": "Mixed",
+    "roomType": "Room Type",
+    "single": "Single Room",
+    "shared": "Shared Room",
+    "studio": "Studio",
+    "apartment": "Apartment",
+    "amenities": "Amenities",
+    "wifi": "WiFi",
+    "parking": "Parking",
+    "laundry": "Laundry",
+    "gym": "Gym",
+    "pool": "Swimming Pool",
+    "security": "Security",
+    "furnished": "Furnished",
+    "airConditioning": "Air Conditioning",
+    "verification": "Verification Status",
+    "verified": "Verified",
+    "pending": "Pending Verification",
+    "unverified": "Unverified",
+    "sortBy": "Sort By",
+    "priceAsc": "Price: Low to High",
+    "priceDesc": "Price: High to Low",
+    "newest": "Newest First",
+    "oldest": "Oldest First",
+    "bookNow": "Book Now",
+    "viewDetails": "View Details",
+    "bookmark": "Bookmark",
+    "bookmarked": "Bookmarked",
+    "perMonth": "per month",
+    "availableRooms": "Available Rooms",
+    "noResults": "No accommodations found",
+    "noResultsDesc": "Try adjusting your search criteria or filters"
+  },
+  "landlord": {
+    "welcomeMessage": "Welcome back, {{name}}! Here's your property overview.",
+    "stats": {
+      "totalListings": {
+        "title": "Total Listings",
+        "description": "{{value}} active"
+      },
+      "occupancyRate": {
+        "title": "Occupancy Rate",
+        "description": "{{value}} beds occupied"
+      },
+      "monthlyRevenue": {
+        "title": "Monthly Revenue",
+        "value": "{{value}} NIS",
+        "description": "Estimated earnings ₪"
+      },
+      "pendingRequests": {
+        "title": "Pending Requests",
+        "value": "{{value}}",
+        "description": "Awaiting approval"
+      }
+    },
+    "manageListings": {
+      "header": {
+        "title": "Manage Listings",
+        "subTitle": "Properties Number: {{value}}",
+        "addNewProperty": "Add New Property"
+      },
+      "noProperties": {
+        "title": "No Properties Yet",
+        "description": "Add your first property to start managing your student housing listings.",
+        "emptyAction": "Add Your First Property",
+        "addNewProperty": "Add New Property"
+      },
+      "filterSection": {
+        "propertyStatus": {
+          "all": "All Properties",
+          "active": "Active",
+          "draft": "Draft",
+          "pending": "Pending"
+        },
+        "propertyTypes": {
+          "all": "All Types",
+          "house": "House",
+          "apartment": "Apartment",
+          "studio": "Studio"
+        }
+      }
+    }
+  },
+  "properties": {},
+  "booking": {
+    "bookingConfirmation": "Booking Confirmation",
+    "bookingDetails": "Booking Details",
+    "propertyName": "Property Name",
+    "roomType": "Room Type",
+    "checkIn": "Check-in Date",
+    "checkOut": "Check-out Date",
+    "monthlyRent": "Monthly Rent",
+    "totalAmount": "Total Amount",
+    "bookingStatus": "Booking Status",
+    "paymentStatus": "Payment Status",
+    "completeBooking": "Complete Booking via WhatsApp",
+    "whatsappMessage": "Hi! I would like to complete my booking for",
+    "statusTracker": {
+      "pending": "Pending",
+      "pendingDesc": "Your booking request has been submitted and is awaiting admin confirmation.",
+      "confirmed": "Confirmed",
+      "confirmedDesc": "Your booking has been confirmed by our admin team.",
+      "active": "Active",
+      "activeDesc": "Your accommodation is now active and ready for move-in.",
+      "completed": "Completed",
+      "completedDesc": "Your stay has been completed successfully.",
+      "cancelled": "Cancelled",
+      "cancelledDesc": "This booking has been cancelled."
+    }
+  },
+  "whatsapp": {
+    "supportTitle": "Need Help?",
+    "supportMessage": "Contact our support team",
+    "generalInquiry": "Hi! I need help with Bayyitni platform."
+  }
+}

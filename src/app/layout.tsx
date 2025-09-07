@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "@/app/globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { WhatsAppFloat } from "@/components/whatsapp/WhatsAppFloat";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,14 +27,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" dir="rtl">
       <ClerkProvider>
         <AuthProvider>
           <body
             suppressHydrationWarning
             className={`${geistSans.variable} ${geistMono.variable} bg-background`}
           >
-            {children}
+            <LanguageProvider>
+              {children}
+              <WhatsAppFloat />
+            </LanguageProvider>
           </body>
         </AuthProvider>
       </ClerkProvider>

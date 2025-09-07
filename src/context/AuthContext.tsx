@@ -2,39 +2,71 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import type { User, StudentProfile } from "@/types/user";
 
 interface AuthContextType {
-  userId: string | null;
-  fullName: string | null;
+  user: User | null;
+  studentProfile?: StudentProfile;
   isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { user, isLoaded } = useUser();
+  const { user: clerkUser, isLoaded } = useUser();
   const [authData, setAuthData] = useState<AuthContextType>({
-    userId: null,
-    fullName: null,
+    user: null,
+    studentProfile: undefined,
     isLoading: true,
   });
 
   useEffect(() => {
     if (isLoaded) {
-      setAuthData({
-        userId: user?.id ?? null,
-        fullName: user?.fullName ?? null,
-        isLoading: false,
-      });
+      if (clerkUser) {
+        const convertedUser: User = {
+          id: (clerkUser.publicMetadata.userId as string) || clerkUser.id,
+          clerk_id: clerkUser.id,
+          name:
+            clerkUser.fullName ||
+            `${clerkUser.firstName ?? ""} ${clerkUser.lastName ?? ""}`.trim() ||
+            "User",
+          email: clerkUser.primaryEmailAddress?.emailAddress || "",
+          role:
+            (clerkUser.publicMetadata.role as
+              | "student"
+              | "landlord"
+              | "admin") || "student",
+          phone: clerkUser.primaryPhoneNumber?.phoneNumber || "",
+          profile_image_url: clerkUser.imageUrl,
+          is_active: true,
+          email_verified:
+            clerkUser.primaryEmailAddress?.verification?.status === "verified",
+          created_at: new Date(clerkUser.createdAt || Date.now()),
+          updated_at: new Date(clerkUser.updatedAt || Date.now()),
+        };
+
+        setAuthData({
+          user: convertedUser,
+          studentProfile: clerkUser.publicMetadata.studentProfile as
+            | StudentProfile
+            | undefined,
+          isLoading: false,
+        });
+      } else {
+        setAuthData({
+          user: null,
+          studentProfile: undefined,
+          isLoading: false,
+        });
+      }
     }
-  }, [user, isLoaded]);
+  }, [clerkUser, isLoaded]);
 
   return (
     <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
   );
 };
 
-// Custom hook to use Auth Context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

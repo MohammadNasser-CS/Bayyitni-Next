@@ -1,0 +1,229 @@
+{
+  "common": {
+    "welcome": "مرحباً",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "search": "بحث",
+    "filter": "تصفية",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "getStarted": "ابدأ الآن",
+    "signUp": "إنشاء حساب",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق",
+    "open": "فتح",
+    "view": "عرض",
+    "manage": "إدارة",
+    "add": "إضافة",
+    "remove": "إزالة",
+    "update": "تحديث",
+    "confirm": "تأكيد",
+    "reject": "رفض",
+    "approve": "موافقة",
+    "pending": "قيد الانتظار",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "completed": "مكتمل",
+    "cancelled": "ملغي",
+    "allProperties": "كل السكنات",
+    "allTypes": "كل الأنواع",
+    "house": "منزل",
+    "studio": "استوديو",
+    "apartment": "شقة"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "explore": "استكشاف",
+    "bookings": "حجوزاتي",
+    "bookmarks": "المفضلة",
+    "payments": "المدفوعات",
+    "notifications": "الإشعارات",
+    "profile": "الملف الشخصي",
+    "dashboard": "نظرة عامة",
+    "addListing": "إضافة عقار",
+    "manageListings": "إدارة العقارات",
+    "tenantRequests": "طلبات المستأجرين",
+    "verification": "التحقق",
+    "bookingManagement": "إدارة الحجوزات"
+  },
+  "homepage": {
+    "title": "مرحباً بك في بيتني",
+    "subtitle": "منصتك الموثوقة للعثور على السكن الطلابي المثالي. تواصل مع ملاك عقارات موثقين واكتشف منزلك المثالي بعيداً عن المنزل.",
+    "whyChoose": "لماذا تختار بيتني؟",
+    "whyChooseSubtitle": "نجعل السكن الطلابي بسيطاً وآمناً ومتاحاً",
+    "forStudents": "للطلاب",
+    "forStudentsDesc": "اعثر على السكن المثالي مع البحث المتقدم والقوائم الموثقة",
+    "forLandlords": "لملاك العقارات",
+    "forLandlordsDesc": "أدرج عقاراتك وتواصل مع مستأجرين طلاب مميزين",
+    "trustedPlatform": "منصة موثوقة",
+    "trustedPlatformDesc": "مبنية ع��ى الأمان والوعي الثقافي في جوهرها",
+    "features": {
+      "advancedSearch": "مرشحات بحث متقدمة",
+      "verifiedLandlords": "ملاك عقارات موثقون",
+      "secureBooking": "عملية حجز آمنة",
+      "support247": "دعم على مدار الساعة",
+      "easyManagement": "إدارة عقارات سهلة",
+      "tenantScreening": "فحص المستأجرين",
+      "securePayments": "مدفوعات آمنة",
+      "analytics": "لوحة تحليلات",
+      "verifiedListings": "قوائم موثقة",
+      "secureTransactions": "معاملات آمنة",
+      "culturalSensitivity": "حساسية ثقافية",
+      "localSupport": "دعم محلي"
+    }
+  },
+  "auth": {
+    "loginTitle": "مرحباً بعودتك",
+    "loginSubtitle": "سجل دخولك إلى حساب بيتني",
+    "registerTitle": "إنشاء حساب",
+    "registerSubtitle": "انضم إلى بيتني اليوم",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "phone": "رقم الهاتف",
+    "role": "أنا",
+    "student": "طالب",
+    "landlord": "مالك عقار",
+    "admin": "مدير",
+    "university": "الجامعة",
+    "budget": "الميزانية (شهرياً)",
+    "emergencyContact": "جهة اتصال طوارئ",
+    "emergencyPhone": "هاتف الطوارئ",
+    "demoAccount": "حساب تجريبي",
+    "demoCredentials": "استخدم بيانات تجريبية للوصول السريع",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "signInHere": "سجل دخولك هنا",
+    "signUpHere": "أنشئ حساباً هنا"
+  },
+  "student": {
+    "exploreTitle": "استكشف أماكن الإقامة",
+    "searchPlaceholder": "ابحث بالموقع أو الجامعة أو اسم العقار...",
+    "filters": "المرشحات",
+    "priceRange": "نطاق السعر",
+    "gender": "تفضيل الجنس",
+    "male": "ذكور",
+    "female": "إناث",
+    "mixed": "مختلط",
+    "roomType": "نوع الغرفة",
+    "single": "غرفة فردية",
+    "shared": "غرفة مشتركة",
+    "studio": "استوديو",
+    "apartment": "شقة",
+    "amenities": "المرافق",
+    "wifi": "واي فاي",
+    "parking": "موقف سيارات",
+    "laundry": "مغسلة",
+    "gym": "صالة رياضية",
+    "pool": "مسبح",
+    "security": "أمن",
+    "furnished": "مفروش",
+    "airConditioning": "تكييف هواء",
+    "verification": "حالة التحقق",
+    "verified": "موثق",
+    "pending": "قيد التحقق",
+    "unverified": "غير موثق",
+    "sortBy": "ترتيب حسب",
+    "priceAsc": "السعر: من الأقل للأعلى",
+    "priceDesc": "السعر: من الأعلى للأقل",
+    "newest": "الأحدث أولاً",
+    "oldest": "الأقدم أولاً",
+    "bookNow": "احجز الآن",
+    "viewDetails": "عرض التفاصيل",
+    "bookmark": "إضافة للمفضلة",
+    "bookmarked": "في المفضلة",
+    "perMonth": "شهرياً",
+    "availableRooms": "الغرف المتاحة",
+    "noResults": "لم يتم العثور على أماكن إقامة",
+    "noResultsDesc": "جرب تعديل معايير البحث أو المرشحات"
+  },
+  "landlord": {
+    "welcomeMessage": "مرحبًا بك مجدَّدا، {{name}}! هذه نظرة عامّة حول ممتلكاتك.",
+    "stats": {
+      "totalListings": {
+        "title": "عدد الشقق",
+        "description": "{{value}} نشطة"
+      },
+      "occupancyRate": {
+        "title": "معدل الحجز",
+        "description": "{{value}} الأسرّة المحجوزة"
+      },
+      "monthlyRevenue": {
+        "title": "الدخل الشهري",
+        "value": "{{value}} شيكل",
+        "description": "الربح التقريبي ₪"
+      },
+      "pendingRequests": {
+        "title": "الطلبات المعلّقة",
+        "value": "{{value}}",
+        "description": "بإنتظار الموافقة"
+      }
+    },
+    "manageListings": {
+      "header": {
+        "title": "إدارة السكنات",
+        "subTitle": "عدد السكنات: {{value}}",
+        "addNewProperty": "إضافة سكن جديد"
+      },
+      "noProperties": {
+        "title": "لم تقم بإضافة أي سكن",
+        "description": "أضف سكنك الأول لتتمكّن من إدارة سكناتك الطلّابيّة.",
+        "emptyAction": "أضِف سكنك الأول",
+        "addNewProperty": "إضافة سكن جديد"
+      },
+      "filterSection": {
+        "propertyStatus": {
+          "all": "كل السكنات",
+          "active": "النشطة",
+          "draft": "غير نشطة",
+          "pending": "قيد الانتظار"
+        },
+        "propertyTypes": {
+          "all": "All Types"
+        }
+      }
+    }
+  },
+  "booking": {
+    "bookingConfirmation": "تأكيد الحجز",
+    "bookingDetails": "تفاصيل الحجز",
+    "propertyName": "اسم العقار",
+    "roomType": "نوع الغرفة",
+    "checkIn": "تاريخ الوصول",
+    "checkOut": "تاريخ المغادرة",
+    "monthlyRent": "الإيجار الشهري",
+    "totalAmount": "المبلغ الإجمالي",
+    "bookingStatus": "حالة الحجز",
+    "paymentStatus": "حالة الدفع",
+    "completeBooking": "أكمل الحجز عبر واتساب",
+    "whatsappMessage": "مرحباً! أود إكمال حجزي لـ",
+    "statusTracker": {
+      "pending": "قيد الانتظار",
+      "pendingDesc": "تم إرسال طلب الحجز وهو في انتظار تأكيد الإدارة.",
+      "confirmed": "مؤكد",
+      "confirmedDesc": "تم تأكيد حجزك من قبل فريق الإدارة.",
+      "active": "نشط",
+      "activeDesc": "سكنك نشط الآن وجاهز للانتقال.",
+      "completed": "مكتمل",
+      "completedDesc": "تمت إقامتك بنجاح.",
+      "cancelled": "ملغي",
+      "cancelledDesc": "تم إلغاء هذا الحجز."
+    }
+  },
+  "whatsapp": {
+    "supportTitle": "تحتاج مساعدة؟",
+    "supportMessage": "تواصل مع فريق الدعم",
+    "generalInquiry": "مرحباً! أحتاج مساعدة مع منصة بيتني."
+  }
+}

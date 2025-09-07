@@ -92,8 +92,9 @@ export default function PropertyHeader({ property }: { property: Property }) {
           <div className="p-6 text-white w-full">
             <div className="flex justify-between items-center mb-2">
               <h1 className="text-3xl font-bold">{property.title}</h1>
-              <span className="bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full">
-                Property Type: {property.property_type}
+              <span className="bg-primary text-white text-sm text-center font-semibold px-3 py-1 rounded-full">
+                Property Type:{" "}
+                {property.property_type === "apartment" ? "شقة" : "استوديو"}
               </span>
             </div>
             <div className="flex items-center mb-2">

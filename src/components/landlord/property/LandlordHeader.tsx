@@ -1,27 +1,31 @@
+import { Building, Plus } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
-//src/components/landlord/property/LandlordHeader.tsx
-export default function LandlordHeader() {
+// src/components/landlord/property/LandlordHeader.tsx
+export default function LandlordHeader({ properties }: { properties: number }) {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">السكنات الخاصة بي</h1>
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 p-3 rounded-lg bg-white shadow-sm border border-gray-200">
+      <div className="">
+        <h1 className="text-xl md:text-2xl font-bold text-foreground flex items-center gap-2 mb-1">
+          {t("landlord.manageListings.header.title", "Manage Listings")}
+        </h1>
+        <p className="text-gray-500 text-sm md:text-base">
+          {t("landlord.manageListings.header.subTitle", { value: properties })}
+        </p>
+      </div>
       <Link
-        href="/landlord/add-new-property"
-        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-semibold rounded-md shadow hover:bg-orange-300 transition cursor-pointer"
+        href="manage-listings/add-new-property"
+        aria-label={t(
+          "landlord.manageListings.header.addListing",
+          "Add New Listing"
+        )}
+        className="mt-3 sm:mt-0 inline-flex items-center gap-2 px-3 md:px-4 py-2 bg-primary text-white text-base font-semibold rounded-md shadow-md hover:shadow-lg hover:bg-primary/80 transition-all duration-200"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-        >
-          <path d="M12 4v16m8-8H4" />
-        </svg>
-        أضف سكن جديد
+        <Plus className="h-4 w-4" />
+        {t("landlord.manageListings.header.addNewProperty")}
       </Link>
     </div>
   );

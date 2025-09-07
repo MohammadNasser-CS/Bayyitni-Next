@@ -1,5 +1,6 @@
 // components/PropertyCard.tsx
 
+import { useLanguage } from "@/context/LanguageContext";
 import { Property } from "@/types/property/property";
 import Link from "next/link";
 
@@ -10,8 +11,12 @@ export default function PropertyCard({
   property: Property;
   userName: string;
 }) {
+  const { t } = useLanguage();
   return (
-    <Link href={`/landlord/${property.id}`} className="block">
+    <Link
+      href={`/landlord/manage-listings/property-details/${property.id}`}
+      className="block"
+    >
       <div className="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden flex flex-col h-full min-h-[420px]">
         {/* Image Section */}
         <div className="relative h-48">
@@ -27,7 +32,7 @@ export default function PropertyCard({
                 : "bg-red-100 text-red-800"
             }`}
           >
-            {property.is_active ? "Active" : "Inactive"}
+            {property.is_active ? t("common.active") : t("common.inactive")}
           </span>
         </div>
 

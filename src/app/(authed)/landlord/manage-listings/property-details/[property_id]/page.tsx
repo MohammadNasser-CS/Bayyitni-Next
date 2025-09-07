@@ -7,6 +7,7 @@ import RoomTabs from "@/components/landlord/property_details/roomTabs/roomTabs";
 import StudentInquiriesCard from "@/components/landlord/property_details/StudentInquiriesCard";
 import TopActionsBar from "@/components/landlord/property_details/top_actions_bar/TopActionsBar";
 import { EditModeProvider } from "@/context/EditModeContext";
+import { mockListings } from "@/lib/mock-data";
 import { Property } from "@/types/property/property";
 import { BedRoom } from "@/types/rooms/rooms";
 import { SharedSpaces } from "@/types/rooms/sharedSpaces";
@@ -23,7 +24,8 @@ export default async function PropertyDetailsPage({
   let property: Property | null = null;
 
   try {
-    property = await getPropertyDetails(propertyId);
+    // property = await getPropertyDetails(propertyId);
+    property = mockListings[0];
   } catch (error) {
     console.error("Error fetching properties:", error);
   }
