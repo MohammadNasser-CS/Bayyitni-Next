@@ -44,6 +44,6 @@ export interface CreatePropertyRequest {
   city: string;
   country: string;
   number_of_rooms: number;
-  verification_status:boolean;
+  verification_status:string;
   image?: File; // optional if image upload is separate
 }
