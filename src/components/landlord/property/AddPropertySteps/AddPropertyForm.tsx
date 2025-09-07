@@ -30,6 +30,7 @@ const initialFormData: CreatePropertyRequest = {
   country: "",
   number_of_rooms: 0,
   image: undefined,
+  verification_status: false,
 };
 
 export default function AddPropertyForm() {
