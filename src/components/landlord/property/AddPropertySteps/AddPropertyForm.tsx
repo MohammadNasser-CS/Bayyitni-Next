@@ -12,14 +12,16 @@ import { CreateSharedSpaceRequest } from "@/types/rooms/sharedSpaces";
 import Step4 from "./Step4_ReviewStep";
 
 const initialFormData: CreatePropertyRequest = {
-  title: "",
+  landlord_id: "",
   building_name: "",
   building_number: "",
-  landlord_id: "",
+  title: "",
   description: "",
   floor_number: 0,
-  location_lat: 0,
-  location_lon: 0,
+  number_of_rooms: 0,
+  location_lat: 0.0,
+  location_lon: 0.0,
+  is_active: true,
   gender_preference: "",
   has_gas: false,
   has_electricity: false,
@@ -28,9 +30,8 @@ const initialFormData: CreatePropertyRequest = {
   property_type: "",
   city: "",
   country: "",
-  number_of_rooms: 0,
-  image: undefined,
-  verification_status: "verified",
+  property_image: undefined,
+  verification_status: "",
 };
 
 export default function AddPropertyForm() {

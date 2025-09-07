@@ -35,6 +35,7 @@ export interface CreatePropertyRequest {
   floor_number: number;
   location_lat: number;
   location_lon: number;
+  is_active: boolean;
   gender_preference: string;
   has_gas: boolean;
   has_electricity: boolean;
@@ -45,5 +46,5 @@ export interface CreatePropertyRequest {
   country: string;
   number_of_rooms: number;
   verification_status:string;
-  image?: File; // optional if image upload is separate
+  property_image?: File; // optional if image upload is separate
 }
