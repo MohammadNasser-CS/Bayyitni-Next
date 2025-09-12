@@ -30,7 +30,7 @@ const initialFormData: CreatePropertyRequest = {
   property_type: "",
   city: "",
   country: "",
-  property_image: undefined,
+  property_images: [],
   verification_status: "verified",
 };
 
@@ -113,12 +113,6 @@ export default function AddPropertyForm() {
   };
 
   const steps = [
-    <Step1
-      key="1"
-      propertyData={propertyData}
-      setPropertyData={setPropertyData}
-      onNext={next}
-    />,
     <Step2
       key="2"
       propertyData={propertyData}

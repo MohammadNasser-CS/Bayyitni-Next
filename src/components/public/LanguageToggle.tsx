@@ -1,15 +1,13 @@
 // src/components/public/LanguageToggle.tsx
-import { useTranslation } from "react-i18next";
+"use client";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function LanguageToggle() {
-  const { i18n } = useTranslation();
+  const { language, setLanguage } = useLanguage();
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === "en" ? "ar" : "en";
-    i18n.changeLanguage(newLang);
-
-    // Optional: handle RTL layout
-    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+    const newLang = language === "en" ? "ar" : "en";
+    setLanguage(newLang); // <-- use your context method, not i18n directly
   };
 
   return (
@@ -17,7 +15,7 @@ export function LanguageToggle() {
       onClick={toggleLanguage}
       className="px-3 py-1 border rounded-md bg-gray-200 hover:bg-gray-300"
     >
-      {i18n.language === "en" ? "عربي" : "English"}
+      {language === "en" ? "Arabic" : "إنجليزي"}
     </button>
   );
 }

@@ -190,7 +190,100 @@
           "pending": "قيد الانتظار"
         },
         "propertyTypes": {
-          "all": "All Types"
+          "all": "كل الأنواع",
+          "house": "منزل",
+          "apartment": "شقة سكنية",
+          "studio": "استوديو"
+        }
+      },
+      "addPropertyPage": {
+        "title": "إضافة سكن جديد",
+        "description": "إنشاء سكن طلّابي جديد لعرضه على الطلّاب في المنصة",
+        "detailsCard": {
+          "header": "معلومات السكن",
+          "description": "التفاصيل الخاصة بالسكن الطلّابي",
+          "buildingName": {
+            "title": "اسم المبنى",
+            "placeholder": "مثال: عمارة فلسطين"
+          },
+          "buildingNumber": {
+            "title": "رقم المبنى",
+            "placeholder": "مثال: B-123"
+          },
+          "propertyTitle": {
+            "title": "اسم السكن",
+            "placeholder": "في حال لا يوجد، الرجاء إدخال اسم صاحب السكن"
+          },
+          "propertyDescription": {
+            "title": "وصف لموقع السكن",
+            "placeholder": "قم بكتابة مكان السكن بكلماتك الخاصة"
+          },
+          "floorNumber": {
+            "title": "رقم الطابق",
+            "placeholder": "في أي طابق موجود السكن؟"
+          },
+          "city": {
+            "title": "المدينة",
+            "placeholder": "مثال: نابلس"
+          },
+          "country": {
+            "title": "الدولة",
+            "placeholder": "مثال: فلسطين"
+          },
+          "numberOfRooms": {
+            "title": "عدد الغرف",
+            "placeholder": "عدد غرف النوم الموجودة في السكن"
+          },
+          "propertyImages": {
+            "title": "أضف صور السكن ( من غير صور غرف النوم )",
+            "placeholder": "قم بإضافة صور الغرف الثانوية في السكن"
+          },
+          "locationOnMap": {
+            "title": "الموقع على الخريطة",
+            "myLocation": "قم بتحديد موقعي",
+            "hint": "إضغط غلى الخريطة لإختيار الموقع، أو قم بسحب العلامة وإفلاتها لتعديل الموقع بدقة"
+          },
+          "propertyType": {
+            "title": "نوع السكن",
+            "placeholder": "قم بإختيار نوع السكن",
+            "house": "منزل",
+            "apartment": "شقة سكنية",
+            "studio": "استوديو",
+            "other": "نوع آخر"
+          },
+          "genderPreference": {
+            "title": "الجنس المفضّل",
+            "placeholder": "طلاب/طالبات",
+            "male": "طلاب",
+            "female": "طالبات"
+          },
+          "amenities": {
+            "electricity": "كهرباء",
+            "water": "ماء",
+            "gas": "غاز",
+            "internet": "انترنت"
+          },
+          "validation": {
+            "title": "الرجاء إصلاح الأخطاء الظاهرة في حقول الإدخال",
+            "title_min": "العنوان يجب أن يكون على الأقل {min} أحرف",
+            "title_max": "العنوان يجب أن لا يزيد عن {max} أحرف",
+            "city_min": "اسم المدينة يجب أن يكون على الأقل {min} أحرف",
+            "city_invalid": "تنسيق المدينة غير صالح",
+            "country_min": "اسم الدولة يجب أن يكون على الأقل {min} أحرف",
+            "country_invalid": "تنسيق الدولة غير صالح",
+            "property_type_required": "نوع العقار مطلوب",
+            "building_name_min": "اسم المبنى يجب أن يكون على الأقل {min} أحرف",
+            "building_name_invalid": "اسم المبنى غير صالح",
+            "building_number_min": "رقم المبنى يجب أن يكون على الأقل {min} أحرف",
+            "building_number_invalid": "رقم المبنى غير صالح",
+            "floor_number_min": "رقم الطابق يجب أن يكون >= {min}",
+            "number_of_rooms_min": "عدد الغرف يجب أن يكون >= {min}",
+            "description_max": "الوصف لا يمكن أن يتجاوز {max} أحرف",
+            "gender_preference_invalid": "تفضيل الجنس غير صالح",
+            "latitude_range": "خط العرض يجب أن يكون بين -90 و 90",
+            "longitude_range": "خط الطول يجب أن يكون بين -180 و 180",
+            "property_images_required": "الرجاء إضافة صورة واحدة على الأقل"
+          }
         }
       }
     }

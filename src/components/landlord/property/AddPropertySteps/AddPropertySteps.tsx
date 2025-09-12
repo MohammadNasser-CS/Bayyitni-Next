@@ -4,7 +4,7 @@ interface AddPropertyStepsProps {
   currentStep: number;
 }
 
-const steps = ["نوع العقار", "تفاصيل العقار", "الغرف", "مراجعة"];
+const steps = ["تفاصيل العقار", "الغرف", "مراجعة"];
 
 const AddPropertySteps = ({ currentStep }: AddPropertyStepsProps) => {
   return (

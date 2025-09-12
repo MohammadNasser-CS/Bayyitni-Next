@@ -16,7 +16,7 @@ export interface Property {
   has_water: boolean;
   has_internet: boolean;
   property_type: string;
-  property_image: string;
+  property_images: string[];
   city: string;
   country: string;
   number_of_rooms: number;
@@ -46,5 +46,5 @@ export interface CreatePropertyRequest {
   country: string;
   number_of_rooms: number;
   verification_status:string;
-  property_image?: File; // optional if image upload is separate
+  property_images?: File[]; // optional if image upload is separate
 }

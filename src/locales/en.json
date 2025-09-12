@@ -195,6 +195,96 @@
           "apartment": "Apartment",
           "studio": "Studio"
         }
+      },
+      "addPropertyPage": {
+        "title": "Add New Property",
+        "description": "Create a new student housing property to display it for students on the platform",
+        "detailsCard": {
+          "header": "Property Information",
+          "description": "Detailed information about the student property",
+          "buildingName": {
+            "title": "Building Name",
+            "placeholder": "Example: Palestine Tower"
+          },
+          "buildingNumber": {
+            "title": "Building Number",
+            "placeholder": "Example: B-123"
+          },
+          "propertyTitle": {
+            "title": "Property Name",
+            "placeholder": "If none, please enter the owner's name"
+          },
+          "propertyDescription": {
+            "title": "Property Location Description",
+            "placeholder": "Write a description of the property location in your own words"
+          },
+          "floorNumber": {
+            "title": "Floor Number",
+            "placeholder": "Which floor is the property on?"
+          },
+          "city": {
+            "title": "City",
+            "placeholder": "Example: Nablus"
+          },
+          "country": {
+            "title": "Country",
+            "placeholder": "Example: Palestine"
+          },
+          "numberOfRooms": {
+            "title": "Number of Rooms",
+            "placeholder": "Number of bedrooms in the property"
+          },
+          "propertyImages": {
+            "title": "Add Property Images (excluding bedrooms)",
+            "placeholder": "Add images of secondary rooms in the property"
+          },
+          "locationOnMap": {
+            "title": "Location on Map",
+            "myLocation": "Use My Location",
+            "hint": "Click on the map to select the location, or drag the marker to adjust it precisely"
+          },
+          "propertyType": {
+            "title": "Property Type",
+            "placeholder": "Select the property type",
+            "house": "House",
+            "apartment": "Apartment",
+            "studio": "Studio",
+            "other": "other"
+          },
+          "genderPreference": {
+            "title": "Preferred Gender",
+            "placeholder": "Male/Female",
+            "male": "Male Students",
+            "female": "Female Students"
+          },
+          "amenities": {
+            "electricity": "Electricity",
+            "water": "Water",
+            "gas": "Gas",
+            "internet": "Internet"
+          },
+          "validation": {
+            "title": "Please fix the existing errors",
+            "title_min": "Title must be at least {min} characters",
+            "title_max": "Title must be at most {max} characters",
+            "city_min": "City must be at least {min} characters",
+            "city_invalid": "Invalid city format",
+            "country_min": "Country must be at least {min} characters",
+            "country_invalid": "Invalid country format",
+            "property_type_required": "Property type is required",
+            "building_name_min": "Building name must be at least {min} characters",
+            "building_name_invalid": "Invalid building name",
+            "building_number_min": "Building number must be at least {min} characters",
+            "building_number_invalid": "Invalid building number",
+            "floor_number_min": "Floor number must be >= {min}",
+            "number_of_rooms_min": "Number of rooms must be >= {min}",
+            "description_max": "Description cannot exceed {max} characters",
+            "gender_preference_invalid": "Invalid gender preference",
+            "latitude_range": "Latitude must be between -90 and 90",
+            "longitude_range": "Longitude must be between -180 and 180",
+            "property_images_required": "Please add at least one image"
+          }
+        }
       }
     }
   },

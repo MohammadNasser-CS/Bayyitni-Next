@@ -8,7 +8,6 @@ import {
   LayoutDashboard,
   Plus,
   Building,
-  Users,
   CreditCard,
   Menu,
   X,
@@ -31,7 +30,7 @@ export function LandlordNavbar() {
       icon: LayoutDashboard,
     },
     {
-      href: "manage-listings/add-new-property",
+      href: "/landlord/manage-listings/add-new-property",
       label: t("navigation.addListing"),
       icon: Plus,
     },
