@@ -1,12 +1,17 @@
+import { useLanguage } from "@/context/LanguageContext";
 import React from "react";
 
 interface AddPropertyStepsProps {
   currentStep: number;
 }
 
-const steps = ["تفاصيل العقار", "الغرف", "مراجعة"];
-
 const AddPropertySteps = ({ currentStep }: AddPropertyStepsProps) => {
+  const { t } = useLanguage();
+  const steps = [
+    t("navigation.addNewPropertyStep1"),
+    t("navigation.addNewPropertyStep2"),
+    t("navigation.addNewPropertyStep3"),
+  ];
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 mb-6" dir="rtl">
       <div className="flex items-center justify-end">

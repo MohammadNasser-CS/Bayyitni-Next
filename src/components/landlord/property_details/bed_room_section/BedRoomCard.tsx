@@ -1,33 +1,49 @@
-import { BedRoom } from "@/types/rooms/rooms";
-
+import { useLanguage } from "@/context/LanguageContext";
+import { Room } from "@/types/rooms/rooms";
+import {
+  AirVentIcon,
+  BathIcon,
+  Bed,
+  DoorOpenIcon,
+  LucideLogOut,
+  Printer,
+} from "lucide-react";
+const FALLBACK_IMAGE = "/default-fallback-image.png"; // Replace with your fallback image path
 export default function BedRoomCard({
   room,
   index,
 }: {
-  room: BedRoom;
+  room: Room;
   index: number;
 }) {
-  const isBedroom = room.room_type === "bedroom";
-
+  const { t } = useLanguage();
+  const images =
+    room.images && room.images.length > 0
+      ? room.images.map((img) => img.image_url)
+      : [FALLBACK_IMAGE];
   return (
     <>
       <div className="bedroom-card border border-gray-200 rounded-lg overflow-hidden">
         <div className="p-4 bg-gray-50 flex justify-between items-center">
           <h3 className="font-semibold text-gray-800">
-            {room.room_type} - {index + 1}
+            {t("common.room")} - {index + 1}
           </h3>
           <div className="flex space-x-2">
             <button className="text-indigo-600 hover:text-indigo-800">
-              Edit
+              {t("common.edit")}
             </button>
-            <button className="text-red-600 hover:text-red-800">Delete</button>
+            <button className="text-red-600 hover:text-red-800">
+              {t("common.delete")}
+            </button>
           </div>
         </div>
 
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <p className="text-sm text-gray-500 mb-1">Status</p>
+              <p className="text-sm text-gray-500 mb-1">
+                {t("room.status.title")}
+              </p>
               <span
                 className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                   room.is_available
@@ -35,19 +51,23 @@ export default function BedRoomCard({
                     : "bg-red-100 text-red-800"
                 }`}
               >
-                {room.is_available ? "Available" : "Occupied"}
+                {room.is_available
+                  ? t("room.status.available")
+                  : t("room.status.occupied")}
               </span>
             </div>
             <div>
-              <p className="text-sm text-gray-500 mb-1">Monthly Rate</p>
+              <p className="text-sm text-gray-500 mb-1">
+                {t("room.monthlyRent")}
+              </p>
               <p className="font-semibold">${room.price_of_bed_per_month}</p>
             </div>
           </div>
 
           <div className="mb-4">
-            <p className="text-sm text-gray-500 mb-2">Photos</p>
+            <p className="text-sm text-gray-500 mb-2">{t("common.photos")}</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-              {room.images.map((url, index) => (
+              {images.map((url, index) => (
                 <div
                   key={index}
                   className="photo-preview relative rounded-lg overflow-hidden h-20"
@@ -56,6 +76,10 @@ export default function BedRoomCard({
                     src={url}
                     alt={`Photo ${index + 1}`}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src =
+                        FALLBACK_IMAGE;
+                    }}
                   />
                 </div>
               ))}
@@ -65,47 +89,16 @@ export default function BedRoomCard({
           <div className="text-sm text-gray-600 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-x-4 gap-y-2">
             {/* Beds Info */}
             <p className="flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#2C3E50"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.5"
-                className="lucide lucide-bed-double-icon lucide-bed-double w-4 h-4"
-              >
-                <path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
-                <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
-                <path d="M12 4v6" />
-                <path d="M2 18h20" />
-              </svg>
-              <span className="font-semibold">Beds:</span> {room.number_of_beds}{" "}
-              total, {room.number_of_available_beds} available
+              <Bed className="h-4 w-4" />
+              <span className="font-semibold">{t("room.bedrooms")}:</span>{" "}
+              {room.number_of_beds} {t("common.total")},{" "}
+              {room.number_of_available_beds} {t("common.available")}
             </p>
 
             {/* AC */}
             <p className="flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#2C3E50"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.5"
-                className="lucide lucide-air-vent-icon lucide-air-vent w-4 h-4"
-              >
-                <path d="M18 17.5a2.5 2.5 0 1 1-4 2.03V12" />
-                <path d="M6 12H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                <path d="M6 8h12" />
-                <path d="M6.6 15.572A2 2 0 1 0 10 17v-5" />
-              </svg>
-              <span className="font-semibold">AC:</span>
+              <AirVentIcon className="h-4 w-4" />
+              <span className="font-semibold">{t("room.amenities.ac")}:</span>
               <span
                 className={`px-2 py-0.5 rounded text-xs font-medium ${
                   room.has_ac
@@ -113,28 +106,16 @@ export default function BedRoomCard({
                     : "bg-red-100 text-red-700"
                 }`}
               >
-                {room.has_ac ? "Included" : "Not Included"}
+                {room.has_ac ? t("common.included") : t("common.notIncluded")}
               </span>
             </p>
 
             {/* Bathroom */}
             <p className="flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#2C3E50"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.5"
-                className="lucide lucide-toilet-icon lucide-toilet w-4 h-4"
-              >
-                <path d="M7 12h13a1 1 0 0 1 1 1 5 5 0 0 1-5 5h-.598a.5.5 0 0 0-.424.765l1.544 2.47a.5.5 0 0 1-.424.765H5.402a.5.5 0 0 1-.424-.765L7 18" />
-                <path d="M8 18a5 5 0 0 1-5-5V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8" />
-              </svg>
-              <span className="font-semibold">Internal Bathroom:</span>
+              <BathIcon className="h-4 w-4" />
+              <span className="font-semibold">
+                {t("room.amenities.internalBathroom")}:
+              </span>
               <span
                 className={`px-2 py-0.5 rounded text-xs font-medium ${
                   room.has_internal_bathroom
@@ -142,61 +123,19 @@ export default function BedRoomCard({
                     : "bg-red-100 text-red-700"
                 }`}
               >
-                {room.has_internal_bathroom ? "Private" : "None"}
+                {room.has_internal_bathroom
+                  ? t("common.included")
+                  : t("common.notIncluded")}
               </span>
             </p>
 
             {/* Balcony */}
             <p className="flex items-center gap-2">
-              <svg
-                className="w-4 h-4 text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M4 15h16"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M6 12v6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M9 12v6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 12v6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M15 12v6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M18 12v6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <rect
-                  x="8"
-                  y="6"
-                  width="8"
-                  height="6"
-                  rx="1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <DoorOpenIcon className="h-4 w-4" />
 
-              <span className="font-semibold">Internal Balcony:</span>
+              <span className="font-semibold">
+                {t("room.amenities.internalBalcony")}:
+              </span>
               <span
                 className={`px-2 py-0.5 rounded text-xs font-medium ${
                   room.has_internal_balcony
@@ -204,46 +143,18 @@ export default function BedRoomCard({
                     : "bg-red-100 text-red-700"
                 }`}
               >
-                {room.has_internal_balcony ? "Yes" : "No"}
+                {room.has_internal_balcony
+                  ? t("common.included")
+                  : t("common.notIncluded")}
               </span>
             </p>
 
             {/* Office */}
             <p className="flex items-center gap-2">
-              <svg
-                className="w-4 h-4 text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-              >
-                <rect
-                  x="7"
-                  y="4"
-                  width="10"
-                  height="6"
-                  rx="1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 10v2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M4 14h16"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M6 14v4M18 14v4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-
-              <span className="font-semibold">Office:</span>
+              <Printer className="h-4 w-4" />
+              <span className="font-semibold">
+                {t("room.amenities.office")}:
+              </span>
               <span
                 className={`px-2 py-0.5 rounded text-xs font-medium ${
                   room.has_office
@@ -251,7 +162,9 @@ export default function BedRoomCard({
                     : "bg-red-100 text-red-700"
                 }`}
               >
-                {room.has_office ? "Yes" : "No"}
+                {room.has_office
+                  ? t("common.included")
+                  : t("common.notIncluded")}
               </span>
             </p>
           </div>

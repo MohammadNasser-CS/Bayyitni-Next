@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { CreatePropertyRequest } from "@/types/property/property";
 import { CreateBedroomRequest } from "@/types/rooms/rooms";
 import { CreateSharedSpaceRequest } from "@/types/rooms/sharedSpaces";
-import { postProperty } from "@/utils/landlord/createProperty";
+import { addNewProperty } from "@/utils/landlord/addNewProperty";
 import { createBedroom, createSharedSpace } from "@/utils/landlord/createRoom";
 
 interface ReviewStepProps {
@@ -30,7 +30,7 @@ export default function Step4({
       setError(null);
 
       // 1. Post the property first
-      const createdProperty = await postProperty(propertyData);
+      const createdProperty = await addNewProperty(propertyData);
       const propertyId = createdProperty.id;
       console.log(`propertyId => propertyId`);
 
@@ -75,20 +75,20 @@ export default function Step4({
       //     await createBedroom(form);
       //   }
 
-      // 3. Post shared spaces with attached propertyId
-      await Promise.all(
-        sharedSpacesWithId.map(async (space) => {
-          const form = new FormData();
-          for (const [key, value] of Object.entries(space)) {
-            if (key === "images" && Array.isArray(value)) {
-              value.forEach((file) => form.append("images", file));
-            } else {
-              form.append(key, value as any);
-            }
-          }
-          await createSharedSpace(form);
-        })
-      );
+      // // 3. Post shared spaces with attached propertyId
+      // await Promise.all(
+      //   sharedSpacesWithId.map(async (space) => {
+      //     const form = new FormData();
+      //     for (const [key, value] of Object.entries(space)) {
+      //       if (key === "images" && Array.isArray(value)) {
+      //         value.forEach((file) => form.append("images", file));
+      //       } else {
+      //         form.append(key, value as any);
+      //       }
+      //     }
+      //     await createSharedSpace(form);
+      //   })
+      // );
       //   for (const space of sharedSpacesData) {
       //     const form = new FormData();
       //     Object.entries(space).forEach(([key, value]) => {

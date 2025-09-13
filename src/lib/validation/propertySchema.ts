@@ -71,13 +71,13 @@ export const getPropertySchema = (t: (key: string, opts?: Record<string, any>) =
       .min(-180, { message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.longitude_range") })
       .max(180, { message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.longitude_range") }),
 
-    property_images: z
+    images: z
       .array(
         z.any().refine((file) => file instanceof File, {
-          message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.property_images_required"),
+          message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.images_required"),
         })
       )
-      .min(1, { message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.property_images_required") }),
+      .min(1, { message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.images_required") }),
   });
 
 export type PropertyFormData = z.infer<ReturnType<typeof getPropertySchema>>;

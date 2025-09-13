@@ -1,13 +1,18 @@
+// src/utils/landlord/addNewProperty.ts
 import { CreatePropertyRequest } from "@/types/property/property";
 
-export async function postProperty(formData: CreatePropertyRequest) {
+export async function addNewProperty(formData: CreatePropertyRequest) {
   const form = new FormData();
 
   // Map fields correctly
   for (const [key, value] of Object.entries(formData)) {
-    if (key === "property_image" && value instanceof File) {
-      // Rename to match API
-      form.append("image", value);
+    if (key === "images" && Array.isArray(value)) {
+      // Handle multiple files
+      value.forEach((file) => {
+        if (file instanceof File) {
+          form.append("images", file); // backend expects a list
+        }
+      });
     } else if (typeof value === "boolean") {
       form.append(key, value ? "true" : "false");
     } else if (typeof value === "number") {
@@ -16,6 +21,7 @@ export async function postProperty(formData: CreatePropertyRequest) {
       form.append(key, value as string);
     }
   }
+
 
   const response = await fetch("https://bayyinti-project.onrender.com/property-listings/", {
     method: "POST",

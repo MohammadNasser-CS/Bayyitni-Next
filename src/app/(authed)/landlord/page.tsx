@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import LandlordHeader from "@/components/landlord/property/LandlordHeader";
 import Pagination from "@/components/landlord/property/Pagination";
 import PropertyCard from "@/components/landlord/property/PropertyCard";
@@ -12,35 +12,60 @@ import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function LandlordPage() {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const [properties, setProperties] = useState<Property[]>([]);
   const [hasError, setHasError] = useState(false);
+  const [isLoadingProperty, setIsLoadingProperty] = useState(false);
   const { t } = useLanguage();
-  useEffect(() => {
-    console.log("User:", JSON.stringify(user, null, 2));
-    if (!isLoading && user?.id) {
-      getMyProperties(user.id)
-        .then((data) => setProperties(data))
-        .catch((error) => {
-          console.error("Error fetching properties:", error);
-          setHasError(true);
-        });
-    }
-  }, [isLoading, user?.id]);
 
-  if (isLoading) return <div>Loading...</div>;
+  const fetchProperties = useCallback(
+    async (filters?: { status: string; type: string; search: string }) => {
+      if (!user?.id) return;
+      setHasError(false);
+      setIsLoadingProperty(true);
+      try {
+        const data = await getMyProperties(user.id, filters);
+        setProperties(data);
+      } catch {
+        setHasError(true);
+      } finally {
+        setIsLoadingProperty(false);
+      }
+    },
+    [user?.id]
+  );
+
+  // Initial load
+  useEffect(() => {
+    if (!authLoading && user?.id) fetchProperties();
+  }, [authLoading, user?.id, fetchProperties]);
 
   const hasProperties = !hasError && properties.length > 0;
 
   return (
-    <>
-      <div className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {hasProperties ? (
+    <div className="py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header always visible */}
+        <LandlordHeader properties={properties.length} />
+
+        {/* Filters always visible */}
+        <PropertyFilters onFilterChange={fetchProperties} />
+
+        {/* Properties Section */}
+        <div className="mt-6 mb-4 p-3 rounded-lg bg-white shadow-sm border border-gray-200">
+          {isLoadingProperty ? (
+            // Skeleton Loader
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="animate-pulse h-60 bg-gray-200 rounded-lg"
+                />
+              ))}
+            </div>
+          ) : hasProperties ? (
             <>
-              <LandlordHeader properties={2} />
-              <PropertyFilters />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {properties.map((property) => (
                   <PropertyCard
                     key={property.id}
@@ -52,28 +77,8 @@ export default function LandlordPage() {
               <Pagination />
             </>
           ) : (
-            <div className="flex min-h-[70vh] sm:min-h-[80vh] items-center justify-center text-center">
+            <div className="flex min-h-[40vh] items-center justify-center text-center">
               <div className="flex flex-col items-center">
-                <div className="mb-2 text-secodnary">
-                  {/* House icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lucide lucide-house-plus"
-                  >
-                    <path d="M12.662 21H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v2.475" />
-                    <path d="M14.959 12.717A1 1 0 0 0 14 12h-4a1 1 0 0 0-1 1v8" />
-                    <path d="M15 18h6" />
-                    <path d="M18 15v6" />
-                  </svg>
-                </div>
                 <h2 className="text-xl sm:text-2xl font-semibold text-secodnary mb-3">
                   {t("landlord.manageListings.noProperties.title")}
                 </h2>
@@ -84,20 +89,6 @@ export default function LandlordPage() {
                   href="/landlord/manage-listings/add-new-property"
                   className="bg-primary hover:bg-secondary transition text-white py-2 px-4 rounded-lg font-medium flex items-center"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
                   {t("landlord.manageListings.noProperties.emptyAction")}
                 </Link>
               </div>
@@ -105,6 +96,6 @@ export default function LandlordPage() {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

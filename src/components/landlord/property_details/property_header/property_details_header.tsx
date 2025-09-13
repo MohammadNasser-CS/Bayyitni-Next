@@ -2,29 +2,19 @@
 "use client";
 
 import MapPreview from "../map_preview/MapPreview";
-import { Property } from "@/types/property/property";
-import { useState, useEffect } from "react";
-import { useEditMode } from "@/context/EditModeContext";
 import LocationEditor from "../map_preview/LocationEditor";
+import { useState, useEffect } from "react";
+import { Property } from "@/types/property/property";
+import { LocationEdit } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { updateProperty } from "@/utils/landlord/property/updateProperty";
+import { deleteProperty } from "@/utils/landlord/property/deleteProperty";
+import { useRouter } from "next/navigation";
+
 interface PropertyHeaderProps {
-  title: string;
-  type: string;
-  location: string;
-  image: string;
-  description: string;
-  buildingName: string;
-  buildingNumber: string;
-  floorNumber: number;
-  genderPreference: string;
-  totalRooms: number;
-  availableRooms: number;
-  hasGas: boolean;
-  hasElectricity: boolean;
-  hasWater: boolean;
-  hasInternet: boolean;
-  lat: number;
-  lon: number;
+  property: Property;
 }
+const FALLBACK_IMAGE = "/default-fallback-image.png"; // Replace with your fallback image path
 
 const UtilityBadge = ({
   label,
@@ -32,29 +22,29 @@ const UtilityBadge = ({
 }: {
   label: string;
   isActive: boolean;
-}) => {
-  return (
-    <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wide
-        ${
-          isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-        }`}
-    >
-      {label}
-    </span>
-  );
-};
+}) => (
+  <span
+    className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wide
+      ${isActive ? "bg-green-300 text-green-800" : "bg-red-200 text-red-800"}`}
+  >
+    {label}
+  </span>
+);
 
-export default function PropertyHeader({ property }: { property: Property }) {
-  const { isEditMode } = useEditMode();
-  // Local state for gender preference and utilities
+export default function PropertyHeader({ property }: PropertyHeaderProps) {
+  const [editMode, setEditMode] = useState(false); // local edit mode
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const { t } = useLanguage();
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+  const [title, setTitle] = useState(property.title);
+  const [description, setDescription] = useState(property.description);
+  const [updatedData, setUpdatedData] = useState<Record<string, any>>({});
   const [genderPreference, setGenderPreference] = useState(
     property.gender_preference
   );
-  const [location, setLocation] = useState({
-    lat: property.location_lat,
-    lon: property.location_lon,
-  });
+
   const [utilities, setUtilities] = useState({
     has_water: property.has_water,
     has_gas: property.has_gas,
@@ -62,8 +52,19 @@ export default function PropertyHeader({ property }: { property: Property }) {
     has_electricity: property.has_electricity,
   });
 
-  // If the property prop changes (optional)
+  const [location, setLocation] = useState({
+    lat: parseFloat(property.location_lat),
+    lon: parseFloat(property.location_lon),
+  });
+
+  const images =
+    property.images && property.images.length > 0
+      ? property.images.map((img) => img.image_url)
+      : [FALLBACK_IMAGE];
+
   useEffect(() => {
+    setTitle(property.title);
+    setDescription(property.description);
     setGenderPreference(property.gender_preference);
     setUtilities({
       has_water: property.has_water,
@@ -72,54 +73,153 @@ export default function PropertyHeader({ property }: { property: Property }) {
       has_electricity: property.has_electricity,
     });
     setLocation({
-      lat: property.location_lat,
-      lon: property.location_lon,
+      lat: parseFloat(property.location_lat),
+      lon: parseFloat(property.location_lon),
     });
   }, [property]);
-  console.log("Updated Gender:", genderPreference);
-  console.log("Updated Utilities:", utilities);
-  console.log("Updated Location:", location);
+
+  // Mapping utilities -> translation keys
+  const utilityLabels: Record<string, string> = {
+    has_water: t("property.utilities.water"),
+    has_gas: t("property.utilities.gas"),
+    has_internet: t("property.utilities.internet"),
+    has_electricity: t("property.utilities.electricity"),
+  };
+
+  const handleUpdate = async () => {
+    if (Object.keys(updatedData).length === 0) return; // nothing changed
+
+    try {
+      setIsSaving(true);
+      setError(null);
+      console.log(`updatedData => ${JSON.stringify(updatedData)}`);
+      await updateProperty(property.id, updatedData);
+
+      console.log("Property updated successfully");
+
+      // Clear updatedData after successful save
+      setUpdatedData({});
+      setEditMode(false);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setTitle(property.title);
+    setDescription(property.description);
+    setGenderPreference(property.gender_preference);
+    setUtilities({
+      has_water: property.has_water,
+      has_gas: property.has_gas,
+      has_internet: property.has_internet,
+      has_electricity: property.has_electricity,
+    });
+    setLocation({
+      lat: parseFloat(property.location_lat),
+      lon: parseFloat(property.location_lon),
+    });
+    setUpdatedData({});
+    setEditMode(false);
+  };
+  const handleDelete = async () => {
+    if (!confirm(t("common.confirmDelete"))) return;
+
+    try {
+      setIsSaving(true);
+      setError(null);
+
+      await deleteProperty(property.id);
+
+      console.log("Property deleted successfully");
+      setUpdatedData({});
+      setEditMode(false);
+      // redirect or show a notification
+      router.replace("/landlord/");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
       {/* Image Section */}
-      <div className="relative h-80">
+      <div className="relative h-80 overflow-hidden rounded-xl">
+        {/* Image Carousel */}
         <img
-          src={property.property_image}
-          alt={property.title}
-          className="w-full h-full object-cover"
+          src={images[currentIndex]}
+          alt={`${title} ${currentIndex + 1}`}
+          className="w-full h-full object-cover transition-all duration-300"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE;
+          }}
         />
+
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
           <div className="p-6 text-white w-full">
             <div className="flex justify-between items-center mb-2">
-              <h1 className="text-3xl font-bold">{property.title}</h1>
+              {editMode ? (
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                    setUpdatedData((prev) => ({
+                      ...prev,
+                      title: e.target.value,
+                    }));
+                  }}
+                  className="text-3xl font-bold bg-transparent border-b border-white focus:outline-none w-full"
+                />
+              ) : (
+                <h1 className="text-3xl font-bold">{title}</h1>
+              )}
+
               <span className="bg-primary text-white text-sm text-center font-semibold px-3 py-1 rounded-full">
-                Property Type:{" "}
-                {property.property_type === "apartment" ? "شقة" : "استوديو"}
+                {property.property_type === "apartment"
+                  ? t("common.apartment")
+                  : t("common.studio")}
               </span>
             </div>
             <div className="flex items-center mb-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#2C3E50"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.5"
-                className="lucide lucide-map-icon lucide-map w-5 h-5 mr-2"
-              >
-                <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" />
-                <path d="M15 5.764v15" />
-                <path d="M9 3.236v15" />
-              </svg>
+              <LocationEdit className="h-5 w-5 me-2" />
               <span>
                 {property.city}, {property.country}
               </span>
             </div>
           </div>
         </div>
+
+        {/* Navigation Buttons */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={() =>
+                setCurrentIndex((prev) =>
+                  prev === 0 ? images.length - 1 : prev - 1
+                )
+              }
+              className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full"
+            >
+              &#10094;
+            </button>
+            <button
+              onClick={() =>
+                setCurrentIndex((prev) =>
+                  prev === images.length - 1 ? 0 : prev + 1
+                )
+              }
+              className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full"
+            >
+              &#10095;
+            </button>
+          </>
+        )}
       </div>
 
       {/* Details Section */}
@@ -127,9 +227,24 @@ export default function PropertyHeader({ property }: { property: Property }) {
         {/* Description */}
         <div>
           <h2 className="text-xl font-bold text-secondary mb-2">
-            Property Description
+            {t("property.description")}:
           </h2>
-          <p className="text-labels">{property.description}</p>
+          {editMode ? (
+            <textarea
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setUpdatedData((prev) => ({
+                  ...prev,
+                  description: e.target.value,
+                }));
+              }}
+              className="w-full border border-gray-300 rounded p-2"
+              rows={3}
+            />
+          ) : (
+            <p className="text-labels">{description}</p>
+          )}
         </div>
 
         {/* Grid Info */}
@@ -137,74 +252,17 @@ export default function PropertyHeader({ property }: { property: Property }) {
           {/* Left */}
           <div>
             <h3 className="text-sm font-semibold text-secondary mb-2">
-              BUILDING DETAILS
+              {t("property.building")}:
             </h3>
             <div className="space-y-2 text-sm text-labels">
-              <p className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#2C3E50"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  className="lucide lucide-building2-icon lucide-building-2 w-4 h-4 mr-2"
-                >
-                  <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
-                  <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
-                  <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
-                  <path d="M10 6h4" />
-                  <path d="M10 10h4" />
-                  <path d="M10 14h4" />
-                  <path d="M10 18h4" />
-                </svg>{" "}
-                Building Name: {property.building_name}
+              <p>
+                {t("property.buildingName")}: {property.building_name}
               </p>
-              <p className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#2C3E50"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  className="lucide lucide-landmark-icon lucide-landmark w-4 h-4 mr-2"
-                >
-                  <path d="M10 18v-7" />
-                  <path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z" />
-                  <path d="M14 18v-7" />
-                  <path d="M18 18v-7" />
-                  <path d="M3 22h18" />
-                  <path d="M6 18v-7" />
-                </svg>{" "}
-                Building Number: {property.building_number}
+              <p>
+                {t("property.buildingNumber")}: {property.building_number}
               </p>
-              <p className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#2C3E50"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  className="lucide lucide-ruler-icon lucide-ruler w-4 h-4 mr-2"
-                >
-                  <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" />
-                  <path d="m14.5 12.5 2-2" />
-                  <path d="m11.5 9.5 2-2" />
-                  <path d="m8.5 6.5 2-2" />
-                  <path d="m17.5 15.5 2-2" />
-                </svg>{" "}
-                Floor: {property.floor_number}
+              <p>
+                {t("property.floor")}: {property.floor_number}
               </p>
             </div>
           </div>
@@ -212,76 +270,43 @@ export default function PropertyHeader({ property }: { property: Property }) {
           {/* Right */}
           <div>
             <h3 className="text-sm font-semibold text-secondary mb-2">
-              PROPERTY DETAILS
+              {t("property.propertyDetails")}:
             </h3>
             <div className="space-y-2 text-sm text-labels">
-              <p className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#2C3E50"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  className="lucide lucide-users-icon lucide-users w-4 h-4 mr-2"
-                >
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                  <path d="M16 3.128a4 4 0 0 1 0 7.744" />
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                  <circle cx="9" cy="7" r="4" />
-                </svg>
-                {isEditMode ? (
+              <p>
+                {editMode ? (
                   <select
                     value={genderPreference}
-                    onChange={(e) => setGenderPreference(e.target.value)}
+                    onChange={(e) => {
+                      setGenderPreference(e.target.value);
+                      setUpdatedData((prev) => ({
+                        ...prev,
+                        gender_preference: e.target.value,
+                      }));
+                    }}
                     className="border border-gray-300 rounded px-2 py-1"
                   >
-                    <option value="Any">Any</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                    <option value="any">
+                      {t("property.genderPreference.any")}
+                    </option>
+                    <option value="male">
+                      {t("property.genderPreference.male")}
+                    </option>
+                    <option value="female">
+                      {t("property.genderPreference.female")}
+                    </option>
                   </select>
                 ) : (
-                  <>Gender Preference: {genderPreference}</>
+                  <>
+                    {t("property.genderPreference.title")}: {genderPreference}
+                  </>
                 )}
               </p>
-              <p className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#2C3E50"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  className="lucide lucide-house-icon lucide-house w-4 h-4 mr-2"
-                >
-                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                </svg>{" "}
-                Total Rooms: {property.number_of_rooms}
+              <p>
+                {t("property.totalRooms")}: {property.rooms_count}
               </p>
-              <p className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#2C3E50"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  className="lucide lucide-circle-check-icon lucide-circle-check w-4 h-4 mr-2"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="m9 12 2 2 4-4" />
-                </svg>{" "}
-                Available Rooms: {property.number_of_rooms + 1}
+              <p>
+                {t("property.availableRooms")}: {property.available_rooms_count}
               </p>
             </div>
           </div>
@@ -290,88 +315,125 @@ export default function PropertyHeader({ property }: { property: Property }) {
         {/* Utilities */}
         <div>
           <h3 className="text-sm font-semibold text-secondary mb-2">
-            INCLUDED UTILITIES
+            {t("property.utilities.title")}:
           </h3>
           <div className="flex flex-wrap gap-2">
-            {isEditMode ? (
-              <>
-                {Object.entries(utilities).map(([key, value]) => (
-                  <label key={key} className="flex items-center gap-2 text-sm">
-                    <input
-                      type="checkbox"
-                      checked={value}
-                      onChange={() =>
-                        setUtilities((prev) => ({
+            {editMode ? (
+              Object.entries(utilities).map(([key, value]) => (
+                <label key={key} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={value}
+                    onChange={() => {
+                      setUtilities((prev) => {
+                        const updated = {
                           ...prev,
                           [key]: !prev[key as keyof typeof prev],
-                        }))
-                      }
-                    />
-                    {key.replace("has_", "").replace("_", " ")}
-                  </label>
-                ))}
-              </>
+                        };
+                        setUpdatedData((prevData) => ({
+                          ...prevData,
+                          [key]: updated[key as keyof typeof updated],
+                        }));
+                        return updated;
+                      });
+                    }}
+                  />
+                  {utilityLabels[key]}
+                </label>
+              ))
             ) : (
               <>
-                <UtilityBadge label="Water" isActive={utilities.has_water} />
-                <UtilityBadge label="WiFi" isActive={utilities.has_internet} />
                 <UtilityBadge
-                  label="Electricity"
+                  label={t("property.utilities.water")}
+                  isActive={utilities.has_water}
+                />
+                <UtilityBadge
+                  label={t("property.utilities.internet")}
+                  isActive={utilities.has_internet}
+                />
+                <UtilityBadge
+                  label={t("property.utilities.electricity")}
                   isActive={utilities.has_electricity}
                 />
-                <UtilityBadge label="Gas" isActive={utilities.has_gas} />
+                <UtilityBadge
+                  label={t("property.utilities.gas")}
+                  isActive={utilities.has_gas}
+                />
               </>
             )}
           </div>
         </div>
 
         {/* Location */}
-        <div className="mb-6">
+        <div>
           <h3 className="text-sm font-semibold text-secondary mb-2">
-            LOCATION
+            {t("property.locationOnMap.title")}:
           </h3>
-
-          {isEditMode ? (
-            <>
-              <LocationEditor
-                lat={location.lat}
-                lon={location.lon}
-                onChange={(lat, lon) => setLocation({ lat, lon })}
-              />
-              <div className="grid grid-cols-2 gap-3 mt-3">
-                <div className="bg-gray-50 rounded p-2">
-                  <label className="text-xs font-medium text-secondary">
-                    Latitude
-                  </label>
-                  <p className="text-sm text-gray-700">{location.lat}</p>
-                </div>
-                <div className="bg-gray-50 rounded p-2">
-                  <label className="text-xs font-medium text-secondary">
-                    Longitude
-                  </label>
-                  <p className="text-sm text-gray-700">{location.lon}</p>
-                </div>
-              </div>
-            </>
+          {editMode ? (
+            <LocationEditor
+              lat={location.lat}
+              lon={location.lon}
+              onChange={(lat, lon) => {
+                setLocation({ lat, lon });
+                setUpdatedData((prev) => ({
+                  ...prev,
+                  location_lat: lat,
+                  location_lon: lon,
+                }));
+              }}
+            />
+          ) : (
+            <div className="bg-gray-100 rounded-lg h-48 mb-3 flex items-center justify-center">
+              <MapPreview lat={location.lat} lon={location.lon} />
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-gray-50 rounded p-2">
+              <label className="text-xs font-medium text-secondary">
+                {t("property.locationOnMap.latitude")}:
+              </label>
+              <p className="text-sm text-gray-700">{location.lat}</p>
+            </div>
+            <div className="bg-gray-50 rounded p-2">
+              <label className="text-xs font-medium text-secondary">
+                {t("property.locationOnMap.longitude")}:
+              </label>
+              <p className="text-sm text-gray-700">{location.lon}</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-end mt-4 gap-2">
+          {!editMode ? (
+            <button
+              onClick={() => setEditMode(true)}
+              className="px-4 py-2 bg-primary text-white rounded hover:bg-labels cursor-pointer"
+            >
+              {t("common.edit")}
+            </button>
           ) : (
             <>
-              <div className="bg-gray-100 rounded-lg h-48 mb-3 flex items-center justify-center">
-                <MapPreview lat={location.lat} lon={location.lon} />
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-gray-50 rounded p-2">
-                  <label className="text-xs font-medium text-secondary">
-                    Latitude
-                  </label>
-                  <p className="text-sm text-gray-700">{location.lat}</p>
-                </div>
-                <div className="bg-gray-50 rounded p-2">
-                  <label className="text-xs font-medium text-secondary">
-                    Longitude
-                  </label>
-                  <p className="text-sm text-gray-700">{location.lon}</p>
-                </div>
-              </div>
+              <button
+                onClick={handleCancel}
+                disabled={isSaving}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:opacity-50 cursor-pointer"
+              >
+                {t("common.cancel")}
+              </button>
+
+              <button
+                onClick={handleUpdate}
+                disabled={isSaving}
+                className="px-4 py-2 bg-primary text-white rounded hover:bg-labels disabled:opacity-50 cursor-pointer"
+              >
+                {isSaving ? t("common.saving") : t("common.saveChanges")}
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={isSaving}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 cursor-pointer"
+              >
+                {t("common.delete")}
+              </button>
             </>
           )}
         </div>

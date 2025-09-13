@@ -38,7 +38,16 @@
     "allTypes": "All Types",
     "house": "House",
     "apartment": "Apartment",
-    "studio": "Studio"
+    "studio": "Studio",
+    "photos": "Photos",
+    "total": "Total",
+    "occupied": "Occupied",
+    "available": "Available",
+    "included": "Included",
+    "notIncluded": "Not Included",
+    "room": "Room",
+    "saveChanges": "Save Property Changes",
+    "saving": "Saving"
   },
   "navigation": {
     "home": "Home",
@@ -53,7 +62,10 @@
     "manageListings": "Manage Listings",
     "tenantRequests": "Tenant Requests",
     "verification": "Verification",
-    "bookingManagement": "Booking Management"
+    "bookingManagement": "Booking Management",
+    "step_1": "Add Property Details",
+    "step_2": "Add Rooms",
+    "step_3": "Brief review"
   },
   "homepage": {
     "title": "Welcome to Bayyitni",
@@ -282,13 +294,66 @@
             "gender_preference_invalid": "Invalid gender preference",
             "latitude_range": "Latitude must be between -90 and 90",
             "longitude_range": "Longitude must be between -180 and 180",
-            "property_images_required": "Please add at least one image"
+            "images_required": "Please add at least one image"
           }
         }
       }
     }
   },
-  "properties": {},
+  "property": {
+    "noTitle": "No Title",
+    "noDescription": "No Description",
+    "description": "Housing Description",
+    "building": "Building",
+    "floor": "Floor",
+    "buildingName": "Building Name",
+    "buildingNumber": "Building Number",
+    "propertyDetails": "Property Details",
+    "rooms": "Rooms",
+    "totalRooms": "Total Rooms",
+    "availableRooms": "Available Rooms",
+    "gender": "Gender",
+    "genderPreference": {
+      "title": "Preferred Gender",
+      "any": "Male/Female",
+      "male": "Male Students",
+      "female": "Female Students"
+    },
+    "landlord": "Landlord Name",
+    "utilities": {
+      "title": "Included Utilities",
+      "gas": "Gas",
+      "water": "Water",
+      "electricity": "Electricity",
+      "internet": "Internet"
+    },
+    "locationOnMap": {
+      "title": "Location on Map",
+      "coords": "Coordinates",
+      "myLocation": "Use My Location",
+      "hint": "Click on the map to select the location, or drag the marker to adjust it precisely",
+      "longitude": "Longitude",
+      "latitude": "Latitude"
+    },
+    "bedrooms": "Bedrooms",
+    "addBedroom": "Add Bedroom"
+  },
+  "room": {
+    "status": {
+      "title": "Status",
+      "occupied": "Occupied",
+      "available": "Available"
+    },
+    "monthlyRent": "Monthly Rent",
+    "amenities": {
+      "ac": "AC",
+      "internalBathroom": "Internal Bathroom",
+      "internalBalcony": "Internal Balcony",
+      "office": "Office"
+    },
+    "bedrooms": "Bedrooms",
+    "addBedroom": "Add Bedroom"
+  },
   "booking": {
     "bookingConfirmation": "Booking Confirmation",
     "bookingDetails": "Booking Details",

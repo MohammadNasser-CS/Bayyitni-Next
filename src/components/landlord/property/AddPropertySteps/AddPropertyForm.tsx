@@ -5,7 +5,7 @@ import AddPropertySteps from "./AddPropertySteps";
 import { CreatePropertyRequest } from "@/types/property/property";
 import Step1 from "./Step1_PropertyType";
 import Step2 from "./Step2_PropertyDetails";
-import { postProperty } from "@/utils/landlord/createProperty";
+import { addNewProperty } from "@/utils/landlord/addNewProperty";
 import Step3 from "./Step3_AddRooms";
 import { CreateBedroomRequest } from "@/types/rooms/rooms";
 import { CreateSharedSpaceRequest } from "@/types/rooms/sharedSpaces";
@@ -18,7 +18,7 @@ const initialFormData: CreatePropertyRequest = {
   title: "",
   description: "",
   floor_number: 0,
-  number_of_rooms: 0,
+  rooms_count: 0,
   location_lat: 0.0,
   location_lon: 0.0,
   is_active: true,
@@ -30,7 +30,7 @@ const initialFormData: CreatePropertyRequest = {
   property_type: "",
   city: "",
   country: "",
-  property_images: [],
+  images: [],
   verification_status: "verified",
 };
 
@@ -54,7 +54,7 @@ export default function AddPropertyForm() {
 
   const handleSubmitProperty = async () => {
     try {
-      const result = await postProperty(propertyData);
+      const result = await addNewProperty(propertyData);
       alert("Property created successfully!");
       console.log("Created Property:", result);
       setCreatedPropertyId(result.id);
@@ -68,7 +68,7 @@ export default function AddPropertyForm() {
   const handleSubmit = async () => {
     try {
       // 1. Create the property
-      const propertyResponse = await postProperty(propertyData);
+      const propertyResponse = await addNewProperty(propertyData);
       setCreatedPropertyId(propertyResponse.id);
 
       // 2. Attach propertyId to bedrooms & shared spaces

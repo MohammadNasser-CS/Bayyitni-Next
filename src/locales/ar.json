@@ -38,7 +38,16 @@
     "allTypes": "كل الأنواع",
     "house": "منزل",
     "studio": "استوديو",
-    "apartment": "شقة"
+    "apartment": "شقة",
+    "photos": "الصور",
+    "total": "الكل",
+    "occupied": "ممتلئة",
+    "available": "شاغرة",
+    "included": "موجود",
+    "notIncluded": "غير موجود",
+    "room": "غرفة",
+    "saveChanges": "إحفظ تعديلات السكن",
+    "saving": "جارِ الحفظ"
   },
   "navigation": {
     "home": "الرئيسية",
@@ -53,7 +62,10 @@
     "manageListings": "إدارة العقارات",
     "tenantRequests": "طلبات المستأجرين",
     "verification": "التحقق",
-    "bookingManagement": "إدارة الحجوزات"
+    "bookingManagement": "إدارة الحجوزات",
+    "addNewPropertyStep1": "إضافة تفاصيل السكن",
+    "addNewPropertyStep2": "إضافة غرف",
+    "addNewPropertyStep3": "مراجعة موجزة"
   },
   "homepage": {
     "title": "مرحباً بك في بيتني",
@@ -144,7 +156,7 @@
     "bookmark": "إضافة للمفضلة",
     "bookmarked": "في المفضلة",
     "perMonth": "شهرياً",
-    "availableRooms": "الغرف المتاحة",
+    "availableRooms": "الغرف الشاغرة",
     "noResults": "لم يتم العثور على أماكن إقامة",
     "noResultsDesc": "جرب تعديل معايير البحث أو المرشحات"
   },
@@ -282,10 +294,64 @@
             "gender_preference_invalid": "تفضيل الجنس غير صالح",
             "latitude_range": "خط العرض يجب أن يكون بين -90 و 90",
             "longitude_range": "خط الطول يجب أن يكون بين -180 و 180",
-            "property_images_required": "الرجاء إضافة صورة واحدة على الأقل"
+            "images_required": "الرجاء إضافة صورة واحدة على الأقل"
           }
         }
       }
+    }
+  },
+  "property": {
+    "noTitle": "لا يوجد عنوان",
+    "noDescription": "لا يوجد وصف",
+    "description": "وصف السكن",
+    "building": "المبنى",
+    "buildingName": "اسم المبنى",
+    "buildingNumber": "رقم المبنى",
+    "floor": "الطابق",
+    "propertyDetails": "موجز عن السكن",
+    "rooms": "الغرف",
+    "totalRooms": "عدد الغرف الكلّي",
+    "availableRooms": "الغرف الشاغرة",
+    "gender": "الجنس",
+    "genderPreference": {
+      "title": "جنس الطلاب",
+      "any": "طلاب/طالبات",
+      "male": "طلاب",
+      "female": "طالبات"
+    },
+    "landlord": "اسم المالك",
+    "utilities": {
+      "title": "الخدمات المتوفرة",
+      "gas": "غاز",
+      "water": "ماء",
+      "electricity": "كهرباء",
+      "internet": "إنترنت"
+    },
+    "locationOnMap": {
+      "title": "الموقع على الخريطة",
+      "coords": "الإحداثيات",
+      "myLocation": "قم بتحديد موقعي",
+      "longitude": "خط الطول",
+      "latitude": "خط العرض",
+      "hint": "إضغط غلى الخريطة لإختيار الموقع، أو قم بسحب العلامة وإفلاتها لتعديل الموقع بدقة"
+    },
+    "bedrooms": "غرف النوم",
+    "addBedroom": "أضف غرفة نوم"
+  },
+  "room": {
+    "bedrooms": "غرف النوم",
+    "addBedroom": "أضف غرفة نوم",
+    "status": {
+      "title": "الحالة",
+      "occupied": "ممتلئة",
+      "available": "شاغرة"
+    },
+    "monthlyRent": "الإيجار الشهري",
+    "amenities": {
+      "ac": "مكيّف",
+      "internalBathroom": "حمام داخلي",
+      "internalBalcony": "بلكونة داخلية",
+      "office": "مكتب دراسة"
     }
   },
   "booking": {

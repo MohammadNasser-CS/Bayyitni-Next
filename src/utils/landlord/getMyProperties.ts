@@ -1,16 +1,44 @@
+import axios from "axios";
+
 // src/utils/landlord/getMyProperties.ts
-export async function getMyProperties(landlord_id :string) {
-      const res = await fetch(`https://bayyinti-project.onrender.com/property-listings/landlord/${landlord_id}`, {
-        headers: {
-          "Content-Type": "application/json",
-        //   "Authorization": `Bearer ${process.env.ADMIN_API_TOKEN}`,
-        },
-        cache: "no-store",
-      });
-    
-      if (!res.ok) throw new Error("Failed to fetch listings");
-      const data = await res.json();
-      console.log(`data => ${data}`);
-      return data;
+interface PropertyFilters {
+  status?: string; // "active", "inactive", "pending"
+  type?: string; // "house", "apartment", "studio"
+  search?: string;
+}
+
+export async function getMyProperties(landlord_id: string, filters?: PropertyFilters) {
+  try {
+    const params = new URLSearchParams();
+
+    if (filters) {
+      if (filters.status) {
+        if (filters.status === "active") params.append("is_active", "1");
+        if (filters.status === "0") params.append("is_active", "0");
+        // pending handled by backend if needed
+      }
+      if (filters.type && filters.type !== "all") params.append("property_type", filters.type);
+      if (filters.search && filters.search.trim() !== "") params.append("search", filters.search);
     }
-    
+    console.log(`https://bayyitni-laravel-2.onrender.com/api/property/landlord/${9}?${params.toString()}`);
+    const res = await axios.get(
+      `https://bayyitni-laravel-2.onrender.com/api/property/landlord/${9}?${params.toString()}`,
+      {
+        headers: { "Content-Type": "application/json" },
+        timeout: 30000, // 10 seconds timeout
+      }
+    );
+
+    if (res.status !== 200) {
+      const errorText = await res.statusText;
+      throw new Error(`Failed to fetch listings: ${errorText}`);
+    }
+
+    const data = await res.data;
+    console.log("Fetched landlord properties raw:", data);
+    return data.data ?? [];
+  } catch (error) {
+    console.error("Error in getMyProperties:", error);
+    throw error;
+  }
+}

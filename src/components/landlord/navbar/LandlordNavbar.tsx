@@ -57,10 +57,7 @@ export function LandlordNavbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center space-x-6">
-            <Link
-              href="/landlord/dashboard"
-              className="flex items-center space-x-2"
-            >
+            <Link href="/landlord" className="flex items-center space-x-2">
               <Image
                 src="/images/branding/Bayyitni_logo_transparent_1.png"
                 alt="Bayyitni Logo"
