@@ -5,7 +5,7 @@ import MapPreview from "../map_preview/MapPreview";
 import LocationEditor from "../map_preview/LocationEditor";
 import { useState, useEffect } from "react";
 import { Property } from "@/types/property/property";
-import { LocationEdit } from "lucide-react";
+import { CheckCircle2, LocationEdit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { updateProperty } from "@/utils/landlord/property/updateProperty";
 import { deleteProperty } from "@/utils/landlord/property/deleteProperty";
@@ -44,7 +44,10 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
   const [genderPreference, setGenderPreference] = useState(
     property.gender_preference
   );
-
+  const [isActive, setIsActive] = useState(property.is_active);
+  const [isAvailable, setIsAvailable] = useState(
+    property.available_rooms_count! > 0
+  );
   const [utilities, setUtilities] = useState({
     has_water: property.has_water,
     has_gas: property.has_gas,
@@ -76,6 +79,8 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
       lat: parseFloat(property.location_lat),
       lon: parseFloat(property.location_lon),
     });
+    setIsActive(property.is_active);
+    setIsAvailable(property.available_rooms_count! > 0);
   }, [property]);
 
   // Mapping utilities -> translation keys
@@ -221,7 +226,80 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
           </>
         )}
       </div>
+      {editMode && (
+        <div className="bg-green-100 border-l-4 border-t-4 border-green-400 text-secondary p-4 m-2 rounded-lg shadow-sm flex justify-between items-center transition-all duration-300">
+          {/* Left: Status Text */}
+          <div className="flex items-center">
+            <CheckCircle2 className="h-5 w-5 me-2 text-primary" />
+            <span className="text-secondary text-md">
+              This property is{" "}
+              <strong className={isActive ? "text-primary" : "text-red-500"}>
+                {isActive ? "active" : "inactive"}
+              </strong>{" "}
+              and{" "}
+              <strong className={isAvailable ? "text-primary" : "text-red-500"}>
+                {isAvailable ? "available" : "not available"}
+              </strong>{" "}
+              for booking.
+            </span>
+          </div>
 
+          {/* Right: Toggle Controls */}
+          <div className="flex items-center gap-6">
+            {/* Active toggle */}
+            <div className="flex items-center gap-2">
+              <input
+                id="isActive"
+                type="checkbox"
+                checked={isActive}
+                onChange={(e) => {
+                  setIsActive(e.target.checked);
+                  setUpdatedData((prev) => ({
+                    ...prev,
+                    is_active: e.target.checked,
+                  }));
+                }}
+                className="h-5 w-5 rounded-md cursor-pointer"
+              />
+              <label
+                htmlFor="isActive"
+                className={`text-md cursor-pointer ${
+                  isActive ? "text-primary font-bold" : "text-secondary"
+                }`}
+              >
+                Active
+              </label>
+            </div>
+
+            {/* Available toggle */}
+            <div className="flex items-center gap-2">
+              <input
+                id="isAvailable"
+                type="checkbox"
+                checked={isAvailable}
+                onChange={(e) => {
+                  setIsAvailable(e.target.checked);
+                  setUpdatedData((prev) => ({
+                    ...prev,
+                    available_rooms_count: e.target.checked
+                      ? property.rooms_count
+                      : 0,
+                  }));
+                }}
+                className="h-5 w-5 rounded-md cursor-pointer"
+              />
+              <label
+                htmlFor="isAvailable"
+                className={`text-md cursor-pointer ${
+                  isAvailable ? "text-primary font-bold" : "text-secondary"
+                }`}
+              >
+                Available
+              </label>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Details Section */}
       <div className="p-6 space-y-6">
         {/* Description */}

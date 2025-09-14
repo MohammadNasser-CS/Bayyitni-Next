@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { WhatsAppFloat } from "@/components/whatsapp/WhatsAppFloat";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
               {children}
               <WhatsAppFloat />
             </LanguageProvider>
+            <Toaster position="top-right" reverseOrder={false} />
           </body>
         </AuthProvider>
       </ClerkProvider>

@@ -47,7 +47,11 @@
     "notIncluded": "غير موجود",
     "room": "غرفة",
     "saveChanges": "إحفظ تعديلات السكن",
-    "saving": "جارِ الحفظ"
+    "saving": "جارِ الحفظ",
+    "selected": "مختارة",
+    "addPhotos": "قم بتحميل صورة جديدة",
+    "deleting": "جار الحذف",
+    "confirmDelete": "هل أنت متأكد من إزالتك لهذه الغرفة؟"
   },
   "navigation": {
     "home": "الرئيسية",

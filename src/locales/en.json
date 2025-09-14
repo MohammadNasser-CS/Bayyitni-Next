@@ -47,7 +47,11 @@
     "notIncluded": "Not Included",
     "room": "Room",
     "saveChanges": "Save Property Changes",
-    "saving": "Saving"
+    "saving": "Saving",
+    "selected": "Selected",
+    "addPhotos": "Choose room images",
+    "deleting": "Deleting",
+    "confirmDelete": "Are you sure that you want to delete this room ?"
   },
   "navigation": {
     "home": "Home",

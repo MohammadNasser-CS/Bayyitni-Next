@@ -20,9 +20,9 @@ export async function getMyProperties(landlord_id: string, filters?: PropertyFil
       if (filters.type && filters.type !== "all") params.append("property_type", filters.type);
       if (filters.search && filters.search.trim() !== "") params.append("search", filters.search);
     }
-    console.log(`https://bayyitni-laravel-2.onrender.com/api/property/landlord/${9}?${params.toString()}`);
+    console.log(`https://bayyitni-laravel-2.onrender.com/api/property/landlord/${3}?${params.toString()}`);
     const res = await axios.get(
-      `https://bayyitni-laravel-2.onrender.com/api/property/landlord/${9}?${params.toString()}`,
+      `https://bayyitni-laravel-2.onrender.com/api/property/landlord/${14}?${params.toString()}`,
       {
         headers: { "Content-Type": "application/json" },
         timeout: 30000, // 10 seconds timeout
