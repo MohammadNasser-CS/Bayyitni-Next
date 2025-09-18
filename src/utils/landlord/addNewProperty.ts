@@ -1,17 +1,35 @@
-// src/utils/landlord/addNewProperty.ts
 import { CreatePropertyRequest } from "@/types/property/property";
+import axios from "axios";
 
 export async function addNewProperty(formData: CreatePropertyRequest) {
   const form = new FormData();
 
-  // Map fields correctly
   for (const [key, value] of Object.entries(formData)) {
     if (key === "images" && Array.isArray(value)) {
-      // Handle multiple files
+      // ✅ Laravel expects property_images[]
       value.forEach((file) => {
         if (file instanceof File) {
-          form.append("images", file); // backend expects a list
+          form.append("property_images[]", file);
         }
+      });
+    } else if (key === "rooms" && Array.isArray(value)) {
+      // ✅ Append each room as rooms[index][field]
+      value.forEach((room, idx) => {
+        Object.entries(room).forEach(([rKey, rValue]) => {
+          if (rValue !== undefined && rValue !== null) {
+            if (rKey === "images" && Array.isArray(rValue)) {
+              rValue.forEach((file) => {
+                if (file instanceof File) {
+                  form.append(`rooms[${idx}][images][]`, file);
+                }
+              });
+            } else if (typeof rValue === "boolean") {
+              form.append(`rooms[${idx}][${rKey}]`, rValue ? "1" : "0");
+            } else {
+              form.append(`rooms[${idx}][${rKey}]`, String(rValue));
+            }
+          }
+        });
       });
     } else if (typeof value === "boolean") {
       form.append(key, value ? "true" : "false");
@@ -22,17 +40,21 @@ export async function addNewProperty(formData: CreatePropertyRequest) {
     }
   }
 
+  try {
+    const response = await axios.post(
+      "https://bayyitni-laravel-2.onrender.com/api/property",
+      form,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Accept": "application/json"
+        },
+      }
+    );
 
-  const response = await fetch("https://bayyinti-project.onrender.com/property-listings/", {
-    method: "POST",
-    body: form,
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Backend Error:", errorText);
-    throw new Error("Failed to create property");
+    return response.data;
+  } catch (error: any) {
+    console.error("Backend Error:", error.response?.data || error.message);
+    throw new Error(`Failed to create property: ${error.response?.data || error.message}`);
   }
-
-  return await response.json();
 }

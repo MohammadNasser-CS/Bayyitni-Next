@@ -1,5 +1,6 @@
 "use client";
 
+import { PropertyType } from "@/lib/enum/property_enums";
 import { CreatePropertyRequest } from "@/types/property/property";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -125,7 +126,7 @@ export default function Step1({
     propertyData.property_type || ""
   );
 
-  const handleSelect = (value: string) => {
+  const handleSelect = (value: PropertyType) => {
     setSelectedType(value);
   };
 
@@ -152,7 +153,7 @@ export default function Step1({
             <button
               key={type.value}
               type="button"
-              onClick={() => handleSelect(type.value)}
+              onClick={() => handleSelect(type.value as PropertyType)}
               className={`room-type-option border-2 rounded-lg p-5 flex items-center transition-all duration-200 cursor-pointer
                 ${
                   isSelected

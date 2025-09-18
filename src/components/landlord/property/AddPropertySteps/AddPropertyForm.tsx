@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import AddPropertySteps from "./AddPropertySteps";
-import { CreatePropertyRequest } from "@/types/property/property";
-import Step1 from "./Step1_PropertyType";
 import Step2 from "./Step2_PropertyDetails";
-import { addNewProperty } from "@/utils/landlord/addNewProperty";
 import Step3 from "./Step3_AddRooms";
-import { CreateBedroomRequest } from "@/types/rooms/rooms";
-import { CreateSharedSpaceRequest } from "@/types/rooms/sharedSpaces";
-import Step4 from "./Step4_ReviewStep";
+import { addNewProperty } from "@/utils/landlord/addNewProperty";
+import { CreatePropertyRequest } from "@/types/property/property";
+import {
+  PropertyGenderPreference,
+  PropertyStatus,
+  PropertyType,
+} from "@/lib/enum/property_enums";
+import { CreateRoomRequest } from "@/types/rooms/rooms";
+import { useRouter } from "next/navigation";
+import { CityEnum, CountryEnum } from "@/lib/enum/location_enums";
 
 const initialFormData: CreatePropertyRequest = {
   landlord_id: "",
@@ -21,92 +25,65 @@ const initialFormData: CreatePropertyRequest = {
   rooms_count: 0,
   location_lat: 0.0,
   location_lon: 0.0,
-  is_active: true,
-  gender_preference: "",
+  status: PropertyStatus.Pending,
+  gender_preference: PropertyGenderPreference.Any,
   has_gas: false,
   has_electricity: false,
   has_water: false,
   has_internet: false,
-  property_type: "",
-  city: "",
-  country: "",
-  images: [],
-  verification_status: "verified",
+  property_type: PropertyType.Apartment,
+  city: CityEnum.NABLUS,
+  country: CountryEnum.PALESTINE,
+  property_images: [],
+  rooms: [], // will be filled after Step 2
 };
 
 export default function AddPropertyForm() {
-  const [createdPropertyId, setCreatedPropertyId] = useState<number | null>(
-    null
-  );
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [propertyData, setPropertyData] =
     useState<CreatePropertyRequest>(initialFormData);
-  const [bedRoomsData, setBedRoomsData] = useState<CreateBedroomRequest[]>([]);
-  const [sharedSpacesData, setSharedSpacesData] = useState<
-    CreateSharedSpaceRequest[]
-  >([]);
-  const totalSteps = 4;
+  const [bedRoomsData, setBedRoomsData] = useState<CreateRoomRequest[]>([]);
+  const totalSteps = 2; // only two steps now
   const isLastStep = currentStep === totalSteps - 1;
 
   const next = () =>
     setCurrentStep((step) => Math.min(step + 1, totalSteps - 1));
   const back = () => setCurrentStep((step) => Math.max(step - 1, 0));
 
-  const handleSubmitProperty = async () => {
-    try {
-      const result = await addNewProperty(propertyData);
-      alert("Property created successfully!");
-      console.log("Created Property:", result);
-      setCreatedPropertyId(result.id);
-      // You can now redirect or move to next step (e.g., add rooms)
-      next();
-    } catch (error) {
-      alert((error as Error).message);
-    }
-  };
-
+  /**
+   * Final submit: combines property details with all added rooms
+   * and sends one payload to backend.
+   */
   const handleSubmit = async () => {
     try {
-      // 1. Create the property
-      const propertyResponse = await addNewProperty(propertyData);
-      setCreatedPropertyId(propertyResponse.id);
+      const payload: CreatePropertyRequest = {
+        ...propertyData,
+        rooms: bedRoomsData,
+        rooms_count: bedRoomsData.length,
+      };
 
-      // 2. Attach propertyId to bedrooms & shared spaces
-      const bedroomsWithId = bedRoomsData.map((b) => ({
-        ...b,
-        property_listing_id: createdPropertyId,
-      }));
+      console.log("Created Property:", payload);
+      const result = await addNewProperty(payload);
 
-      const sharedSpacesWithId = sharedSpacesData.map((s) => ({
-        ...s,
-        property_id: createdPropertyId,
-      }));
+      alert("Property with rooms created successfully!");
+      console.log("Created Property:", result);
 
-      // 3. Create bedrooms
-      await fetch("/api/bedrooms/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bedroomsWithId),
-      });
-
-      // 4. Create shared spaces
-      await fetch("/api/sharedspaces/bulk", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(sharedSpacesWithId),
-      });
-
-      alert("Property created successfully!");
+      // Optionally reset or redirect here
+      setPropertyData(initialFormData);
+      setBedRoomsData([]);
+      setCurrentStep(0);
+      router.replace("/landlord/");
     } catch (err) {
       console.error(err);
       alert("Error creating property");
     }
   };
 
-  // Conditionally choose next function depending on step
+  // Determine what to do when "Next" or "Submit" is pressed
   const handleNext = () => {
     if (isLastStep) {
-      // handleSubmitProperty();
+      handleSubmit();
     } else {
       next();
     }
@@ -114,29 +91,19 @@ export default function AddPropertyForm() {
 
   const steps = [
     <Step2
-      key="2"
+      key="property"
       propertyData={propertyData}
       setPropertyData={setPropertyData}
       onBack={back}
-      onNext={next} // Call submit on next
-    />,
-    <Step3
-      key="3"
-      bedRoomsData={bedRoomsData}
-      setBedRoomsData={setBedRoomsData}
-      sharedSpacesData={sharedSpacesData}
-      setSharedSpacesData={setSharedSpacesData}
-      onBack={back}
       onNext={next}
     />,
-    <Step4
-      key="review"
-      propertyData={propertyData}
+    <Step3
+      key="rooms"
       bedRoomsData={bedRoomsData}
-      sharedSpacesData={sharedSpacesData}
+      setBedRoomsData={setBedRoomsData}
       onBack={back}
+      onNext={handleNext} // final submit on this step
     />,
-    // Step4, Step5 here
   ];
 
   return (

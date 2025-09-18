@@ -17,7 +17,7 @@ export default function LandlordHeader({ properties }: { properties: number }) {
         </p>
       </div>
       <Link
-        href="manage-listings/add-new-property"
+        href="/landlord/manage-listings/add-new-property"
         aria-label={t(
           "landlord.manageListings.header.addListing",
           "Add New Listing"

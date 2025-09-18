@@ -45,19 +45,19 @@ export const getPropertySchema = (t: (key: string, opts?: Record<string, any>) =
       message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.floor_number_min", { min: -3 }),
     }),
 
-    number_of_rooms: z.preprocess(
-      (val) => (val === "" ? undefined : Number(val)),
-      z.number().min(0, {
-        message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.number_of_rooms_min", { min: 0 }),
-      })
-    ),
+    // number_of_rooms: z.preprocess(
+    //   (val) => (val === "" ? undefined : Number(val)),
+    //   z.number().min(0, {
+    //     message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.number_of_rooms_min", { min: 0 }),
+    //   })
+    // ),
 
     description: z
       .string()
       .max(1000, { message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.description_max", { max: 1000 }) })
       .optional(),
 
-    gender_preference: z.enum(["male", "female"], {
+    gender_preference: z.enum(["male", "female", "any"], {
       message: t("landlord.manageListings.addPropertyPage.detailsCard.validation.gender_preference_invalid"),
     }),
 

@@ -248,7 +248,7 @@
           },
           "numberOfRooms": {
             "title": "Number of Rooms",
-            "placeholder": "Number of bedrooms in the property"
+            "placeholder": "calculated automatically"
           },
           "propertyImages": {
             "title": "Add Property Images (excluding bedrooms)",
@@ -349,14 +349,25 @@
       "available": "Available"
     },
     "monthlyRent": "Monthly Rent",
+    "monthlyRentPlaceholder": "Monthly price per bed",
     "amenities": {
+      "title": "Room amenities",
       "ac": "AC",
       "internalBathroom": "Internal Bathroom",
       "internalBalcony": "Internal Balcony",
       "office": "Office"
     },
     "bedrooms": "Bedrooms",
-    "addBedroom": "Add Bedroom"
+    "addBedroom": "Add Bedroom",
+    "addBedroomHeader": "Rooms Details",
+    "available_from": "Available From",
+    "description": "Room Description (Optional)",
+    "descriptionPlaceholder": "Add simple description",
+    "addPhotosHeader": "Room Images",
+    "addPhotos": "Upload Images",
+    "roomType": "Room Type",
+    "single": "Single Room",
+    "shared": "Shared Room"
   },
   "booking": {
     "bookingConfirmation": "Booking Confirmation",

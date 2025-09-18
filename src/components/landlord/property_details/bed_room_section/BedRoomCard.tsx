@@ -78,7 +78,7 @@ export default function BedRoomCard({ room, index }: Props) {
         toast.dismiss();
         toast.success("Room updated successfully ✅");
       }
-
+      router.refresh();
       setIsEditing(false);
     } catch (err) {
       console.error(err);
@@ -167,14 +167,14 @@ export default function BedRoomCard({ room, index }: Props) {
             <span className="font-semibold">{t("room.status.title")}:</span>
             {isEditing ? (
               <select
-                value={editedRoom.is_active ? "true" : "false"}
+                value={editedRoom.is_active ? "active" : "not_active"}
                 onChange={(e) =>
-                  handleChange("is_active", e.target.value === "true")
+                  handleChange("is_active", e.target.value === "active")
                 }
                 className="border rounded px-2 py-1 text-sm"
               >
-                <option value="true">{t("common.active")}</option>
-                <option value="false">{t("common.inactive")}</option>
+                <option value="active">{t("common.active")}</option>
+                <option value="not_active">{t("common.inactive")}</option>
               </select>
             ) : (
               <span

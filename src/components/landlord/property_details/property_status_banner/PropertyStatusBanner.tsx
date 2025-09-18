@@ -1,10 +1,11 @@
 // src/components/landlord/property_details/PropertyStatusBanner.tsx
 "use client";
 import { useEditMode } from "@/context/EditModeContext";
+import { PropertyStatus } from "@/lib/enum/property_enums";
 import { Property } from "@/types/property/property";
 
 interface PropertyStatusBannerProps {
-  property: Pick<Property, "is_active" | "available_rooms_count">;
+  property: Pick<Property, "status" | "available_rooms_count">;
 }
 
 export default function PropertyStatusBanner({
@@ -38,7 +39,7 @@ export default function PropertyStatusBanner({
             </svg>
             <span>
               This property is{" "}
-              <strong>{property.is_active ? "active" : "inactive"}</strong> and{" "}
+              <strong>{property.status ? "active" : "inactive"}</strong> and{" "}
               <strong>{isAvailable ? "available" : "not available"}</strong> for
               booking.
             </span>
@@ -50,7 +51,7 @@ export default function PropertyStatusBanner({
               <input
                 type="checkbox"
                 className="sr-only peer"
-                checked={property.is_active}
+                checked={property.status === PropertyStatus.Active}
                 readOnly
               />
               <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>

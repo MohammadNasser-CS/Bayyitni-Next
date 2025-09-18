@@ -1,6 +1,8 @@
 // src/types/property.ts
 
-import { Room } from "../rooms/rooms";
+import { PropertyGenderPreference, PropertyStatus, PropertyType } from "@/lib/enum/property_enums";
+import { CreateRoomRequest, Room } from "../rooms/rooms";
+import { CityEnum, CountryEnum } from "@/lib/enum/location_enums";
 
 export interface PropertyImage {
   id: number;
@@ -17,12 +19,12 @@ export interface PropertyDetail {
   floor_number: number;
   location_lat: string;
   location_lon: string;
-  is_active: boolean;
-  gender_preference: string;
-  property_type: string;
-  city: string;
-  country: string;
-  images: PropertyImage[];
+  status: PropertyStatus;
+  gender_preference: PropertyGenderPreference;
+  property_type: PropertyType;
+  city: CityEnum;
+  country: CountryEnum;
+  property_images: PropertyImage[];
   rooms_count: number;
   available_rooms_count: number;
   has_gas: false;
@@ -43,16 +45,16 @@ export interface Property {
   floor_number: number;
   location_lat: string;
   location_lon: string;
-  is_active: boolean;
-  gender_preference: string;
+  status: PropertyStatus;
+  gender_preference: PropertyGenderPreference;
   has_gas: boolean;
   has_electricity: boolean;
   has_water: boolean;
   has_internet: boolean;
-  property_type: string;
-  images: PropertyImage[]; // ✅ changed
-  city: string;
-  country: string;
+  property_type: PropertyType;
+  property_images: PropertyImage[]; // ✅ changed
+  city: CityEnum;
+  country: CountryEnum;
   rooms_count: number;
   // verification_status: string;
   available_rooms_count?: number;
@@ -70,24 +72,25 @@ export interface CreatePropertyRequest {
   floor_number: number;
   location_lat: number;
   location_lon: number;
-  is_active: boolean;
-  gender_preference: string;
+  status: PropertyStatus;
+  gender_preference: PropertyGenderPreference;
   has_gas: boolean;
   has_electricity: boolean;
   has_water: boolean;
   has_internet: boolean;
-  property_type: string;
-  city: string;
-  country: string;
+  property_type: PropertyType;
+  city: CityEnum;
+  country: CountryEnum;
   rooms_count: number;
-  verification_status: string;
-  images?: File[]; // optional if image upload is separate
+  // verification_status: string;
+  property_images?: File[]; // optional if image upload is separate
+  rooms: CreateRoomRequest[];
 }
 
 export interface UpdatePropertyData {
   title?: string;
   description?: string;
-  gender_preference?: string;
+  gender_preference?: PropertyGenderPreference;
   has_water?: boolean;
   has_gas?: boolean;
   has_internet?: boolean;

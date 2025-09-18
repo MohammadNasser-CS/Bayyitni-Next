@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Search } from "lucide-react";
+import { PropertyStatus, PropertyType } from "@/lib/enum/property_enums";
 
 export interface PropertyFiltersProps {
   onFilterChange: (filters: {
@@ -48,10 +49,14 @@ export default function PropertyFilters({
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
-            <option value="all">{t("common.allProperties")}</option>
-            <option value="active">{t("common.active")}</option>
-            <option value="0">{t("common.inactive")}</option>
-            <option value="pending">{t("common.pending")}</option>
+            <option value="">{t("common.allProperties")}</option>
+            <option value={PropertyStatus.Active}>{t("common.active")}</option>
+            <option value={PropertyStatus.NotActive}>
+              {t("common.inactive")}
+            </option>
+            <option value={PropertyStatus.Pending}>
+              {t("common.pending")}
+            </option>
           </select>
 
           <select
@@ -59,10 +64,12 @@ export default function PropertyFilters({
             value={type}
             onChange={(e) => setType(e.target.value)}
           >
-            <option value="all">{t("common.allTypes")}</option>
-            <option value="house">{t("common.house")}</option>
-            <option value="apartment">{t("common.apartment")}</option>
-            <option value="studio">{t("common.studio")}</option>
+            <option value="">{t("common.allTypes")}</option>
+            <option value={PropertyType.House}>{t("common.house")}</option>
+            <option value={PropertyType.Apartment}>
+              {t("common.apartment")}
+            </option>
+            <option value={PropertyType.Studio}>{t("common.studio")}</option>
           </select>
         </div>
 

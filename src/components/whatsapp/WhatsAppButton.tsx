@@ -1,27 +1,16 @@
 "use client";
 
-import type React from "react";
-
-import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
-
 const SUPPORT_PHONE = "+966501234567";
 
 interface WhatsAppButtonProps {
   message: string;
-  children?: React.ReactNode;
-  variant?: "default" | "outline" | "ghost" | "destructive" | "secondary";
-  size?: "default" | "sm" | "lg" | "icon";
-  className?: string;
+  title?: string; // optional text for the button
   phone?: string;
 }
 
 export function WhatsAppButton({
   message,
-  children,
-  variant = "default",
-  size = "default",
-  className = "",
+  title = "Contact via WhatsApp",
   phone = SUPPORT_PHONE,
 }: WhatsAppButtonProps) {
   const handleWhatsApp = () => {
@@ -33,14 +22,13 @@ export function WhatsAppButton({
   };
 
   return (
-    <Button
+    <button
+      type="button"
       onClick={handleWhatsApp}
-      variant={variant}
-      size={size}
-      className={className}
+      className="inline-flex items-center px-4 py-2 rounded-md bg-green-500 text-white font-medium hover:bg-green-600 transition-colors duration-200"
     >
-      <MessageCircle className="h-4 w-4 mr-2" />
-      {children || "Contact via WhatsApp"}
-    </Button>
+      <span className="mr-2">💬</span>
+      {title}
+    </button>
   );
 }

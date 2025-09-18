@@ -1,20 +1,19 @@
-import { CreateBedroomRequest } from "@/types/rooms/rooms";
-import { CreateSharedSpaceRequest } from "@/types/rooms/sharedSpaces";
-import DatePicker from "react-multi-date-picker";
-import arabic from "react-date-object/locales/gregorian_ar";
+import { useLanguage } from "@/context/LanguageContext";
+import { RoomType } from "@/lib/enum/room_enums";
+import { CreateRoomRequest } from "@/types/rooms/rooms";
+import { format } from "date-fns";
+import { Plus } from "lucide-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ROOM_TYPE_OPTIONS = [
-  { label: "فردية", value: "single" },
-  { label: "مشتركة", value: "double" },
+  { label: "Single", value: "single" },
+  { label: "Double", value: "double" },
 ];
 
 interface Step3Props {
-  bedRoomsData: CreateBedroomRequest[];
-  setBedRoomsData: React.Dispatch<React.SetStateAction<CreateBedroomRequest[]>>;
-  sharedSpacesData: CreateSharedSpaceRequest[];
-  setSharedSpacesData: React.Dispatch<
-    React.SetStateAction<CreateSharedSpaceRequest[]>
-  >;
+  bedRoomsData: CreateRoomRequest[];
+  setBedRoomsData: React.Dispatch<React.SetStateAction<CreateRoomRequest[]>>;
   onBack: () => void;
   onNext: () => void;
 }
@@ -22,15 +21,16 @@ interface Step3Props {
 export default function Step3({
   bedRoomsData,
   setBedRoomsData,
-  sharedSpacesData,
-  setSharedSpacesData,
   onBack,
   onNext,
 }: Step3Props) {
-  // ----------------- Handlers -----------------
+  //
+  const today = new Date().toISOString().split("T")[0]; // "2025-09-18"
+  const { t } = useLanguage();
+  // ---- Bedroom handlers ----
   const handleBedroomChange = (
     index: number,
-    field: keyof CreateBedroomRequest,
+    field: keyof CreateRoomRequest,
     value: any
   ) => {
     const updated = [...bedRoomsData];
@@ -44,133 +44,76 @@ export default function Step3({
   ) => {
     if (!files) return;
     const newFiles = Array.from(files);
-
     setBedRoomsData((prev) => {
-      const updatedBedrooms = [...prev];
-      updatedBedrooms[roomIndex] = {
-        ...updatedBedrooms[roomIndex],
-        images: [...(updatedBedrooms[roomIndex].images || []), ...newFiles],
+      const updated = [...prev];
+      updated[roomIndex] = {
+        ...updated[roomIndex],
+        images: [...(updated[roomIndex].images || []), ...newFiles],
       };
-      return updatedBedrooms;
+      return updated;
     });
   };
+
   const addBedroom = () =>
-    setBedRoomsData([...bedRoomsData, { room_type: "single", images: [] }]);
-
-  const removeBedroom = (index: number) => {
-    setBedRoomsData(bedRoomsData.filter((_, i) => i !== index));
-  };
-
-  const handleSharedChange = (
-    index: number,
-    field: keyof CreateSharedSpaceRequest,
-    value: any
-  ) => {
-    const updated = [...sharedSpacesData];
-    updated[index] = { ...updated[index], [field]: value };
-    setSharedSpacesData(updated);
-  };
-
-  const handleSharedFileChange = (
-    roomIndex: number,
-    files: FileList | null
-  ) => {
-    if (!files) return;
-    const newFiles = Array.from(files);
-    setSharedSpacesData((prev) => {
-      const updatedharedSpaces = [...prev];
-      updatedharedSpaces[roomIndex] = {
-        ...updatedharedSpaces[roomIndex],
-        images: [...(updatedharedSpaces[roomIndex].images || []), ...newFiles],
-      };
-      return updatedharedSpaces;
-    });
-  };
-
-  const addSharedSpace = () =>
-    setSharedSpacesData([
-      ...sharedSpacesData,
-      { room_type: "kitchen", images: [] },
+    setBedRoomsData([
+      ...bedRoomsData,
+      {
+        room_type: "single",
+        images: [],
+        number_of_available_beds: 1,
+        number_of_beds: 1,
+        available_from: today, // <- default value
+      },
     ]);
 
-  const removeSharedSpace = (index: number) => {
-    setSharedSpacesData(sharedSpacesData.filter((_, i) => i !== index));
-  };
+  const removeBedroom = (index: number) =>
+    setBedRoomsData(bedRoomsData.filter((_, i) => i !== index));
 
-  const handleNext = async () => {
-    console.log(bedRoomsData);
-    console.log(sharedSpacesData);
-    // onNext();
-  };
-
-  // ----------------- الواجهة -----------------
   return (
-    <div className="p-6 bg-white rounded-lg shadow-sm space-y-8" dir="rtl">
-      <h2 className="text-2xl font-semibold text-gray-800">تفاصيل الغرف</h2>
+    <div className="p-6 bg-white rounded-lg shadow-md space-y-8">
+      <h2 className="text-2xl font-semibold text-gray-800">
+        {t("room.addBedroomHeader")}
+      </h2>
 
-      {/* -------- قسم غرف النوم -------- */}
       <div>
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-medium text-gray-700">غرف النوم</h3>
+          <h3 className="text-lg font-medium text-gray-700">
+            {t("room.bedrooms")}
+          </h3>
           <button
             onClick={addBedroom}
             type="button"
-            className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center"
+            className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 ml-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            إضافة غرفة نوم
+            <Plus className="h-5 w-5" />
+            {t("room.bedrooms")}
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           {bedRoomsData.map((room, i) => (
             <div
               key={i}
-              className="bg-gray-50 rounded-lg p-4 border border-gray-200 space-y-4 transition-all duration-500 ease-out transform animate-[fadeIn_0.3s_ease-out]"
+              className="bg-gray-50 rounded-lg p-5 border border-gray-200 space-y-5 shadow-sm"
             >
-              {/* العنوان */}
               <div className="flex justify-between items-start">
-                <h4 className="font-medium text-gray-800">غرفة نوم {i + 1}</h4>
+                <h4 className="font-medium text-gray-800">
+                  {t("common.room")} {i + 1}
+                </h4>
                 <button
                   type="button"
                   onClick={() => removeBedroom(i)}
-                  className="text-gray-400 hover:text-red-500"
+                  className="text-gray-400 hover:text-red-500 font-bold text-3xl cursor-pointer"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
+                  ×
                 </button>
               </div>
 
-              {/* نوع الغرفة والسعر */}
-              <div className="grid grid-cols-2 gap-3">
+              {/* Room type and price */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">
-                    نوع الغرفة
+                    {t("room.roomType")}
                   </label>
                   <select
                     value={room.room_type}
@@ -181,22 +124,24 @@ export default function Step3({
                         e.target.value as "single" | "double"
                       )
                     }
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
                   >
-                    {ROOM_TYPE_OPTIONS.map(({ label, value }) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
+                    <option key={RoomType.Single} value={RoomType.Single}>
+                      {t("room.single")}
+                    </option>
+                    <option key={RoomType.Shared} value={RoomType.Shared}>
+                      {t("room.shared")}
+                    </option>
                   </select>
                 </div>
+
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">
-                    السعر الشهري
+                    {t("room.monthlyRent")}
                   </label>
                   <input
-                    type="text"
-                    placeholder="السعر لكل سرير شهرياً"
+                    type="number"
+                    placeholder={t("room.monthlyRentPlaceholder")}
                     value={room.price_of_bed_per_month || ""}
                     onChange={(e) =>
                       handleBedroomChange(
@@ -205,62 +150,70 @@ export default function Step3({
                         parseFloat(e.target.value)
                       )
                     }
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
                   />
                 </div>
               </div>
 
-              {/* متاح من والوصف */}
+              {/* Available from and description */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">
-                    متاح من
+                    {t("room.available_from")}
                   </label>
                   <DatePicker
-                    calendarPosition="bottom-left"
-                    containerClassName="w-full"
-                    className="custom-calendar"
-                    inputClass="w-full px-2 py-1 text-sm border border-gray-300 rounded-md"
-                    locale={arabic}
-                    value={room.available_from || ""}
+                    selected={
+                      room.available_from
+                        ? new Date(room.available_from)
+                        : new Date()
+                    }
                     onChange={(date) =>
                       handleBedroomChange(
                         i,
                         "available_from",
-                        date?.format("YYYY-MM-DD")
+                        date ? format(date, "yyyy-MM-dd") : ""
                       )
                     }
+                    dateFormat={"yyyy-MM-dd"}
+                    placeholderText="Select a date"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                    popperClassName="z-50"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">
-                    وصف الغرفة
+                    {t("room.description")}
                   </label>
                   <textarea
-                    placeholder="صف الغرفة هنا"
+                    placeholder={t("room.descriptionPlaceholder")}
                     value={room.description || ""}
                     onChange={(e) =>
                       handleBedroomChange(i, "description", e.target.value)
                     }
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 resize-none h-20"
                   />
                 </div>
               </div>
 
-              {/* المميزات */}
+              {/* Features */}
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
-                  مميزات الغرفة
+                  {t("room.amenities.title")}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {[
-                    { key: "has_internal_bathroom", label: "حمام داخلي" },
-                    { key: "has_internal_balcony", label: "شرفة داخلية" },
-                    { key: "has_ac", label: "مكيف هواء" },
-                    { key: "has_office", label: "مكتب" },
-                    { key: "is_active", label: "نشط" },
-                    { key: "is_available", label: "متاح" },
+                    {
+                      key: "has_internal_bathroom",
+                      label: t("room.amenities.internalBathroom"),
+                    },
+                    {
+                      key: "has_internal_balcony",
+                      label: t("room.amenities.internalBalcony"),
+                    },
+                    { key: "has_ac", label: t("room.amenities.ac") },
+                    { key: "has_office", label: t("room.amenities.office") },
+                    { key: "is_active", label: t("common.active") },
                   ].map(({ key, label }) => (
                     <label
                       key={key}
@@ -268,16 +221,15 @@ export default function Step3({
                     >
                       <input
                         type="checkbox"
-                        checked={Boolean(
-                          room[key as keyof CreateBedroomRequest]
-                        )}
+                        checked={Boolean(room[key as keyof CreateRoomRequest])}
                         onChange={(e) =>
                           handleBedroomChange(
                             i,
-                            key as keyof CreateBedroomRequest,
+                            key as keyof CreateRoomRequest,
                             e.target.checked
                           )
                         }
+                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-1 focus:ring-indigo-500"
                       />
                       {label}
                     </label>
@@ -285,12 +237,12 @@ export default function Step3({
                 </div>
               </div>
 
-              {/* رفع الصور */}
+              {/* Images */}
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
-                  صور الغرفة
+                  {t("room.addPhotosHeader")}
                 </label>
-                <div className="flex gap-2 mb-2">
+                <div className="flex gap-2 mb-2 flex-wrap">
                   {room.images?.map((file, index) => (
                     <div key={index} className="relative">
                       <img
@@ -300,17 +252,15 @@ export default function Step3({
                       />
                       <button
                         type="button"
-                        onClick={() => {
+                        onClick={() =>
                           setBedRoomsData((prev) => {
-                            const updatedBedrooms = [...prev];
-                            updatedBedrooms[i].images = updatedBedrooms[
-                              i
-                            ].images.filter(
+                            const updated = [...prev];
+                            updated[i].images = updated[i].images.filter(
                               (_, imgIndex) => imgIndex !== index
                             );
-                            return updatedBedrooms;
-                          });
-                        }}
+                            return updated;
+                          })
+                        }
                         className="absolute top-0 left-0 bg-red-500 text-white text-xs px-1 rounded"
                       >
                         ×
@@ -323,7 +273,7 @@ export default function Step3({
                   multiple
                   onChange={(e) => {
                     handleBedroomFileChange(i, e.target.files);
-                    e.target.value = ""; // مسح الإدخال لمنع التكرار
+                    e.target.value = "";
                   }}
                   className="hidden"
                   id={`bedroom-images-${i}`}
@@ -333,9 +283,9 @@ export default function Step3({
                   onClick={() =>
                     document.getElementById(`bedroom-images-${i}`)?.click()
                   }
-                  className="w-full py-1 px-2 text-xs border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  className="w-full py-2 px-3 text-sm border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition"
                 >
-                  تحميل الصور
+                  {t("room.addPhotos")}
                 </button>
               </div>
             </div>
@@ -343,179 +293,21 @@ export default function Step3({
         </div>
       </div>
 
-      {/* -------- قسم المساحات المشتركة -------- */}
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-medium text-gray-700">
-            المساحات المشتركة
-          </h3>
-          <button
-            onClick={addSharedSpace}
-            type="button"
-            className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 ml-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            إضافة مساحة مشتركة
-          </button>
-        </div>
-
-        <div className="space-y-4">
-          {sharedSpacesData.map((space, i) => (
-            <div
-              key={i}
-              className="bg-gray-50 rounded-lg p-4 border border-gray-200 space-y-4 transition-all duration-500 ease-out transform animate-[fadeIn_0.3s_ease-out]"
-            >
-              {/* العنوان */}
-              <div className="flex justify-between items-start">
-                <h4 className="font-medium text-gray-800">
-                  مساحة مشتركة {i + 1}
-                </h4>
-                <button
-                  type="button"
-                  onClick={() => removeSharedSpace(i)}
-                  className="text-gray-400 hover:text-red-500"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              {/* النوع والوصف */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs text-gray-500 mb-1">
-                    نوع المساحة
-                  </label>
-                  <select
-                    value={space.room_type}
-                    onChange={(e) =>
-                      handleSharedChange(
-                        i,
-                        "room_type",
-                        e.target.value as CreateSharedSpaceRequest["room_type"]
-                      )
-                    }
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded-md"
-                  >
-                    <option value="kitchen">مطبخ</option>
-                    <option value="bathroom">حمام</option>
-                    <option value="living_room">غرفة معيشة</option>
-                    <option value="laundry">غسيل</option>
-                    <option value="other">أخرى</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs text-gray-500 mb-1">
-                    وصف المساحة
-                  </label>
-                  <textarea
-                    placeholder="صف هذه المساحة"
-                    value={space.description || ""}
-                    onChange={(e) =>
-                      handleSharedChange(i, "description", e.target.value)
-                    }
-                    className="w-full px-2 py-1 text-sm border border-gray-300 rounded-md"
-                  />
-                </div>
-              </div>
-
-              {/* رفع الصور */}
-              <div>
-                <label className="block text-xs text-gray-500 mb-1">
-                  صور المساحة
-                </label>
-                <div className="flex gap-2 mb-2">
-                  {space.images?.map((file, index) => (
-                    <div key={index} className="relative">
-                      <img
-                        key={index}
-                        src={URL.createObjectURL(file)}
-                        alt="Preview"
-                        className="h-20 w-20 object-cover rounded-md border"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSharedSpacesData((prev) => {
-                            const updatedSharedSpaces = [...prev];
-                            updatedSharedSpaces[i].images = updatedSharedSpaces[
-                              i
-                            ].images.filter(
-                              (_, imgIndex) => imgIndex !== index
-                            );
-                            return updatedSharedSpaces;
-                          });
-                        }}
-                        className="absolute top-0 left-0 bg-red-500 text-white text-xs px-1 rounded"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                <input
-                  type="file"
-                  multiple
-                  onChange={(e) => handleSharedFileChange(i, e.target.files)}
-                  className="hidden"
-                  id={`shared-images-${i}`}
-                />
-                <button
-                  type="button"
-                  onClick={() =>
-                    document.getElementById(`shared-images-${i}`)?.click()
-                  }
-                  className="w-full py-1 px-2 text-xs border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
-                >
-                  تحميل الصور
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* أزرار التنقل */}
+      {/* Navigation buttons */}
       <div className="flex justify-between mt-6">
         <button
           onClick={onBack}
           type="button"
           className="px-6 py-2 rounded-lg font-medium text-gray-700 border border-gray-300 hover:bg-gray-100 transition"
         >
-          رجوع
+          Back
         </button>
         <button
-          onClick={handleNext}
+          onClick={onNext}
           type="button"
           className="px-6 py-2 rounded-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
         >
-          المراجعة
+          Finish
         </button>
       </div>
     </div>

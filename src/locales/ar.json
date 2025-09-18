@@ -248,7 +248,7 @@
           },
           "numberOfRooms": {
             "title": "عدد الغرف",
-            "placeholder": "عدد غرف النوم الموجودة في السكن"
+            "placeholder": "يتم حسابه تلقائيا"
           },
           "propertyImages": {
             "title": "أضف صور السكن ( من غير صور غرف النوم )",
@@ -351,12 +351,23 @@
       "available": "شاغرة"
     },
     "monthlyRent": "الإيجار الشهري",
+    "monthlyRentPlaceholder": "الإيجار الشهري للسرير",
     "amenities": {
+      "title": "المزايا المتوفرة",
       "ac": "مكيّف",
       "internalBathroom": "حمام داخلي",
       "internalBalcony": "بلكونة داخلية",
       "office": "مكتب دراسة"
-    }
+    },
+    "addBedroomHeader": "تفاصيل الغرف",
+    "addPhotosHeader": "صور الغرفة",
+    "available_from": "متاحة إبتداء من تاريخ",
+    "description": "وصف الغرفة ( إختياري )",
+    "descriptionPlaceholder": "أدخل وصف بسيط الغرفة",
+    "addPhotos": "تحميل الصور",
+    "roomType": "نوع الغرفة",
+    "single": "غرفة فردية",
+    "shared": "غرفة مشتركة"
   },
   "booking": {
     "bookingConfirmation": "تأكيد الحجز",

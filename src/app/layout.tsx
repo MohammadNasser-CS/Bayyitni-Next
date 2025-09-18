@@ -6,7 +6,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { WhatsAppFloat } from "@/components/whatsapp/WhatsAppFloat";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { Toaster } from "react-hot-toast";
-
+import "react-datepicker/dist/react-datepicker.css"; // <-- important, global import
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

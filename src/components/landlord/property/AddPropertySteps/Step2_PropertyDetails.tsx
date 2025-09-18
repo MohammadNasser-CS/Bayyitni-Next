@@ -16,7 +16,13 @@ import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { AMENITIES } from "@/constants/amenities";
 import { getPropertySchema } from "@/lib/validation/propertySchema";
-import type { ZodError } from "zod";
+import { PropertyGenderPreference } from "@/lib/enum/property_enums";
+import {
+  CITY_LABELS,
+  CityEnum,
+  COUNTRY_LABELS,
+  CountryEnum,
+} from "@/lib/enum/location_enums";
 
 interface Step2Props {
   propertyData: CreatePropertyRequest;
@@ -56,7 +62,7 @@ export default function Step2({
   // image files + previews
   const [imagePreviews, setImagePreviews] = useState<FileWithPreview[]>(
     () =>
-      (propertyData.images || [])
+      (propertyData.property_images || [])
         .filter(Boolean)
         .map((f: any) =>
           f instanceof File ? { file: f, url: URL.createObjectURL(f) } : null
@@ -208,7 +214,7 @@ export default function Step2({
     setImagePreviews((prev) => [...prev, ...newFiles]);
     setLocalData((prev) => ({
       ...prev,
-      images: [...(prev.images || []), ...Array.from(files)],
+      images: [...(prev.property_images || []), ...Array.from(files)],
     }));
   }, []);
 
@@ -220,7 +226,7 @@ export default function Step2({
     });
     setLocalData((prev) => ({
       ...prev,
-      images: (prev.images || []).filter((_, i) => i !== index),
+      images: (prev.property_images || []).filter((_, i) => i !== index),
     }));
   }, []);
 
@@ -404,14 +410,17 @@ export default function Step2({
               )}{" "}
               *
             </label>
-            <input
+            <select
               value={localData.city ?? ""}
               onChange={(e) => handleFieldChange("city" as any, e.target.value)}
-              placeholder={t(
-                "landlord.manageListings.addPropertyPage.detailsCard.city.placeholder"
-              )}
               className="h-8 w-full rounded-md border px-2 text-sm border-gray-300 placeholder-hints"
-            />
+            >
+              {Object.values(CityEnum).map((city) => (
+                <option key={city} value={city}>
+                  {CITY_LABELS[city][language]}
+                </option>
+              ))}
+            </select>
             {errors.city &&
               errors.city.map((err, idx) => (
                 <p key={idx} className="text-red-500 text-xs">
@@ -427,16 +436,19 @@ export default function Step2({
               )}{" "}
               *
             </label>
-            <input
+            <select
               value={localData.country ?? ""}
               onChange={(e) =>
                 handleFieldChange("country" as any, e.target.value)
               }
-              placeholder={t(
-                "landlord.manageListings.addPropertyPage.detailsCard.country.placeholder"
-              )}
               className="h-8 w-full rounded-md border px-2 text-sm border-gray-300 placeholder-hints"
-            />
+            >
+              {Object.values(CountryEnum).map((country) => (
+                <option key={country} value={country}>
+                  {COUNTRY_LABELS[country][language]}
+                </option>
+              ))}
+            </select>
             {errors.country &&
               errors.country.map((err, idx) => (
                 <p key={idx} className="text-red-500 text-xs">
@@ -453,18 +465,13 @@ export default function Step2({
             </label>
             <input
               type="number"
-              value={localData.rooms_count ?? ""}
-              onChange={(e) =>
-                handleFieldChange(
-                  "number_of_rooms" as any,
-                  e.target.value === "" ? "" : Number(e.target.value)
-                )
-              }
+              value={0}
+              onChange={(e) => handleFieldChange("number_of_rooms" as any, 0)}
               placeholder={t(
                 "landlord.manageListings.addPropertyPage.detailsCard.numberOfRooms.placeholder"
               )}
-              min={0}
-              className="h-8 w-full rounded-md border px-2 text-sm border-gray-300 placeholder-hints"
+              disabled
+              className="h-8 w-full rounded-md border px-2 text-sm border-gray-300 placeholder-hints bg-gray-200 cursor-not-allowed"
             />
             {errors.number_of_rooms &&
               errors.number_of_rooms.map((err, idx) => (
@@ -508,17 +515,17 @@ export default function Step2({
               }
               className="h-8 w-full rounded-md border px-2 text-sm border-gray-300 placeholder-hints"
             >
-              <option value="any">
+              <option selected value={PropertyGenderPreference.Any}>
                 {t(
                   "landlord.manageListings.addPropertyPage.detailsCard.genderPreference.placeholder"
                 )}
               </option>
-              <option value="male">
+              <option value={PropertyGenderPreference.Male}>
                 {t(
                   "landlord.manageListings.addPropertyPage.detailsCard.genderPreference.male"
                 )}
               </option>
-              <option value="female">
+              <option value={PropertyGenderPreference.Female}>
                 {t(
                   "landlord.manageListings.addPropertyPage.detailsCard.genderPreference.female"
                 )}

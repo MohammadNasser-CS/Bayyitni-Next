@@ -18,6 +18,7 @@ export default async function PropertyDetailsPage({
 
   try {
     propertyDetails = await getPropertyDetails(propertyId);
+    console.log("Fetched landlord propertyDetails raw:", propertyDetails);
   } catch (error) {
     console.error("Error fetching properties:", error);
   }

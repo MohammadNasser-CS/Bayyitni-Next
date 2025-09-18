@@ -10,6 +10,11 @@ import { useLanguage } from "@/context/LanguageContext";
 import { updateProperty } from "@/utils/landlord/property/updateProperty";
 import { deleteProperty } from "@/utils/landlord/property/deleteProperty";
 import { useRouter } from "next/navigation";
+import {
+  PropertyGenderPreference,
+  PropertyStatus,
+} from "@/lib/enum/property_enums";
+import { CITY_LABELS, COUNTRY_LABELS } from "@/lib/enum/location_enums";
 
 interface PropertyHeaderProps {
   property: Property;
@@ -34,7 +39,7 @@ const UtilityBadge = ({
 export default function PropertyHeader({ property }: PropertyHeaderProps) {
   const [editMode, setEditMode] = useState(false); // local edit mode
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -44,7 +49,9 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
   const [genderPreference, setGenderPreference] = useState(
     property.gender_preference
   );
-  const [isActive, setIsActive] = useState(property.is_active);
+  const [isActive, setIsActive] = useState(
+    property.status === PropertyStatus.Active
+  );
   const [isAvailable, setIsAvailable] = useState(
     property.available_rooms_count! > 0
   );
@@ -61,8 +68,8 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
   });
 
   const images =
-    property.images && property.images.length > 0
-      ? property.images.map((img) => img.image_url)
+    property.property_images && property.property_images.length > 0
+      ? property.property_images.map((img) => img.image_url)
       : [FALLBACK_IMAGE];
 
   useEffect(() => {
@@ -79,7 +86,7 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
       lat: parseFloat(property.location_lat),
       lon: parseFloat(property.location_lon),
     });
-    setIsActive(property.is_active);
+    setIsActive(property.status === PropertyStatus.Active);
     setIsAvailable(property.available_rooms_count! > 0);
   }, [property]);
 
@@ -194,7 +201,8 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
             <div className="flex items-center mb-2">
               <LocationEdit className="h-5 w-5 me-2" />
               <span>
-                {property.city}, {property.country}
+                {CITY_LABELS[property.city][language]},{" "}
+                {COUNTRY_LABELS[property.country][language]} •{" "}
               </span>
             </div>
           </div>
@@ -356,21 +364,22 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
                   <select
                     value={genderPreference}
                     onChange={(e) => {
-                      setGenderPreference(e.target.value);
+                      const value = e.target.value as PropertyGenderPreference; // cast to enum
+                      setGenderPreference(value);
                       setUpdatedData((prev) => ({
                         ...prev,
-                        gender_preference: e.target.value,
+                        gender_preference: value,
                       }));
                     }}
                     className="border border-gray-300 rounded px-2 py-1"
                   >
-                    <option value="any">
+                    <option value={PropertyGenderPreference.Any}>
                       {t("property.genderPreference.any")}
                     </option>
-                    <option value="male">
+                    <option value={PropertyGenderPreference.Male}>
                       {t("property.genderPreference.male")}
                     </option>
-                    <option value="female">
+                    <option value={PropertyGenderPreference.Female}>
                       {t("property.genderPreference.female")}
                     </option>
                   </select>

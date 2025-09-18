@@ -4,6 +4,12 @@ import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Property } from "@/types/property/property";
 import Link from "next/link";
+import {
+  PROPERTY_GENDER_PREFERENCE_LABELS,
+  PROPERTY_TYPE_LABELS,
+  PropertyStatus,
+} from "@/lib/enum/property_enums";
+import { CITY_LABELS, COUNTRY_LABELS } from "@/lib/enum/location_enums";
 
 const FALLBACK_IMAGE = "/default-fallback-image.png"; // Replace with your fallback image path
 
@@ -14,12 +20,12 @@ export default function PropertyCard({
   property: Property;
   userName: string;
 }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images =
-    property.images && property.images.length > 0
-      ? property.images.map((img) => img.image_url)
+    property.property_images && property.property_images.length > 0
+      ? property.property_images.map((img) => img.image_url)
       : [FALLBACK_IMAGE];
 
   const handlePrev = (e: React.MouseEvent) => {
@@ -68,12 +74,16 @@ export default function PropertyCard({
 
           <span
             className={`absolute top-2 left-2 text-xs font-semibold px-2 py-1 rounded ${
-              property.is_active
+              property.status
                 ? "bg-green-100 text-green-800"
                 : "bg-red-100 text-red-800"
             }`}
           >
-            {property.is_active ? t("common.active") : t("common.inactive")}
+            {property.status == PropertyStatus.Pending
+              ? t("common.pending")
+              : property.status == PropertyStatus.Active
+              ? t("common.active")
+              : t("common.inactive")}
           </span>
         </div>
 
@@ -85,7 +95,9 @@ export default function PropertyCard({
               {property.title || t("property.noTitle")}
             </h3>
             <p className="text-xs text-gray-500">
-              {property.city}, {property.country} • {property.property_type}
+              {CITY_LABELS[property.city][language]},{" "}
+              {COUNTRY_LABELS[property.country][language]} •{" "}
+              {PROPERTY_TYPE_LABELS[property.property_type][language]}
             </p>
           </div>
 
@@ -93,7 +105,7 @@ export default function PropertyCard({
           <div className="grid grid-cols-2 gap-2 text-xs">
             <p>
               <strong>{t("property.building")}:</strong>{" "}
-              {property.building_name} #{property.building_number}
+              {property.building_name} - {property.building_number}
             </p>
             <p>
               <strong>{t("property.floor")}:</strong> {property.floor_number}
@@ -103,7 +115,11 @@ export default function PropertyCard({
             </p>
             <p>
               <strong>{t("property.gender")}:</strong>{" "}
-              {property.gender_preference}
+              {
+                PROPERTY_GENDER_PREFERENCE_LABELS[property.gender_preference][
+                  language
+                ]
+              }
             </p>
           </div>
 
