@@ -24,7 +24,7 @@ export interface PropertyDetail {
   property_type: PropertyType;
   city: CityEnum;
   country: CountryEnum;
-  property_images: PropertyImage[];
+  images: PropertyImage[];
   rooms_count: number;
   available_rooms_count: number;
   has_gas: false;
@@ -52,7 +52,7 @@ export interface Property {
   has_water: boolean;
   has_internet: boolean;
   property_type: PropertyType;
-  property_images: PropertyImage[]; // ✅ changed
+  images: PropertyImage[]; // ✅ changed
   city: CityEnum;
   country: CountryEnum;
   rooms_count: number;
@@ -83,7 +83,7 @@ export interface CreatePropertyRequest {
   country: CountryEnum;
   rooms_count: number;
   // verification_status: string;
-  property_images?: File[]; // optional if image upload is separate
+  images?: File[]; // optional if image upload is separate
   rooms: CreateRoomRequest[];
 }
 

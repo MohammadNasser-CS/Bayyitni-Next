@@ -340,7 +340,8 @@
       "latitude": "Latitude"
     },
     "bedrooms": "Bedrooms",
-    "addBedroom": "Add Bedroom"
+    "addBedroom": "Add Bedroom",
+    "backToProperties":"Back to Properties"
   },
   "room": {
     "status": {

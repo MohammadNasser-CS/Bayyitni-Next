@@ -24,8 +24,8 @@ export default function PropertyCard({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images =
-    property.property_images && property.property_images.length > 0
-      ? property.property_images.map((img) => img.image_url)
+    property.images && property.images.length > 0
+      ? property.images.map((img) => img.image_url)
       : [FALLBACK_IMAGE];
 
   const handlePrev = (e: React.MouseEvent) => {
@@ -59,13 +59,13 @@ export default function PropertyCard({
             <>
               <button
                 onClick={handlePrev}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white rounded-full p-1 hover:bg-opacity-50 transition"
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white rounded-full p-1 hover:bg-opacity-50 transition cursor-pointer"
               >
                 ◀
               </button>
               <button
                 onClick={handleNext}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white rounded-full p-1 hover:bg-opacity-50 transition"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white rounded-full p-1 hover:bg-opacity-50 transition cursor-pointer"
               >
                 ▶
               </button>

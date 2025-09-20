@@ -6,10 +6,10 @@ export async function addNewProperty(formData: CreatePropertyRequest) {
 
   for (const [key, value] of Object.entries(formData)) {
     if (key === "images" && Array.isArray(value)) {
-      // ✅ Laravel expects property_images[]
+      // ✅ Laravel expects ima[]
       value.forEach((file) => {
         if (file instanceof File) {
-          form.append("property_images[]", file);
+          form.append("ima[]", file);
         }
       });
     } else if (key === "rooms" && Array.isArray(value)) {

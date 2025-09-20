@@ -34,7 +34,7 @@ const initialFormData: CreatePropertyRequest = {
   property_type: PropertyType.Apartment,
   city: CityEnum.NABLUS,
   country: CountryEnum.PALESTINE,
-  property_images: [],
+  images: [],
   rooms: [], // will be filled after Step 2
 };
 

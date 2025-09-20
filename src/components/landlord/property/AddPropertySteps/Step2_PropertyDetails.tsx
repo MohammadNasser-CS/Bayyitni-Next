@@ -62,7 +62,7 @@ export default function Step2({
   // image files + previews
   const [imagePreviews, setImagePreviews] = useState<FileWithPreview[]>(
     () =>
-      (propertyData.property_images || [])
+      (propertyData.images || [])
         .filter(Boolean)
         .map((f: any) =>
           f instanceof File ? { file: f, url: URL.createObjectURL(f) } : null
@@ -214,7 +214,7 @@ export default function Step2({
     setImagePreviews((prev) => [...prev, ...newFiles]);
     setLocalData((prev) => ({
       ...prev,
-      images: [...(prev.property_images || []), ...Array.from(files)],
+      images: [...(prev.images || []), ...Array.from(files)],
     }));
   }, []);
 
@@ -226,7 +226,7 @@ export default function Step2({
     });
     setLocalData((prev) => ({
       ...prev,
-      images: (prev.property_images || []).filter((_, i) => i !== index),
+      images: (prev.images || []).filter((_, i) => i !== index),
     }));
   }, []);
 

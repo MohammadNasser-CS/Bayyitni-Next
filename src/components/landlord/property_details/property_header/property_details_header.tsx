@@ -68,8 +68,8 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
   });
 
   const images =
-    property.property_images && property.property_images.length > 0
-      ? property.property_images.map((img) => img.image_url)
+    property.images && property.images.length > 0
+      ? property.images.map((img) => img.image_url)
       : [FALLBACK_IMAGE];
 
   useEffect(() => {
