@@ -10,6 +10,7 @@ import Link from "next/link";
 import { getMyProperties } from "@/utils/landlord/getMyProperties";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { PropertyStatus } from "@/lib/enum/property_enums";
 
 export default function LandlordPage() {
   const { user, isLoading: authLoading } = useAuth();
@@ -19,7 +20,11 @@ export default function LandlordPage() {
   const { t } = useLanguage();
 
   const fetchProperties = useCallback(
-    async (filters?: { status: string; type: string; search: string }) => {
+    async (filters?: {
+      status: PropertyStatus;
+      type: string;
+      search: string;
+    }) => {
       if (!user?.id) return;
       setHasError(false);
       setIsLoadingProperty(true);

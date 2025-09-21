@@ -24,11 +24,11 @@ export function LandlordNavbar() {
   const { t } = useLanguage();
 
   const navItems = [
-    {
-      href: "/landlord/dashboard",
-      label: t("navigation.dashboard"),
-      icon: LayoutDashboard,
-    },
+    // {
+    //   href: "/landlord/dashboard",
+    //   label: t("navigation.dashboard"),
+    //   icon: LayoutDashboard,
+    // },
     {
       href: "/landlord/manage-listings/add-new-property",
       label: t("navigation.addListing"),
@@ -44,11 +44,11 @@ export function LandlordNavbar() {
     //   label: t("navigation.tenantRequests"),
     //   icon: Users,
     // },
-    {
-      href: "/landlord/payments",
-      label: t("navigation.payments"),
-      icon: CreditCard,
-    },
+    // {
+    //   href: "/landlord/payments",
+    //   label: t("navigation.payments"),
+    //   icon: CreditCard,
+    // },
   ];
 
   return (

@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 export default async function PropertyDetailsPage({
   params,
 }: {
-  params: Promise<{ property_id: string }>;
+  params: Promise<{ property_id: number }>;
 }) {
   const awaitedParams = await params;
   const propertyId = awaitedParams.property_id;
@@ -38,7 +38,7 @@ export default async function PropertyDetailsPage({
         <PropertyHeader property={propertyDetails} />
 
         {/* Tabs Navigation */}
-        <RoomTabs bedRooms={propertyDetails.rooms} />
+        <RoomTabs bedRooms={propertyDetails.rooms} property_id={propertyId} />
       </div>
     </div>
   );

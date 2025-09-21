@@ -368,7 +368,9 @@
     "addPhotos": "تحميل الصور",
     "roomType": "نوع الغرفة",
     "single": "غرفة فردية",
-    "shared": "غرفة مشتركة"
+    "shared": "غرفة مشتركة",
+    "totalBeds": "عدد الأسرّة",
+    "availableBeds": "الأسرّة الشاغرة"
   },
   "booking": {
     "bookingConfirmation": "تأكيد الحجز",
@@ -399,6 +401,8 @@
   "whatsapp": {
     "supportTitle": "تحتاج مساعدة؟",
     "supportMessage": "تواصل مع فريق الدعم",
-    "generalInquiry": "مرحباً! أحتاج مساعدة مع منصة بيتني."
+    "generalInquiry": "مرحباً! أحتاج مساعدة مع منصة بيتني.",
+    "hide": "إخفاء زر الواتساب",
+    "show": "إظهار زر الواتساب"
   }
 }

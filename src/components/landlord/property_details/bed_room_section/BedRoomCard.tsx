@@ -8,6 +8,7 @@ import { updateRoom } from "@/utils/landlord/room/updateRoom";
 import { deleteRoom } from "@/utils/landlord/room/deleteRoom";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { ROOM_TYPE_LABELS } from "@/lib/enum/room_enums";
 
 const FALLBACK_IMAGE = "/default-fallback-image.png";
 
@@ -17,7 +18,7 @@ interface Props {
 }
 
 export default function BedRoomCard({ room, index }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [originalRoom, setOriginalRoom] = useState<Room>(room);
@@ -207,6 +208,31 @@ export default function BedRoomCard({ room, index }: Props) {
                 ${editedRoom.price_of_bed_per_month}
               </p>
             )}
+          </div>
+        </div>
+        {/* Beds & Room Type (Read-only) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex flex-col">
+            <span className="font-semibold text-sm">
+              {t("room.totalBeds")}:
+            </span>
+            <span className="text-gray-700">{room.number_of_beds}</span>
+          </div>
+
+          <div className="flex flex-col">
+            <span className="font-semibold text-sm">
+              {t("room.availableBeds")}:
+            </span>
+            <span className="text-gray-700">
+              {room.number_of_available_beds}
+            </span>
+          </div>
+
+          <div className="flex flex-col">
+            <span className="font-semibold text-sm">{t("room.roomType")}:</span>
+            <span className="text-gray-700">
+              {ROOM_TYPE_LABELS[room.room_type][language]}
+            </span>
           </div>
         </div>
 

@@ -1,8 +1,9 @@
+import { PropertyStatus } from "@/lib/enum/property_enums";
 import axios from "axios";
 
 // src/utils/landlord/getMyProperties.ts
 interface PropertyFilters {
-  status?: string; // "active", "inactive", "pending"
+  status?: PropertyStatus; // "active", "inactive", "pending"
   type?: string; // "house", "apartment", "studio"
   search?: string;
 }
@@ -13,8 +14,9 @@ export async function getMyProperties(landlord_id: string, filters?: PropertyFil
 
     if (filters) {
       if (filters.status) {
-        if (filters.status === "active") params.append("is_active", "1");
-        if (filters.status === "0") params.append("is_active", "0");
+        if (filters.status === PropertyStatus.Active) params.append("is_active", PropertyStatus.Active);
+        if (filters.status === PropertyStatus.NotActive) params.append("is_active", PropertyStatus.NotActive);
+        if (filters.status === PropertyStatus.Pending) params.append("is_active", PropertyStatus.Pending);
         // pending handled by backend if needed
       }
       if (filters.type && filters.type !== "all") params.append("property_type", filters.type);

@@ -1,16 +1,23 @@
-// src/components/landlord/property_details/PropertyTabs.tsx
+// src/components/landlord/property_details/RoomTaps.tsx
 "use client";
 import { Room } from "@/types/rooms/rooms";
 import SectionHeader from "../bed_room_section/SectionHeader";
 import BedRoomCard from "../bed_room_section/BedRoomCard";
 import { useLanguage } from "@/context/LanguageContext";
+import { useRouter } from "next/navigation";
 
 interface Props {
+  property_id: number;
   bedRooms: Room[];
 }
 
-export default function PropertyTabs({ bedRooms }: Props) {
+export default function RoomTabs({ property_id, bedRooms }: Props) {
   const { t } = useLanguage();
+  const router = useRouter();
+  const handleAddBedroom = () => {
+    router.push(`/landlord/manage-listings/add-new-room/${property_id}`);
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
       <div className="border-b-2 border-secondary">
@@ -22,6 +29,7 @@ export default function PropertyTabs({ bedRooms }: Props) {
         <SectionHeader
           title={`${t("room.bedrooms")} (${bedRooms.length})`}
           action={t("room.addBedroom")}
+          onActionClick={handleAddBedroom} // <-- pass handler
         />
         <div className="space-y-6">
           {bedRooms.map((room, index) => (

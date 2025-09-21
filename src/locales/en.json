@@ -341,7 +341,7 @@
     },
     "bedrooms": "Bedrooms",
     "addBedroom": "Add Bedroom",
-    "backToProperties":"Back to Properties"
+    "backToProperties": "Back to Properties"
   },
   "room": {
     "status": {
@@ -368,7 +368,9 @@
     "addPhotos": "Upload Images",
     "roomType": "Room Type",
     "single": "Single Room",
-    "shared": "Shared Room"
+    "shared": "Shared Room",
+    "totalBeds": "Beds Number",
+    "availableBeds": "Free Beds"
   },
   "booking": {
     "bookingConfirmation": "Booking Confirmation",
@@ -399,6 +401,8 @@
   "whatsapp": {
     "supportTitle": "Need Help?",
     "supportMessage": "Contact our support team",
-    "generalInquiry": "Hi! I need help with Bayyitni platform."
+    "generalInquiry": "Hi! I need help with Bayyitni platform.",
+    "hide": "Hide WhatsApp button",
+    "show": "Show WhatsApp button"
   }
 }

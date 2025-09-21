@@ -160,80 +160,83 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
       {/* Image Section */}
-      <div className="relative h-80 overflow-hidden rounded-xl">
-        {/* Image Carousel */}
+      <div className="relative h-60 md:h-80 rounded-xl overflow-hidden">
+        {/* Main Image */}
         <img
           src={images[currentIndex]}
           alt={`${title} ${currentIndex + 1}`}
-          className="w-full h-full object-cover transition-all duration-300"
+          className="w-full h-full object-fit"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE;
           }}
         />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-          <div className="p-6 text-white w-full">
-            <div className="flex justify-between items-center mb-2">
-              {editMode ? (
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => {
-                    setTitle(e.target.value);
-                    setUpdatedData((prev) => ({
-                      ...prev,
-                      title: e.target.value,
-                    }));
-                  }}
-                  className="text-3xl font-bold bg-transparent border-b border-white focus:outline-none w-full"
-                />
-              ) : (
-                <h1 className="text-3xl font-bold">{title}</h1>
-              )}
+        {/* Overlay (Title + Type + Location) */}
+        <div className="absolute top-4 left-4 bg-black/20 backdrop-blur-sm rounded-xl p-4 max-w-[70%] md:max-w-[50%]">
+          <div className="flex flex-wrap items-center gap-3 mb-2">
+            {editMode ? (
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  setUpdatedData((prev) => ({
+                    ...prev,
+                    title: e.target.value,
+                  }));
+                }}
+                className="text-xl md:text-3xl font-bold bg-transparent border-b border-white focus:outline-none w-full md:w-auto"
+              />
+            ) : (
+              <h1 className="text-xl md:text-3xl font-bold leading-snug text-secondary">
+                {title}
+              </h1>
+            )}
 
-              <span className="bg-primary text-white text-sm text-center font-semibold px-3 py-1 rounded-full">
-                {property.property_type === "apartment"
-                  ? t("common.apartment")
-                  : t("common.studio")}
-              </span>
-            </div>
-            <div className="flex items-center mb-2">
-              <LocationEdit className="h-5 w-5 me-2" />
-              <span>
-                {CITY_LABELS[property.city][language]},{" "}
-                {COUNTRY_LABELS[property.country][language]} •{" "}
-              </span>
-            </div>
+            <span className="bg-primary text-white text-xs md:text-xl font-semibold px-6 py-1.5 rounded-full shadow-md">
+              {property.property_type === "apartment"
+                ? t("common.apartment")
+                : t("common.studio")}
+            </span>
+          </div>
+
+          <div className="flex items-center text-sm md:text-base text-hints">
+            <LocationEdit className="h-4 w-4 md:h-5 me-2 text-hints" />
+            <span className="truncate">
+              {CITY_LABELS[property.city][language]},{" "}
+              {COUNTRY_LABELS[property.country][language]}
+            </span>
           </div>
         </div>
 
-        {/* Navigation Buttons */}
+        {/* Thumbnail Strip */}
         {images.length > 1 && (
-          <>
-            <button
-              onClick={() =>
-                setCurrentIndex((prev) =>
-                  prev === 0 ? images.length - 1 : prev - 1
-                )
-              }
-              className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full"
-            >
-              &#10094;
-            </button>
-            <button
-              onClick={() =>
-                setCurrentIndex((prev) =>
-                  prev === images.length - 1 ? 0 : prev + 1
-                )
-              }
-              className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full"
-            >
-              &#10095;
-            </button>
-          </>
+          <div className="absolute bottom-3 left-4 right-4">
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition ${
+                    idx === currentIndex ? "border-primary" : "border-white/50"
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`${title} ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src =
+                        FALLBACK_IMAGE;
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
         )}
       </div>
+
       {editMode && (
         <div className="bg-green-100 border-l-4 border-t-4 border-green-400 text-secondary p-4 m-2 rounded-lg shadow-sm flex justify-between items-center transition-all duration-300">
           {/* Left: Status Text */}

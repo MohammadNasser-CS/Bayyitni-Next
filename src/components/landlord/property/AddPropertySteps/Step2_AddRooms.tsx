@@ -6,24 +6,19 @@ import { Plus } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const ROOM_TYPE_OPTIONS = [
-  { label: "Single", value: "single" },
-  { label: "Double", value: "double" },
-];
-
-interface Step3Props {
+interface Step2Props {
   bedRoomsData: CreateRoomRequest[];
   setBedRoomsData: React.Dispatch<React.SetStateAction<CreateRoomRequest[]>>;
   onBack: () => void;
   onNext: () => void;
 }
 
-export default function Step3({
+export default function Step2({
   bedRoomsData,
   setBedRoomsData,
   onBack,
   onNext,
-}: Step3Props) {
+}: Step2Props) {
   //
   const today = new Date().toISOString().split("T")[0]; // "2025-09-18"
   const { t } = useLanguage();
@@ -58,7 +53,7 @@ export default function Step3({
     setBedRoomsData([
       ...bedRoomsData,
       {
-        room_type: "single",
+        room_type: RoomType.Single,
         images: [],
         number_of_available_beds: 1,
         number_of_beds: 1,
@@ -121,7 +116,7 @@ export default function Step3({
                       handleBedroomChange(
                         i,
                         "room_type",
-                        e.target.value as "single" | "double"
+                        e.target.value as RoomType
                       )
                     }
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"

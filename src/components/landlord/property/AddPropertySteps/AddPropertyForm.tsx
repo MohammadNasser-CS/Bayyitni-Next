@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import AddPropertySteps from "./AddPropertySteps";
-import Step2 from "./Step2_PropertyDetails";
-import Step3 from "./Step3_AddRooms";
+import Step3 from "./Step2_AddRooms";
 import { addNewProperty } from "@/utils/landlord/addNewProperty";
 import { CreatePropertyRequest } from "@/types/property/property";
 import {
@@ -14,6 +13,7 @@ import {
 import { CreateRoomRequest } from "@/types/rooms/rooms";
 import { useRouter } from "next/navigation";
 import { CityEnum, CountryEnum } from "@/lib/enum/location_enums";
+import Step1 from "./Step1_PropertyDetails";
 
 const initialFormData: CreatePropertyRequest = {
   landlord_id: "",
@@ -90,7 +90,7 @@ export default function AddPropertyForm() {
   };
 
   const steps = [
-    <Step2
+    <Step1
       key="property"
       propertyData={propertyData}
       setPropertyData={setPropertyData}

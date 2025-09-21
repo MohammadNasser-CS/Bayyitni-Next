@@ -2,7 +2,7 @@
 import { PropertyDetail } from "@/types/property/property";
 import axios from "axios";
 
-export async function getPropertyDetails(property_id: string): Promise<PropertyDetail> {
+export async function getPropertyDetails(property_id: number): Promise<PropertyDetail> {
   try {
     const res = await axios.get(
       `https://bayyitni-laravel-2.onrender.com/api/property/detailed/${property_id}`,

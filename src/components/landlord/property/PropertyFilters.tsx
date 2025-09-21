@@ -6,7 +6,7 @@ import { PropertyStatus, PropertyType } from "@/lib/enum/property_enums";
 
 export interface PropertyFiltersProps {
   onFilterChange: (filters: {
-    status: string;
+    status: PropertyStatus;
     type: string;
     search: string;
   }) => void;
@@ -28,7 +28,7 @@ export default function PropertyFilters({
   onFilterChange,
 }: PropertyFiltersProps) {
   const { t } = useLanguage();
-  const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState(PropertyStatus.All);
   const [type, setType] = useState("all");
   const [search, setSearch] = useState("");
 
@@ -47,9 +47,11 @@ export default function PropertyFilters({
           <select
             className="form-select"
             value={status}
-            onChange={(e) => setStatus(e.target.value)}
+            onChange={(e) => setStatus(e.target.value as PropertyStatus)}
           >
-            <option value="">{t("common.allProperties")}</option>
+            <option value={PropertyStatus.All}>
+              {t("common.allProperties")}
+            </option>
             <option value={PropertyStatus.Active}>{t("common.active")}</option>
             <option value={PropertyStatus.NotActive}>
               {t("common.inactive")}

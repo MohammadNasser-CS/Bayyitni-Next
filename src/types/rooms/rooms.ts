@@ -1,3 +1,5 @@
+import { RoomType } from "@/lib/enum/room_enums";
+
 export interface RoomImage {
   id: number;
   image_url: string;
@@ -8,7 +10,7 @@ export interface Room {
   description: string;
   price_of_bed_per_month: string;
   available_from: string;
-  room_type: string;
+  room_type: RoomType;
   number_of_beds: number;
   number_of_available_beds: number;
   is_active: boolean;
@@ -26,7 +28,7 @@ export interface CreateRoomRequest {
   price_of_bed_per_month?: number;
   number_of_beds: number;
   is_active?: boolean;
-  room_type: "single" | "shared";
+  room_type: RoomType;
   available_from?: string; // YYYY-MM-DD
   number_of_available_beds: number;
   has_internal_bathroom?: boolean;

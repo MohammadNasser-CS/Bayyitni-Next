@@ -24,7 +24,7 @@ import {
   CountryEnum,
 } from "@/lib/enum/location_enums";
 
-interface Step2Props {
+interface Step1Props {
   propertyData: CreatePropertyRequest;
   setPropertyData: Dispatch<SetStateAction<CreatePropertyRequest>>;
   onNext: () => void;
@@ -36,12 +36,12 @@ type ErrorsMap = Record<string, string[]>;
 
 type FileWithPreview = { file: File; url: string };
 
-export default function Step2({
+export default function Step1({
   propertyData,
   setPropertyData,
   onNext,
   onBack,
-}: Step2Props) {
+}: Step1Props) {
   const { user, isLoading } = useAuth();
   const { t, language } = useLanguage();
 

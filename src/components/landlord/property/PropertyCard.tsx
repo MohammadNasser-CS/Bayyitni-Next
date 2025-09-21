@@ -55,23 +55,6 @@ export default function PropertyCard({
             }}
           />
 
-          {images.length > 1 && (
-            <>
-              <button
-                onClick={handlePrev}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white rounded-full p-1 hover:bg-opacity-50 transition cursor-pointer"
-              >
-                ◀
-              </button>
-              <button
-                onClick={handleNext}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white rounded-full p-1 hover:bg-opacity-50 transition cursor-pointer"
-              >
-                ▶
-              </button>
-            </>
-          )}
-
           <span
             className={`absolute top-2 left-2 text-xs font-semibold px-2 py-1 rounded ${
               property.status

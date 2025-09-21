@@ -1,20 +1,28 @@
 import { Plus } from "lucide-react";
+interface SectionHeaderProps {
+  title: string;
+  action?: string;
+  onActionClick?: () => void; // <-- new
+}
 
 export default function SectionHeader({
   title,
   action,
-}: {
-  title: string;
-  action: string;
-}) {
+  onActionClick,
+}: SectionHeaderProps) {
   return (
     <>
       <div className="flex justify-between items-center mb-4 text-secondary">
         <h2 className="text-xl font-bold">{title}</h2>
-        <button className="add-room-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-lg text-sm flex items-center">
-          <Plus className="w-4 h-4 me-2" />
-          {action}
-        </button>
+        {action && (
+          <button
+            onClick={onActionClick} // <-- handle navigation
+            className="text-sm bg-primary text-white hover:bg-orange-500 flex items-center rounded-lg px-3 py-1 gap-1"
+          >
+            <Plus className="h-5 w-5" />
+            {action}
+          </button>
+        )}
       </div>
     </>
   );

@@ -9,6 +9,7 @@ export enum PropertyType {
 }
 
 export enum PropertyStatus {
+  All = "",
   Active = "active",
   NotActive = "not_active",
   Pending = "pending",
@@ -34,6 +35,7 @@ export const PROPERTY_TYPE_LABELS: Record<PropertyType, Record<string, string>> 
 };
 
 export const PROPERTY_STATUS_LABELS: Record<PropertyStatus, Record<string, string>> = {
+  [PropertyStatus.All]: { en: "All", ar: "الكل" },
   [PropertyStatus.Active]: { en: "Active", ar: "نشط" },
   [PropertyStatus.NotActive]: { en: "Not Active", ar: "غير نشط" },
   [PropertyStatus.Pending]: { en: "Pending", ar: "قيد الانتظار" },
