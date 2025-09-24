@@ -1,53 +1,50 @@
 import { CreatePropertyRequest } from "@/types/property/property";
 import axios from "axios";
+import { uploadImageToCloudinary } from "../cloudinary/uploadImage";
 
 export async function addNewProperty(formData: CreatePropertyRequest) {
-  const form = new FormData();
+  // ✅ Shallow clone to avoid mutating original formData
+  const payload: any = { ...formData };
 
-  for (const [key, value] of Object.entries(formData)) {
-    if (key === "images" && Array.isArray(value)) {
-      // ✅ Laravel expects images[]
-      value.forEach((file) => {
-        if (file instanceof File) {
-          form.append("images[]", file);
-        }
-      });
-    } else if (key === "rooms" && Array.isArray(value)) {
-      // ✅ Append each room as rooms[index][field]
-      value.forEach((room, idx) => {
-        Object.entries(room).forEach(([rKey, rValue]) => {
-          if (rValue !== undefined && rValue !== null) {
-            if (rKey === "images" && Array.isArray(rValue)) {
-              rValue.forEach((file) => {
-                if (file instanceof File) {
-                  form.append(`rooms[${idx}][images][]`, file);
-                }
-              });
-            } else if (typeof rValue === "boolean") {
-              form.append(`rooms[${idx}][${rKey}]`, rValue ? "1" : "0");
-            } else {
-              form.append(`rooms[${idx}][${rKey}]`, String(rValue));
-            }
-          }
-        });
-      });
-    } else if (typeof value === "boolean") {
-      form.append(key, value ? "true" : "false");
-    } else if (typeof value === "number") {
-      form.append(key, value.toString());
-    } else if (value !== undefined && value !== null) {
-      form.append(key, value as string);
-    }
+  // ✅ Upload property images
+  if (Array.isArray(formData.images) && formData.images.length > 0) {
+    const uploadedImages = await Promise.all(
+      formData.images.map((file) =>
+        file instanceof File ? uploadImageToCloudinary(file, process.env.NEXT_PUBLIC_CLOUDINARY_PROPERTY_PRESET!, "bayyitni/properties") : file
+      )
+    );
+    payload.images = uploadedImages;
   }
 
+  // ✅ Upload room images
+  if (Array.isArray(formData.rooms) && formData.rooms.length > 0) {
+    payload.rooms = await Promise.all(
+      formData.rooms.map(async (room) => {
+        const newRoom: any = { ...room };
+
+        if (Array.isArray(room.images) && room.images.length > 0) {
+          const uploadedRoomImages = await Promise.all(
+            room.images.map((file) =>
+              file instanceof File ? uploadImageToCloudinary(file, process.env.NEXT_PUBLIC_CLOUDINARY_ROOM_PRESET!, "bayyitni/rooms") : file
+            )
+          );
+          newRoom.images = uploadedRoomImages;
+        }
+
+        return newRoom;
+      })
+    );
+  }
+  console.log("Created Property:", payload);
   try {
+    // ✅ Send JSON (since now we only have URLs, no Files)
     const response = await axios.post(
       "https://bayyitni-laravel-2.onrender.com/api/property",
-      form,
+      payload,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
-          "Accept": "application/json"
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
       }
     );
@@ -55,6 +52,8 @@ export async function addNewProperty(formData: CreatePropertyRequest) {
     return response.data;
   } catch (error: any) {
     console.error("Backend Error:", error.response?.data || error.message);
-    throw new Error(`Failed to create property: ${error.response?.data || error.message}`);
+    throw new Error(
+      `Failed to create property: ${error.response?.data || error.message}`
+    );
   }
 }

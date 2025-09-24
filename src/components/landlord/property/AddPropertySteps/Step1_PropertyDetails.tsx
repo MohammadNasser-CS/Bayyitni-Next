@@ -515,7 +515,7 @@ export default function Step1({
               }
               className="h-8 w-full rounded-md border px-2 text-sm border-gray-300 placeholder-hints"
             >
-              <option selected value={PropertyGenderPreference.Any}>
+              <option value={PropertyGenderPreference.Any}>
                 {t(
                   "landlord.manageListings.addPropertyPage.detailsCard.genderPreference.placeholder"
                 )}
