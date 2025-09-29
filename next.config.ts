@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-
+const clerkFrontendApi = process.env.NEXT_PUBLIC_CLERK_FRONTEND_API;
 const backendUrl =
   process.env.NODE_ENV === "production"
     ? "https://bayyitni-laravel-2.onrender.com" // your production backend
@@ -9,15 +9,15 @@ const securityHeaders = [
   {
     key: "Content-Security-Policy",
     value: `
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://clerk.com https://*.clerk.com https://cdn.jsdelivr.net https://*.accounts.dev;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      img-src 'self' data: blob: https:;
-      font-src 'self' data: https: https://fonts.gstatic.com;
-      connect-src 'self' https://api.clerk.dev https://clerk.com https://*.clerk.com https://*.accounts.dev ${backendUrl};
-      frame-src 'self' https://clerk.com https://*.clerk.com;
-      worker-src 'self' blob:;
-    `.replace(/\s{2,}/g, " "), // remove extra spaces
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://clerk.com https://*.clerk.com https://cdn.jsdelivr.net ${clerkFrontendApi};
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    img-src 'self' data: blob: https:;
+    font-src 'self' data: https: https://fonts.gstatic.com;
+    connect-src 'self' https://api.clerk.dev https://clerk.com https://*.clerk.com ${clerkFrontendApi} ${backendUrl};
+    frame-src 'self' https://clerk.com https://*.clerk.com ${clerkFrontendApi};
+    worker-src 'self' blob:;
+  `.replace(/\s{2,}/g, " "),
   },
   {
     key: "Referrer-Policy",
