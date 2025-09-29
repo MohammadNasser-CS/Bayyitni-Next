@@ -51,7 +51,10 @@
     "selected": "Selected",
     "addPhotos": "Choose room images",
     "deleting": "Deleting",
-    "confirmDelete": "Are you sure that you want to delete this room ?"
+    "confirmDelete": "Are you sure that you want to delete this room ?",
+    "description": "Description",
+    "location": "Location",
+    "no_utilities": "No utilities available"
   },
   "navigation": {
     "home": "Home",
@@ -72,25 +75,32 @@
     "step_3": "Brief review"
   },
   "homepage": {
-    "title": "Welcome to Bayyitni",
+    "title": "Welcome to",
+    "bayyitni": "Bayyitni",
     "subtitle": "Your trusted platform for finding the perfect student accommodation. Connect with verified landlords and discover your ideal home away from home.",
+    "getStarted": "Get Started",
+    "signUp": "Sign Up",
     "whyChoose": "Why Choose Bayyitni?",
     "whyChooseSubtitle": "We make student housing simple, safe, and accessible",
     "forStudents": "For Students",
     "forStudentsDesc": "Find your perfect accommodation with advanced search and verified listings",
-    "forLandlords": "For Landlords",
-    "forLandlordsDesc": "List your properties and connect with quality student tenants",
-    "trustedPlatform": "Trusted Platform",
-    "trustedPlatformDesc": "Built with security and cultural awareness at its core",
-    "features": {
+    "studentsList": {
       "advancedSearch": "Advanced search filters",
       "verifiedLandlords": "Verified landlords",
       "secureBooking": "Secure booking process",
-      "support247": "24/7 support",
+      "support247": "24/7 support"
+    },
+    "forLandlords": "For Landlords",
+    "forLandlordsDesc": "List your housings and reach out quality student tenants",
+    "landlordsList": {
       "easyManagement": "Easy property management",
-      "tenantScreening": "Tenant screening",
+      "tenantScreening": "Trusted student",
       "securePayments": "Secure payments",
-      "analytics": "Analytics dashboard",
+      "analytics": "Analytics dashboard"
+    },
+    "trustedPlatform": "Trusted Platform",
+    "trustedPlatformDesc": "Built with security and cultural awareness at its core",
+    "trustedList": {
       "verifiedListings": "Verified listings",
       "secureTransactions": "Secure transactions",
       "culturalSensitivity": "Cultural sensitivity",
@@ -121,9 +131,148 @@
     "alreadyHaveAccount": "Already have an account?",
     "dontHaveAccount": "Don't have an account?",
     "signInHere": "Sign in here",
-    "signUpHere": "Sign up here"
+    "signUpHere": "Sign up here",
+    "checkingSession": "Checking your session...",
+    "welcomeBack": "Welcome back, {{name}}! Redirecting you to your {{role}}...",
+    "friend": "friend",
+    "dashboard": "dashboard",
+    "SelectRoleLayout": {
+      "alreadyHaveAccount": "Already have an account?",
+      "backToSignIn": "Back to Sign In"
+    },
+    "SelectRole": {
+      "roleSelected": "Role Selected",
+      "studentInfoStep": "Student Information",
+      "completeStep": "Complete",
+      "welcome": "Welcome to Bayyitni",
+      "chooseRole": "Choose your role to get started",
+      "student": {
+        "title": "I'm a Student",
+        "description": "Looking for accommodation near my university",
+        "points": [
+          "Browse available properties",
+          "Book rooms instantly",
+          "Connect with other students"
+        ],
+        "footerText": "Perfect for university students seeking quality accommodation",
+        "studentInfo": {
+          "title": "Tell us about yourself",
+          "subtitle": "Help us find the perfect accommodation for you",
+          "alerts": {
+            "failedUpdate": "Failed to complete registration."
+          },
+          "personalInfo": {
+            "title": "Personal Information",
+            "dateOfBirthPlaceholder": "Select your birth date",
+            "selectGender": "Select your gender",
+            "gender": {
+              "male": "Male",
+              "female": "Female",
+              "other": "Other",
+              "preferNotToSay": "Prefer not to say"
+            }
+          },
+          "academicInfo": {
+            "title": "Academic Information",
+            "universityPlaceholder": "Select your university",
+            "collegePlaceholder": "Select your college",
+            "degreePlaceholder": "Select degree level",
+            "bachelor": "Bachelor's Degree",
+            "master": "Master's Degree",
+            "phd": "PhD",
+            "diploma": "Diploma",
+            "certificate": "Certificate",
+            "specializationPlaceholder": "Specialization / Major",
+            "universities": {
+              "university_palestine": "University of Palestine",
+              "birzeit_university": "Birzeit University",
+              "alquds_university": "Al-Quds University",
+              "hebron_university": "Hebron University",
+              "annajah_university": "An-Najah National University"
+            },
+            "colleges": {
+              "engineering": "Engineering",
+              "business": "Business",
+              "arts": "Arts",
+              "science": "Science",
+              "law": "Law",
+              "medicine": "Medicine"
+            }
+          },
+          "preferences": {
+            "title": "Housing Preferences",
+            "optional": "Optional",
+            "budget": {
+              "select": "Select budget range",
+              "under500": "Under $500/month",
+              "between500_750": "$500 - $750/month",
+              "between750_1000": "$750 - $1000/month",
+              "over1000": "Over $1000/month"
+            },
+            "room": {
+              "select": "Select room type",
+              "single": "Single Room",
+              "shared": "Shared Room",
+              "studio": "Studio Apartment",
+              "noPreference": "No Preference"
+            }
+          },
+          "formActions": {
+            "back": "← Back to Role Selection",
+            "complete": "Complete Registration →"
+          }
+        }
+      },
+      "landlord": {
+        "title": "I'm a Landlord",
+        "description": "I have properties to rent to students",
+        "points": [
+          "List your properties",
+          "Manage bookings",
+          "Reach verified students"
+        ],
+        "footerText": "Ideal for property owners and rental managers"
+      },
+      "continue": "Continue",
+      "loading": "Loading...",
+      "agree": "By continuing, you agree to our",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "and": "and",
+      "alerts": {
+        "noRole": "Please select a role",
+        "invalidRole": "Invalid role selected. Please try again.",
+        "failedUpdate": "Failed to update role. Please try again."
+      }
+    }
   },
   "student": {
+    "explore": {
+      "title": "Find Your Perfect Student Housing",
+      "subtitle": "Discover verified student accommodations near your university",
+      "filters": {
+        "searchPlaceholder": "Search by location, university, or property name...",
+        "filtersBtn": "Filters",
+        "maxPrice": "Maximum Price",
+        "title": "Filters",
+        "clearAll": "Clear All",
+        "priceRange": "Price Range (SAR/month)",
+        "gender": "Gender Preference",
+        "genderAll": "All",
+        "genderMale": "Male",
+        "genderFemale": "Female",
+        "propertyType": "Student Housing Type",
+        "roomType": "Room Type",
+        "allTypes": "All Types",
+        "single": "Single",
+        "shared": "Shared",
+        "studio": "Studio",
+        "amenities": "Amenities",
+        "wifi": "WiFi",
+        "parking": "Parking",
+        "ac": "AC"
+      }
+    },
     "exploreTitle": "Explore Accommodations",
     "searchPlaceholder": "Search by location, university, or property name...",
     "filters": "Filters",
@@ -341,7 +490,9 @@
     },
     "bedrooms": "Bedrooms",
     "addBedroom": "Add Bedroom",
-    "backToProperties": "Back to Properties"
+    "backToProperties": "Back to Properties",
+    "noPrice": "No price provided yet",
+    "priceRange": "Price Range (NIS/month)"
   },
   "room": {
     "status": {
@@ -404,5 +555,60 @@
     "generalInquiry": "Hi! I need help with Bayyitni platform.",
     "hide": "Hide WhatsApp button",
     "show": "Show WhatsApp button"
+  },
+  "legal": {
+    "backButton": "Go Back",
+    "terms": {
+      "title": "Terms of Service",
+      "effectiveDate": "Effective Date: [Insert Date]",
+      "accounts": {
+        "title": "1. Accounts",
+        "text": "You must provide accurate information when registering. You are responsible for maintaining your account’s security."
+      },
+      "roles": {
+        "title": "2. Roles",
+        "text": "<strong>Students:</strong> may browse, book, and connect with landlords.<br /><strong>Landlords:</strong> may list and manage properties. They are fully responsible for their listings and compliance with local laws."
+      },
+      "platformRole": {
+        "title": "3. Platform Role",
+        "text": "Bayyitni acts only as a connecting platform. We are not responsible for property quality, rental agreements, or disputes between users."
+      },
+      "prohibitedUse": {
+        "title": "4. Prohibited Use",
+        "text": "Fraudulent, abusive, or illegal activity is prohibited. We reserve the right to suspend or terminate accounts that violate these terms."
+      },
+      "liability": {
+        "title": "5. Liability",
+        "text": "Bayyitni is not liable for damages, losses, or disputes arising from property rentals or user interactions."
+      },
+      "changes": {
+        "title": "6. Changes",
+        "text": "We may update these terms. Continued use of Bayyitni means you accept the new version of the Terms of Service."
+      }
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "effectiveDate": "Effective Date: [Insert Date]",
+      "infoCollect": {
+        "title": "1. Information We Collect",
+        "text": "We collect personal details such as your name, email, and profile data (student or landlord), property listings, images, and booking-related information."
+      },
+      "howUse": {
+        "title": "2. How We Use Your Information",
+        "text": "Your information helps us provide and improve our services, verify users (via Clerk), host images (via Cloudinary), and communicate with you about updates, bookings, or support."
+      },
+      "dataSharing": {
+        "title": "3. Data Sharing",
+        "text": "We never sell your data. We may share information with trusted service providers or disclose data if required by law."
+      },
+      "yourRights": {
+        "title": "4. Your Rights",
+        "text": "You may request access, correction, or deletion of your personal data, and opt out of non-essential communications."
+      },
+      "contact": {
+        "title": "5. Contact",
+        "text": "For any privacy-related inquiries, please contact us at <a href='mailto:info@bayyitni.com' class='text-blue-600 underline'>info@bayyitni.com</a>."
+      }
+    }
   }
 }

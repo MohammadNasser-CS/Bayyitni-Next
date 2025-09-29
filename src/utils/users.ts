@@ -25,15 +25,6 @@ export async function updateClerkRole(userId: string, update: Record<string, any
     throw new Error(data?.error || "Failed to update user");
   }
 
-  // ✅ Optional: validate each updated field in public_metadata
-  const metadata = data.public_metadata || {};
-  for (const key of Object.keys(update)) {
-    if (metadata[key] !== update[key]) {
-      console.warn(`Field '${key}' did not persist correctly.`);
-      throw new Error(`Update failed for '${key}'`);
-    }
-  }
-
   return data;
 }
 

@@ -1,6 +1,7 @@
 // src/components/public/LanguageToggle.tsx
 "use client";
 import { useLanguage } from "@/context/LanguageContext";
+import { Globe } from "lucide-react";
 
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage();
@@ -13,9 +14,12 @@ export function LanguageToggle() {
   return (
     <button
       onClick={toggleLanguage}
-      className="px-3 py-1 border rounded-md bg-gray-200 hover:bg-gray-300"
+      className="flex items-center gap-2 bg-white shadow-md hover:shadow-lg px-4 py-2 rounded-md border border-gray-200 transition cursor-pointer"
     >
-      {language === "en" ? "Arabic" : "إنجليزي"}
+      <Globe className="w-5 h-5 text-primary" />
+      <span className="font-medium">
+        {language === "en" ? "العربية" : "English"}
+      </span>
     </button>
   );
 }

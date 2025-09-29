@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { useUser } from "@clerk/nextjs";
 import type { User, StudentProfile } from "@/types/user";
 
@@ -14,53 +14,38 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { user: clerkUser, isLoaded } = useUser();
-  const [authData, setAuthData] = useState<AuthContextType>({
+
+  let authData: AuthContextType = {
     user: null,
     studentProfile: undefined,
-    isLoading: true,
-  });
+    isLoading: !isLoaded,
+  };
 
-  useEffect(() => {
-    if (isLoaded) {
-      if (clerkUser) {
-        const convertedUser: User = {
-          id: (clerkUser.publicMetadata.userId as string) || clerkUser.id,
-          clerk_id: clerkUser.id,
-          name:
-            clerkUser.fullName ||
-            `${clerkUser.firstName ?? ""} ${clerkUser.lastName ?? ""}`.trim() ||
-            "User",
-          email: clerkUser.primaryEmailAddress?.emailAddress || "",
-          role:
-            (clerkUser.publicMetadata.role as
-              | "student"
-              | "landlord"
-              | "admin") || "student",
-          phone: clerkUser.primaryPhoneNumber?.phoneNumber || "",
-          profile_image_url: clerkUser.imageUrl,
-          is_active: true,
-          email_verified:
-            clerkUser.primaryEmailAddress?.verification?.status === "verified",
-          created_at: new Date(clerkUser.createdAt || Date.now()),
-          updated_at: new Date(clerkUser.updatedAt || Date.now()),
-        };
-
-        setAuthData({
-          user: convertedUser,
-          studentProfile: clerkUser.publicMetadata.studentProfile as
-            | StudentProfile
-            | undefined,
-          isLoading: false,
-        });
-      } else {
-        setAuthData({
-          user: null,
-          studentProfile: undefined,
-          isLoading: false,
-        });
-      }
-    }
-  }, [clerkUser, isLoaded]);
+  if (isLoaded && clerkUser) {
+    authData = {
+      user: {
+        id: (clerkUser.publicMetadata.userId as string) || clerkUser.id,
+        clerk_id: clerkUser.id,
+        name:
+          clerkUser.fullName ||
+          `${clerkUser.firstName ?? ""} ${clerkUser.lastName ?? ""}`.trim() ||
+          "User",
+        email: clerkUser.primaryEmailAddress?.emailAddress || "",
+        role: clerkUser.publicMetadata.role as "student" | "landlord" | "admin",
+        phone: clerkUser.primaryPhoneNumber?.phoneNumber || "",
+        profile_image_url: clerkUser.imageUrl,
+        is_active: true,
+        email_verified:
+          clerkUser.primaryEmailAddress?.verification?.status === "verified",
+        created_at: new Date(clerkUser.createdAt || Date.now()),
+        updated_at: new Date(clerkUser.updatedAt || Date.now()),
+      },
+      studentProfile: clerkUser.publicMetadata.studentProfile as
+        | StudentProfile
+        | undefined,
+      isLoading: false,
+    };
+  }
 
   return (
     <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>

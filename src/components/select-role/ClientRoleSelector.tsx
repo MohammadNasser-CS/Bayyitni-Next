@@ -4,72 +4,69 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import RoleCard, { RoleType } from "./RoleCard";
 import { updateClerkRole } from "@/utils/users";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Props {
   userId: string;
 }
 
-const rolesData: Omit<
-  React.ComponentProps<typeof RoleCard>,
-  "isSelected" | "onSelect"
->[] = [
-  {
-    role: "student",
-    title: "I'm a Student",
-    description: "Looking for accommodation near my university",
-    bgColor: "bg-blue-100",
-    iconColor: "text-blue-600",
-    points: [
-      "Browse available properties",
-      "Book rooms instantly",
-      "Connect with other students",
-    ],
-    footerText: "Perfect for university students seeking quality accommodation",
-  },
-  {
-    role: "landlord",
-    title: "I'm a Landlord",
-    description: "I have properties to rent to students",
-    bgColor: "bg-purple-100",
-    iconColor: "text-purple-600",
-    points: [
-      "List your properties",
-      "Manage bookings",
-      "Reach verified students",
-    ],
-    footerText: "Ideal for property owners and rental managers",
-  },
-];
-
 export default function ClientRoleSelector({ userId }: Props) {
   const router = useRouter();
+  const { t } = useLanguage();
   const [selectedRole, setSelectedRole] = useState<RoleType | "">("");
   const [loading, setLoading] = useState(false);
 
+  const rolesData: Omit<
+    React.ComponentProps<typeof RoleCard>,
+    "isSelected" | "onSelect"
+  >[] = [
+    {
+      role: "student",
+      title: t("auth.SelectRole.student.title"),
+      description: t("auth.SelectRole.student.description"),
+      bgColor: "bg-blue-100",
+      iconColor: "text-blue-600",
+      points: [
+        t("auth.SelectRole.student.points.0"),
+        t("auth.SelectRole.student.points.1"),
+        t("auth.SelectRole.student.points.2"),
+      ],
+      footerText: t("auth.SelectRole.student.footerText"),
+    },
+    {
+      role: "landlord",
+      title: t("auth.SelectRole.landlord.title"),
+      description: t("auth.SelectRole.landlord.description"),
+      bgColor: "bg-purple-100",
+      iconColor: "text-purple-600",
+      points: [
+        t("auth.SelectRole.landlord.points.0"),
+        t("auth.SelectRole.landlord.points.1"),
+        t("auth.SelectRole.landlord.points.2"),
+      ],
+      footerText: t("auth.SelectRole.landlord.footerText"),
+    },
+  ];
+
   const handleSubmit = async () => {
     if (!selectedRole) {
-      alert("Please select a role");
+      alert(t("auth.SelectRole.alerts.noRole"));
       return;
     }
-    console.log(`selectedRole => ${selectedRole}`);
 
     setLoading(true);
     try {
       if (selectedRole === "landlord") {
-        // Update directly for landlord
         await updateClerkRole(userId, { role: selectedRole });
         router.replace("/");
       } else if (selectedRole === "student") {
-        // Don't update yet — collect more data
         router.replace("/student-info");
-        console.log(`inner selectedRole => ${selectedRole}`);
       } else {
-        alert("Invalid role selected. Please try again.");
-        console.warn(`Unexpected role selected: ${selectedRole}`);
+        alert(t("auth.SelectRole.alerts.invalidRole"));
       }
     } catch (error) {
       console.error(error);
-      alert("Failed to update role. Please try again.");
+      alert(t("auth.SelectRole.alerts.failedUpdate"));
     } finally {
       setLoading(false);
     }
@@ -82,14 +79,14 @@ export default function ClientRoleSelector({ userId }: Props) {
   }));
 
   return (
-    <div className="min-h-screen px-4 py-8">
+    <div className="min-h-screen p-4">
       <div className="max-w-4xl mx-auto">
         <header className="text-center mb-6 animate-fade-in">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Welcome to Bayyitni
+            {t("auth.SelectRole.welcome")}
           </h1>
           <p className="text-xl opacity-90 mb-2">
-            Choose your role to get started
+            {t("auth.SelectRole.chooseRole")}
           </p>
         </header>
 
@@ -99,23 +96,25 @@ export default function ClientRoleSelector({ userId }: Props) {
           ))}
         </section>
 
-        <footer className="text-center mt-12">
+        <footer className="text-center mt-7">
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="bg-secondary cursor-pointer hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-3 px-10 rounded-lg transition duration-300"
+            className="bg-primary cursor-pointer hover:bg-labels disabled:opacity-50 text-white font-medium py-3 px-10 rounded-lg transition duration-300"
           >
-            {loading ? "Loading..." : "Continue"}
+            {loading
+              ? t("auth.SelectRole.loading")
+              : t("auth.SelectRole.continue")}
           </button>
 
           <p className="mt-6 text-sm opacity-70">
-            By continuing, you agree to our{" "}
-            <a href="#" className="underline hover:opacity-100">
-              Terms of Service
+            {t("auth.SelectRole.agree")}{" "}
+            <a href="/legal/terms" className="underline hover:opacity-100">
+              {t("auth.SelectRole.terms")}
             </a>{" "}
-            and{" "}
-            <a href="#" className="underline hover:opacity-100">
-              Privacy Policy
+            {t("auth.SelectRole.and")}{" "}
+            <a href="/legal/privacy" className="underline hover:opacity-100">
+              {t("auth.SelectRole.privacy")}
             </a>
           </p>
         </footer>

@@ -4,15 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useClerk, UserButton } from "@clerk/nextjs";
-import {
-  LayoutDashboard,
-  Plus,
-  Building,
-  CreditCard,
-  Menu,
-  X,
-  Bell,
-} from "lucide-react";
+import { Plus, Building, Menu, X, Bell } from "lucide-react";
 import Image from "next/image";
 import { LanguageToggle } from "@/components/public/LanguageToggle";
 import { useLanguage } from "@/context/LanguageContext";
@@ -101,7 +93,7 @@ export function LandlordNavbar() {
             </Link>
 
             {/* User (Clerk built-in component) */}
-            <UserButton />
+            <UserButton/>
 
             {/* Mobile menu toggle */}
             <button

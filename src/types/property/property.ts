@@ -58,6 +58,9 @@ export interface Property {
   rooms_count: number;
   // verification_status: string;
   available_rooms_count?: number;
+  average_room_price?: number;
+  min_room_price?: number | string;
+  max_room_price?: number | string;
 }
 
 

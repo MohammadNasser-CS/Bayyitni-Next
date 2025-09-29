@@ -1,4 +1,5 @@
 // src/app/select-role/components/RoleCard.tsx
+import { CheckCheck, GraduationCap, HouseIcon } from "lucide-react";
 import React from "react";
 
 export type RoleType = "student" | "landlord";
@@ -36,7 +37,7 @@ export default function RoleCard({
           onSelect(role);
         }
       }}
-      className={`bg-white rounded-2xl p-8 text-center cursor-pointer overflow-hidden transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-orange-400 ${
+      className={`bg-cards-background border rounded-2xl p-8 text-center cursor-pointer overflow-hidden transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-primary ${
         isSelected ? "ring-4 ring-orange-400" : ""
       }`}
       aria-pressed={isSelected}
@@ -46,27 +47,9 @@ export default function RoleCard({
           className={`${bgColor} w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4`}
         >
           {role === "student" ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className={`w-10 h-10 ${iconColor}`}
-            >
-              <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
-              <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
-            </svg>
+            <GraduationCap className="h-12 w-12" />
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className={`w-10 h-10 ${iconColor}`}
-            >
-              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-              <path d="M9 22V12h6v10" />
-            </svg>
+            <HouseIcon className="h-12 w-12" />
           )}
         </div>
         <h3 className="text-2xl font-bold mb-2">{title}</h3>
@@ -76,15 +59,7 @@ export default function RoleCard({
       <div className="space-y-3 mb-6">
         {points.map((point) => (
           <div key={point} className="flex items-center text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-5 h-5 text-green-500 mr-3"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
+            <CheckCheck className="w-5 h-5 text-green-500 me-3" />
             <span>{point}</span>
           </div>
         ))}

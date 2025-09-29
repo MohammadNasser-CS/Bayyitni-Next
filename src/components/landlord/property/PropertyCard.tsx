@@ -62,6 +62,8 @@ export default function PropertyCard({
                 : "bg-red-100 text-red-800"
             }`}
           >
+            {PROPERTY_TYPE_LABELS[property.property_type][language]}
+            {" - "}
             {property.status == PropertyStatus.Pending
               ? t("common.pending")
               : property.status == PropertyStatus.Active
@@ -79,8 +81,7 @@ export default function PropertyCard({
             </h3>
             <p className="text-xs text-gray-500">
               {CITY_LABELS[property.city][language]},{" "}
-              {COUNTRY_LABELS[property.country][language]} •{" "}
-              {PROPERTY_TYPE_LABELS[property.property_type][language]}
+              {COUNTRY_LABELS[property.country][language]} •
             </p>
           </div>
 
