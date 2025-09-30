@@ -12,7 +12,7 @@ export function WhatsAppFloat() {
 
   const handleWhatsAppSupport = () => {
     const message = encodeURIComponent(
-      t("support.whatsappMessage") ||
+      t("whatsapp.supportMessage") ||
         "Hi! I need assistance with Bayyitni platform.\n\nPlease help me with my inquiry. Thank you!"
     );
     window.open(

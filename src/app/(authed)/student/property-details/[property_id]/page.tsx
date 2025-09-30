@@ -1,7 +1,7 @@
 // src/app/(authed)/landlord/[property_id]/page.tsx
-import PropertyHeader from "@/components/landlord/property_details/property_header/property_details_header";
-import RoomTabs from "@/components/landlord/property_details/roomTabs/roomTabs";
 import TopActionsBar from "@/components/landlord/property_details/top_actions_bar/TopActionsBar";
+import StudentPropertyHeader from "@/components/student/property_details/property_header/property_details_header";
+import StudentRoomTabs from "@/components/student/property_details/roomTabs/roomTabs";
 import { PropertyDetail } from "@/types/property/property";
 import { getPropertyDetails } from "@/utils/landlord/getPropertyDetails";
 import { notFound } from "next/navigation";
@@ -36,10 +36,13 @@ export default async function PropertyDetailsPage({
       {/* Main Content */}
       <div className="space-y-8">
         {/* Property Header */}
-        <PropertyHeader property={propertyDetails} />
+        <StudentPropertyHeader property={propertyDetails} />
 
         {/* Tabs Navigation */}
-        <RoomTabs bedRooms={propertyDetails.rooms} property_id={propertyId} />
+        <StudentRoomTabs
+          bedRooms={propertyDetails.rooms}
+          property_id={propertyId}
+        />
       </div>
     </div>
   );

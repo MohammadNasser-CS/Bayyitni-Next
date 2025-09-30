@@ -48,7 +48,7 @@ export default function MapPreview({ lat, lon }: MapPreviewProps) {
   }
 
   return (
-    <div className="relative w-full h-48 rounded-md overflow-hidden border border-gray-200 shadow-sm">
+    <div className="relative w-full h-full rounded-md overflow-hidden border border-gray-200 shadow-sm">
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100%" }}
         center={{ lat: lat, lng: lon }}

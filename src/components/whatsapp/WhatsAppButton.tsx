@@ -1,17 +1,18 @@
 "use client";
 
-const SUPPORT_PHONE = "+966501234567";
+import { MessageSquareMore } from "lucide-react";
 
 interface WhatsAppButtonProps {
   message: string;
   title?: string; // optional text for the button
   phone?: string;
 }
-
+const DEFAULT_PHONE = "+970568891980"; // you can override with prop
+const DEFAULT_MESSAGE = "Hi! I'm interested in your room listing.";
 export function WhatsAppButton({
-  message,
+  phone = DEFAULT_PHONE,
+  message = DEFAULT_MESSAGE,
   title = "Contact via WhatsApp",
-  phone = SUPPORT_PHONE,
 }: WhatsAppButtonProps) {
   const handleWhatsApp = () => {
     const encodedMessage = encodeURIComponent(message);
@@ -25,9 +26,9 @@ export function WhatsAppButton({
     <button
       type="button"
       onClick={handleWhatsApp}
-      className="inline-flex items-center px-4 py-2 rounded-md bg-green-500 text-white font-medium hover:bg-green-600 transition-colors duration-200"
+      className="w-full h-9 text-sm inline-flex items-center justify-center px-4 py-2 rounded-md bg-primary text-white font-medium hover:bg-green-600 transition-colors duration-500 cursor-pointer"
     >
-      <span className="mr-2">💬</span>
+      <MessageSquareMore className="w-4 h-4 me-2" />
       {title}
     </button>
   );

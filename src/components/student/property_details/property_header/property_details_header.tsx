@@ -11,6 +11,7 @@ import { updateProperty } from "@/utils/landlord/property/updateProperty";
 import { deleteProperty } from "@/utils/landlord/property/deleteProperty";
 import { useRouter } from "next/navigation";
 import {
+  PROPERTY_GENDER_PREFERENCE_LABELS,
   PropertyGenderPreference,
   PropertyStatus,
 } from "@/lib/enum/property_enums";
@@ -36,7 +37,9 @@ const UtilityBadge = ({
   </span>
 );
 
-export default function PropertyHeader({ property }: PropertyHeaderProps) {
+export default function StudentPropertyHeader({
+  property,
+}: PropertyHeaderProps) {
   const [editMode, setEditMode] = useState(false); // local edit mode
   const [currentIndex, setCurrentIndex] = useState(0);
   const { t, language } = useLanguage();
@@ -174,33 +177,17 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
         {/* Overlay (Title + Type + Location) */}
         <div className="absolute top-4 left-4 bg-black/20 backdrop-blur-sm rounded-xl p-4 max-w-[70%] md:max-w-[50%]">
           <div className="flex flex-wrap items-center gap-3 mb-2">
-            {editMode ? (
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                  setUpdatedData((prev) => ({
-                    ...prev,
-                    title: e.target.value,
-                  }));
-                }}
-                className="text-xl md:text-3xl font-bold bg-transparent border-b border-white focus:outline-none w-full md:w-auto"
-              />
-            ) : (
-              <h1 className="text-xl md:text-3xl font-bold leading-snug text-secondary">
-                {title}
-              </h1>
-            )}
-
-            <span className="bg-primary text-white text-xs md:text-xl font-semibold px-6 py-1.5 rounded-full shadow-md">
+            <h1 className="text-sm md:text-sm font-bold leading-snug text-secondary">
+              {title}
+            </h1>
+            <span className="bg-primary text-white text-sm md:text-md font-semibold px-6 py-1.5 rounded-full shadow-md">
               {property.property_type === "apartment"
                 ? t("common.apartment")
                 : t("common.studio")}
             </span>
           </div>
 
-          <div className="flex items-center text-sm md:text-base text-hints">
+          <div className="flex items-center text-sm md:text-md text-hints">
             <LocationEdit className="h-4 w-4 md:h-5 me-2 text-hints" />
             <span className="truncate">
               {CITY_LABELS[property.city][language]},{" "}
@@ -237,80 +224,6 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
         )}
       </div>
 
-      {editMode && (
-        <div className="bg-green-100 border-l-4 border-t-4 border-green-400 text-secondary p-4 m-2 rounded-lg shadow-sm flex justify-between items-center transition-all duration-300">
-          {/* Left: Status Text */}
-          <div className="flex items-center">
-            <CheckCircle2 className="h-5 w-5 me-2 text-primary" />
-            <span className="text-secondary text-md">
-              This property is{" "}
-              <strong className={isActive ? "text-primary" : "text-red-500"}>
-                {isActive ? "active" : "inactive"}
-              </strong>{" "}
-              and{" "}
-              <strong className={isAvailable ? "text-primary" : "text-red-500"}>
-                {isAvailable ? "available" : "not available"}
-              </strong>{" "}
-              for booking.
-            </span>
-          </div>
-
-          {/* Right: Toggle Controls */}
-          <div className="flex items-center gap-6">
-            {/* Active toggle */}
-            <div className="flex items-center gap-2">
-              <input
-                id="isActive"
-                type="checkbox"
-                checked={isActive}
-                onChange={(e) => {
-                  setIsActive(e.target.checked);
-                  setUpdatedData((prev) => ({
-                    ...prev,
-                    is_active: e.target.checked,
-                  }));
-                }}
-                className="h-5 w-5 rounded-md cursor-pointer"
-              />
-              <label
-                htmlFor="isActive"
-                className={`text-md cursor-pointer ${
-                  isActive ? "text-primary font-bold" : "text-secondary"
-                }`}
-              >
-                Active
-              </label>
-            </div>
-
-            {/* Available toggle */}
-            <div className="flex items-center gap-2">
-              <input
-                id="isAvailable"
-                type="checkbox"
-                checked={isAvailable}
-                onChange={(e) => {
-                  setIsAvailable(e.target.checked);
-                  setUpdatedData((prev) => ({
-                    ...prev,
-                    available_rooms_count: e.target.checked
-                      ? property.rooms_count
-                      : 0,
-                  }));
-                }}
-                className="h-5 w-5 rounded-md cursor-pointer"
-              />
-              <label
-                htmlFor="isAvailable"
-                className={`text-md cursor-pointer ${
-                  isAvailable ? "text-primary font-bold" : "text-secondary"
-                }`}
-              >
-                Available
-              </label>
-            </div>
-          </div>
-        </div>
-      )}
       {/* Details Section */}
       <div className="p-6 space-y-6">
         {/* Description */}
@@ -318,22 +231,7 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
           <h2 className="text-xl font-bold text-secondary mb-2">
             {t("property.description")}:
           </h2>
-          {editMode ? (
-            <textarea
-              value={description}
-              onChange={(e) => {
-                setDescription(e.target.value);
-                setUpdatedData((prev) => ({
-                  ...prev,
-                  description: e.target.value,
-                }));
-              }}
-              className="w-full border border-gray-300 rounded p-2"
-              rows={3}
-            />
-          ) : (
-            <p className="text-labels">{description}</p>
-          )}
+          <p className="text-labels">{description}</p>
         </div>
 
         {/* Grid Info */}
@@ -363,34 +261,8 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
             </h3>
             <div className="space-y-2 text-sm text-labels">
               <p>
-                {editMode ? (
-                  <select
-                    value={genderPreference}
-                    onChange={(e) => {
-                      const value = e.target.value as PropertyGenderPreference; // cast to enum
-                      setGenderPreference(value);
-                      setUpdatedData((prev) => ({
-                        ...prev,
-                        gender_preference: value,
-                      }));
-                    }}
-                    className="border border-gray-300 rounded px-2 py-1"
-                  >
-                    <option value={PropertyGenderPreference.Any}>
-                      {t("property.genderPreference.any")}
-                    </option>
-                    <option value={PropertyGenderPreference.Male}>
-                      {t("property.genderPreference.male")}
-                    </option>
-                    <option value={PropertyGenderPreference.Female}>
-                      {t("property.genderPreference.female")}
-                    </option>
-                  </select>
-                ) : (
-                  <>
-                    {t("property.genderPreference.title")}: {genderPreference}
-                  </>
-                )}
+                {t("property.genderPreference.title")}:{" "}
+                {PROPERTY_GENDER_PREFERENCE_LABELS[genderPreference][language]}
               </p>
               <p>
                 {t("property.totalRooms")}: {property.rooms_count}
@@ -408,49 +280,22 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
             {t("property.utilities.title")}:
           </h3>
           <div className="flex flex-wrap gap-2">
-            {editMode ? (
-              Object.entries(utilities).map(([key, value]) => (
-                <label key={key} className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={value}
-                    onChange={() => {
-                      setUtilities((prev) => {
-                        const updated = {
-                          ...prev,
-                          [key]: !prev[key as keyof typeof prev],
-                        };
-                        setUpdatedData((prevData) => ({
-                          ...prevData,
-                          [key]: updated[key as keyof typeof updated],
-                        }));
-                        return updated;
-                      });
-                    }}
-                  />
-                  {utilityLabels[key]}
-                </label>
-              ))
-            ) : (
-              <>
-                <UtilityBadge
-                  label={t("property.utilities.water")}
-                  isActive={utilities.has_water}
-                />
-                <UtilityBadge
-                  label={t("property.utilities.internet")}
-                  isActive={utilities.has_internet}
-                />
-                <UtilityBadge
-                  label={t("property.utilities.electricity")}
-                  isActive={utilities.has_electricity}
-                />
-                <UtilityBadge
-                  label={t("property.utilities.gas")}
-                  isActive={utilities.has_gas}
-                />
-              </>
-            )}
+            <UtilityBadge
+              label={t("property.utilities.water")}
+              isActive={utilities.has_water}
+            />
+            <UtilityBadge
+              label={t("property.utilities.internet")}
+              isActive={utilities.has_internet}
+            />
+            <UtilityBadge
+              label={t("property.utilities.electricity")}
+              isActive={utilities.has_electricity}
+            />
+            <UtilityBadge
+              label={t("property.utilities.gas")}
+              isActive={utilities.has_gas}
+            />
           </div>
         </div>
 
@@ -459,73 +304,9 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
           <h3 className="text-sm font-semibold text-secondary mb-2">
             {t("property.locationOnMap.title")}:
           </h3>
-          {editMode ? (
-            <LocationEditor
-              lat={location.lat}
-              lon={location.lon}
-              onChange={(lat, lon) => {
-                setLocation({ lat, lon });
-                setUpdatedData((prev) => ({
-                  ...prev,
-                  location_lat: lat,
-                  location_lon: lon,
-                }));
-              }}
-            />
-          ) : (
-            <div className="bg-gray-100 rounded-lg h-48 mb-3 flex items-center justify-center">
-              <MapPreview lat={location.lat} lon={location.lon} />
-            </div>
-          )}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gray-50 rounded p-2">
-              <label className="text-xs font-medium text-secondary">
-                {t("property.locationOnMap.latitude")}:
-              </label>
-              <p className="text-sm text-gray-700">{location.lat}</p>
-            </div>
-            <div className="bg-gray-50 rounded p-2">
-              <label className="text-xs font-medium text-secondary">
-                {t("property.locationOnMap.longitude")}:
-              </label>
-              <p className="text-sm text-gray-700">{location.lon}</p>
-            </div>
+          <div className="bg-gray-100 rounded-lg h-70 mb-3 flex items-center justify-center">
+            <MapPreview lat={location.lat} lon={location.lon} />
           </div>
-        </div>
-        <div className="flex justify-end mt-4 gap-2">
-          {!editMode ? (
-            <button
-              onClick={() => setEditMode(true)}
-              className="px-4 py-2 bg-primary text-white rounded hover:bg-labels cursor-pointer"
-            >
-              {t("common.edit")}
-            </button>
-          ) : (
-            <>
-              <button
-                onClick={handleCancel}
-                disabled={isSaving}
-                className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:opacity-50 cursor-pointer"
-              >
-                {t("common.cancel")}
-              </button>
-
-              <button
-                onClick={handleUpdate}
-                disabled={isSaving}
-                className="px-4 py-2 bg-primary text-white rounded hover:bg-labels disabled:opacity-50 cursor-pointer"
-              >
-                {isSaving ? t("common.saving") : t("common.saveChanges")}
-              </button>
-              <button
-                onClick={handleDelete}
-                disabled={isSaving}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 cursor-pointer"
-              >
-                {t("common.delete")}
-              </button>
-            </>
-          )}
         </div>
       </div>
     </div>

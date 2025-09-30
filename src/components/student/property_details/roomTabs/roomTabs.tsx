@@ -11,12 +11,9 @@ interface Props {
   bedRooms: Room[];
 }
 
-export default function RoomTabs({ property_id, bedRooms }: Props) {
+export default function StudentRoomTabs({ property_id, bedRooms }: Props) {
   const { t } = useLanguage();
   const router = useRouter();
-  const handleAddBedroom = () => {
-    router.push(`/landlord/manage-listings/add-new-room/${property_id}`);
-  };
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
@@ -26,11 +23,7 @@ export default function RoomTabs({ property_id, bedRooms }: Props) {
         </p>
       </div>
       <div className="p-6">
-        <SectionHeader
-          title={`${t("room.bedrooms")} (${bedRooms.length})`}
-          action={t("room.addBedroom")}
-          onActionClick={handleAddBedroom} // <-- pass handler
-        />
+        <SectionHeader title={`${t("room.bedrooms")} (${bedRooms.length})`} />
         <div className="space-y-6">
           {bedRooms.map((room, index) => (
             <BedRoomCard key={room.id} room={room} index={index} />
@@ -39,4 +32,35 @@ export default function RoomTabs({ property_id, bedRooms }: Props) {
       </div>
     </div>
   );
+}
+{
+  /*
+    <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+      <div className="border-b border-primary">
+        <div className="flex items-center justify-between py-4 px-6">
+          <h2 className="text-3xl font-bold text-center text-secondary py-4 px-1">
+            {t("property.rooms")}
+          </h2>
+          <div className="inline-flex items-center rounded-full font-semibold transition-colors bg-primary text-white hover:bg-primary/80 text-sm px-4 py-2">
+            <p>{t("room.roomsNumber", { value: "2" })}</p>
+            <Bed className="h-5 w-5 ms-2" />
+          </div>
+        </div>
+      </div>
+      <div className="p-6">
+        <div className="space-y-6">
+          <div className="relative p-4">
+            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"></div>
+            <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+              {bedRooms.map((room, index) => (
+                <BedRoomCard key={room.id} room={room} index={index} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  */
 }

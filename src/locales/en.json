@@ -495,6 +495,7 @@
     "priceRange": "Price Range (NIS/month)"
   },
   "room": {
+    "roomsNumber": "Rooms Number: {{value}}",
     "status": {
       "title": "Status",
       "occupied": "Occupied",
@@ -554,7 +555,8 @@
     "supportMessage": "Contact our support team",
     "generalInquiry": "Hi! I need help with Bayyitni platform.",
     "hide": "Hide WhatsApp button",
-    "show": "Show WhatsApp button"
+    "show": "Show WhatsApp button",
+    "studentBookingWhatsappMessage": "Hello, I’m interested in booking Room {{roomNumber}}. Can you guide me through the next steps to complete the booking?"
   },
   "legal": {
     "backButton": "Go Back",

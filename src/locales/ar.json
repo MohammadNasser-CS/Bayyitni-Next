@@ -494,6 +494,7 @@
     "priceRange": "نطاق السعر (شيكل/شهرياً)"
   },
   "room": {
+    "roomsNumber": "عدد الغرف: {{value}}",
     "bedrooms": "غرف النوم",
     "addBedroom": "أضف غرفة نوم",
     "status": {
@@ -553,7 +554,8 @@
     "supportMessage": "تواصل مع فريق الدعم",
     "generalInquiry": "مرحباً! أحتاج مساعدة مع منصة بيتني.",
     "hide": "إخفاء زر الواتساب",
-    "show": "إظهار زر الواتساب"
+    "show": "إظهار زر الواتساب",
+    "studentBookingWhatsappMessage": "مرحبًا، أنا مهتم بحجز الغرفة {{roomNumber}}. هل يمكنك إرشادي حول الخطوات التالية لإتمام الحجز؟"
   },
   "legal": {
     "backButton": "العودة",
