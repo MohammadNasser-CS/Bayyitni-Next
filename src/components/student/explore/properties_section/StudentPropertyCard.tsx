@@ -8,7 +8,6 @@ import { Property } from "@/types/property/property";
 import {
   PROPERTY_GENDER_PREFERENCE_LABELS,
   PROPERTY_TYPE_LABELS,
-  PropertyStatus,
 } from "@/lib/enum/property_enums";
 import { CITY_LABELS, COUNTRY_LABELS } from "@/lib/enum/location_enums";
 import {
@@ -21,13 +20,7 @@ import {
 
 const FALLBACK_IMAGE = "/default-fallback-image.png";
 
-export default function PropertyCard({
-  property,
-  userName,
-}: {
-  property: Property;
-  userName: string;
-}) {
+export default function PropertyCard({ property }: { property: Property }) {
   const { t, language } = useLanguage();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -35,16 +28,6 @@ export default function PropertyCard({
     property.images?.length > 0
       ? property.images.map((img) => img.image_url)
       : [FALLBACK_IMAGE];
-
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
 
   const utilities = [
     {

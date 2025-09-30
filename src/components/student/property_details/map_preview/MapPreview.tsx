@@ -11,11 +11,6 @@ type MapPreviewProps = {
 export default function MapPreview({ lat, lon }: MapPreviewProps) {
   const isValid = !isNaN(lat) && !isNaN(lon);
 
-  const [viewState, setViewState] = useState({
-    latitude: isValid ? lat : 31.7683, // fallback: Palestine center
-    longitude: isValid ? lon : 35.2137,
-    zoom: 14,
-  });
   const mapRef = useRef<google.maps.Map | null>(null);
   const [zoom, setZoom] = useState(14);
 

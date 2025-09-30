@@ -2,11 +2,21 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { Room } from "@/types/rooms/rooms";
-import { AirVentIcon, BathIcon, DoorOpenIcon, Printer } from "lucide-react";
+import {
+  AirVentIcon,
+  BathIcon,
+  ChevronLeft,
+  ChevronRight,
+  DoorOpenIcon,
+  Printer,
+  X,
+} from "lucide-react";
 import { ROOM_TYPE_LABELS } from "@/lib/enum/room_enums";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
+import { useState } from "react";
+import { Dialog, DialogPanel } from "@headlessui/react";
 
-const FALLBACK_IMAGE = "/default-fallback-image.png";
+const FALLBACK_IMAGE = "/default-fallback-room-image.png";
 
 interface Props {
   room: Room;
@@ -15,7 +25,17 @@ interface Props {
 
 export default function BedRoomCard({ room, index }: Props) {
   const { t, language } = useLanguage();
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
+  const handlePrev = () => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((selectedIndex - 1 + images.length) % images.length);
+  };
+
+  const handleNext = () => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((selectedIndex + 1) % images.length);
+  };
   const images =
     room.images && room.images.length > 0
       ? room.images.map((img) => img.image_url)
@@ -94,7 +114,8 @@ export default function BedRoomCard({ room, index }: Props) {
             {images.map((url, i) => (
               <div
                 key={i}
-                className="rounded-lg overflow-hidden h-24 sm:h-28 border border-gray-200 shadow-sm"
+                className="rounded-lg overflow-hidden h-28 border border-gray-200 shadow-sm cursor-pointer"
+                onClick={() => setSelectedIndex(i)}
               >
                 <img
                   src={url}
@@ -108,7 +129,55 @@ export default function BedRoomCard({ room, index }: Props) {
             ))}
           </div>
         </div>
+        {/* Fullscreen Preview */}
+        <Dialog
+          open={selectedIndex !== null}
+          onClose={() => setSelectedIndex(null)}
+          className="relative z-50"
+        >
+          <div className="fixed inset-0 bg-black/70" aria-hidden="true" />
+          <div className="fixed inset-0 flex items-center justify-center p-4">
+            <DialogPanel className="relative max-w-4xl w-full flex items-center justify-center">
+              {selectedIndex !== null && (
+                <>
+                  <img
+                    src={images[selectedIndex]}
+                    alt={`Preview ${selectedIndex + 1}`}
+                    className="w-full h-auto rounded-lg"
+                    onError={(e) =>
+                      ((e.currentTarget as HTMLImageElement).src =
+                        FALLBACK_IMAGE)
+                    }
+                  />
 
+                  {/* Close button */}
+                  <button
+                    className="absolute top-3 right-3 bg-white rounded-full p-2 shadow hover:bg-gray-100"
+                    onClick={() => setSelectedIndex(null)}
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+
+                  {/* Left button */}
+                  <button
+                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow hover:bg-gray-100"
+                    onClick={handlePrev}
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+
+                  {/* Right button */}
+                  <button
+                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow hover:bg-gray-100"
+                    onClick={handleNext}
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                </>
+              )}
+            </DialogPanel>
+          </div>
+        </Dialog>
         {/* Amenities */}
         <div className="text-sm text-gray-600 grid grid-cols-2 sm:grid-cols-2 gap-2">
           {[

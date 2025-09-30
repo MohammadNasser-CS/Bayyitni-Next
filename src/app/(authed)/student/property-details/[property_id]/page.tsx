@@ -1,7 +1,7 @@
 // src/app/(authed)/landlord/[property_id]/page.tsx
-import TopActionsBar from "@/components/landlord/property_details/top_actions_bar/TopActionsBar";
 import StudentPropertyHeader from "@/components/student/property_details/property_header/property_details_header";
 import StudentRoomTabs from "@/components/student/property_details/roomTabs/roomTabs";
+import StudentTopActionsBar from "@/components/student/property_details/top_actions_bar/TopActionsBar";
 import { PropertyDetail } from "@/types/property/property";
 import { getPropertyDetails } from "@/utils/landlord/getPropertyDetails";
 import { notFound } from "next/navigation";
@@ -31,7 +31,7 @@ export default async function PropertyDetailsPage({
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
       {/* Top Navigation */}
-      <TopActionsBar />
+      <StudentTopActionsBar />
 
       {/* Main Content */}
       <div className="space-y-8">

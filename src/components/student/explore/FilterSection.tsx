@@ -36,7 +36,7 @@ export default function FilterSection({
   const { t, language } = useLanguage();
 
   // State
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
   const [debouncedSearch, setDebouncedSearch] = useState(""); // ✅ only this is sent to API
   const [maxPrice, setMaxPrice] = useState<number>(1000);
   const [debouncedPrice, setDebouncedPrice] = useState<number>(1000); // ✅ only this is sent to API

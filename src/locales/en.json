@@ -250,6 +250,10 @@
     "explore": {
       "title": "Find Your Perfect Student Housing",
       "subtitle": "Discover verified student accommodations near your university",
+      "noProperties": {
+        "title": "No housing available",
+        "description": "Currently, there are no properties matching your search or selected filters. Please check back later."
+      },
       "filters": {
         "searchPlaceholder": "Search by location, university, or property name...",
         "filtersBtn": "Filters",

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {  UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import { Menu, X, Search, Calendar, Bookmark, CreditCard } from "lucide-react";
 import Image from "next/image";
 import { LanguageToggle } from "@/components/public/LanguageToggle";
@@ -65,10 +65,10 @@ export function StudentNavbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition ${
+                    className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium transition ${
                       isActive
                         ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-primary hover:border-b-2 hover:border-primary"
+                        : "text-muted-foreground hover:text-primary hover:border-b-1 hover:border-primary"
                     }`}
                   >
                     <Icon className="h-4 w-4" />

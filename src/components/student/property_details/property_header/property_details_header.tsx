@@ -2,19 +2,11 @@
 "use client";
 
 import MapPreview from "../map_preview/MapPreview";
-import LocationEditor from "../map_preview/LocationEditor";
 import { useState, useEffect } from "react";
 import { Property } from "@/types/property/property";
-import { CheckCircle2, LocationEdit } from "lucide-react";
+import { LocationEdit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { updateProperty } from "@/utils/landlord/property/updateProperty";
-import { deleteProperty } from "@/utils/landlord/property/deleteProperty";
-import { useRouter } from "next/navigation";
-import {
-  PROPERTY_GENDER_PREFERENCE_LABELS,
-  PropertyGenderPreference,
-  PropertyStatus,
-} from "@/lib/enum/property_enums";
+import { PROPERTY_GENDER_PREFERENCE_LABELS } from "@/lib/enum/property_enums";
 import { CITY_LABELS, COUNTRY_LABELS } from "@/lib/enum/location_enums";
 
 interface PropertyHeaderProps {
@@ -40,24 +32,14 @@ const UtilityBadge = ({
 export default function StudentPropertyHeader({
   property,
 }: PropertyHeaderProps) {
-  const [editMode, setEditMode] = useState(false); // local edit mode
   const [currentIndex, setCurrentIndex] = useState(0);
   const { t, language } = useLanguage();
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
   const [title, setTitle] = useState(property.title);
   const [description, setDescription] = useState(property.description);
-  const [updatedData, setUpdatedData] = useState<Record<string, any>>({});
   const [genderPreference, setGenderPreference] = useState(
     property.gender_preference
   );
-  const [isActive, setIsActive] = useState(
-    property.status === PropertyStatus.Active
-  );
-  const [isAvailable, setIsAvailable] = useState(
-    property.available_rooms_count! > 0
-  );
+
   const [utilities, setUtilities] = useState({
     has_water: property.has_water,
     has_gas: property.has_gas,
@@ -89,8 +71,6 @@ export default function StudentPropertyHeader({
       lat: parseFloat(property.location_lat),
       lon: parseFloat(property.location_lon),
     });
-    setIsActive(property.status === PropertyStatus.Active);
-    setIsAvailable(property.available_rooms_count! > 0);
   }, [property]);
 
   // Mapping utilities -> translation keys
@@ -100,66 +80,6 @@ export default function StudentPropertyHeader({
     has_internet: t("property.utilities.internet"),
     has_electricity: t("property.utilities.electricity"),
   };
-
-  const handleUpdate = async () => {
-    if (Object.keys(updatedData).length === 0) return; // nothing changed
-
-    try {
-      setIsSaving(true);
-      setError(null);
-      console.log(`updatedData => ${JSON.stringify(updatedData)}`);
-      await updateProperty(property.id, updatedData);
-
-      console.log("Property updated successfully");
-
-      // Clear updatedData after successful save
-      setUpdatedData({});
-      setEditMode(false);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const handleCancel = () => {
-    setTitle(property.title);
-    setDescription(property.description);
-    setGenderPreference(property.gender_preference);
-    setUtilities({
-      has_water: property.has_water,
-      has_gas: property.has_gas,
-      has_internet: property.has_internet,
-      has_electricity: property.has_electricity,
-    });
-    setLocation({
-      lat: parseFloat(property.location_lat),
-      lon: parseFloat(property.location_lon),
-    });
-    setUpdatedData({});
-    setEditMode(false);
-  };
-  const handleDelete = async () => {
-    if (!confirm(t("common.confirmDelete"))) return;
-
-    try {
-      setIsSaving(true);
-      setError(null);
-
-      await deleteProperty(property.id);
-
-      console.log("Property deleted successfully");
-      setUpdatedData({});
-      setEditMode(false);
-      // redirect or show a notification
-      router.replace("/landlord/");
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
       {/* Image Section */}

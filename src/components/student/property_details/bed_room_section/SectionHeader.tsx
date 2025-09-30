@@ -1,4 +1,3 @@
-import { Plus } from "lucide-react";
 interface SectionHeaderProps {
   title: string;
 }

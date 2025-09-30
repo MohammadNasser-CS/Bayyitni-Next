@@ -15,6 +15,7 @@ import StudentHeader from "@/components/student/explore/StudentHeader";
 import FilterSection from "@/components/student/explore/FilterSection";
 import { getAllProperties } from "@/utils/student/getAllProperties";
 import StudentPropertyCard from "@/components/student/explore/properties_section/StudentPropertyCard";
+import { BadgeInfo } from "lucide-react";
 
 export default function StudnetPage() {
   const { user, studentProfile, isLoading: authLoading } = useAuth();
@@ -95,7 +96,6 @@ export default function StudnetPage() {
                       <StudentPropertyCard
                         key={property.id}
                         property={property}
-                        userName={user?.name ?? ""}
                       />
                     ))}
                   </div>
@@ -104,18 +104,18 @@ export default function StudnetPage() {
               ) : (
                 <div className="flex min-h-[40vh] items-center justify-center text-center">
                   <div className="flex flex-col items-center">
-                    <h2 className="text-xl sm:text-2xl font-semibold text-secodnary mb-3">
-                      {t("landlord.manageListings.noProperties.title")}
+                    <BadgeInfo className="h-12 w-12 text-primary" />
+                    <h2 className="text-xl sm:text-2xl font-semibold text-secondary mb-3">
+                      {t("student.explore.noProperties.title", {
+                        defaultValue: "No housings available yet",
+                      })}
                     </h2>
                     <p className="text-labels mb-6 max-w-sm">
-                      {t("landlord.manageListings.noProperties.description")}
+                      {t("student.explore.noProperties.description", {
+                        defaultValue:
+                          "Currently there are no available housings that match your search or filters. Please check back later.",
+                      })}
                     </p>
-                    <Link
-                      href="/landlord/manage-listings/add-new-property"
-                      className="bg-primary hover:bg-secondary transition text-white py-2 px-4 rounded-lg font-medium flex items-center"
-                    >
-                      {t("landlord.manageListings.noProperties.emptyAction")}
-                    </Link>
                   </div>
                 </div>
               )}
