@@ -17,7 +17,7 @@ export default function SectionHeader({
         {action && (
           <button
             onClick={onActionClick} // <-- handle navigation
-            className="text-sm bg-primary text-white hover:bg-orange-500 flex items-center rounded-lg px-3 py-1 gap-1"
+            className="text-sm bg-primary text-white hover:bg-orange-500 flex items-center rounded-lg px-3 py-1 gap-1 cursor-pointer"
           >
             <Plus className="h-5 w-5" />
             {action}

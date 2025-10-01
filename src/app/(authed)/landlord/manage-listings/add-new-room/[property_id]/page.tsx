@@ -69,14 +69,14 @@ export default function AddNewPropertyRoomPage() {
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-6 py-2 rounded-lg font-medium text-gray-700 border border-gray-300 hover:bg-gray-100 transition"
+          className="px-6 py-2 rounded-lg font-medium text-gray-700 border border-gray-300 hover:bg-gray-100 transition cursor-pointer"
         >
           {t("common.back")}
         </button>
         <button
           type="button"
           onClick={handleSubmit}
-          className="px-6 py-2 rounded-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
+          className="px-6 py-2 rounded-lg font-medium text-white bg-primary hover:bg-orange-500 transition cursor-pointer"
         >
           {t("common.save")}
         </button>

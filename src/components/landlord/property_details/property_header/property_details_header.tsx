@@ -158,7 +158,7 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+    <div className="bg-cards-background rounded-xl shadow-md overflow-hidden mb-6">
       {/* Image Section */}
       <div className="relative h-60 md:h-80 rounded-xl overflow-hidden">
         {/* Main Image */}
@@ -188,20 +188,20 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
                 className="text-xl md:text-3xl font-bold bg-transparent border-b border-white focus:outline-none w-full md:w-auto"
               />
             ) : (
-              <h1 className="text-xl md:text-3xl font-bold leading-snug text-secondary">
+              <h1 className="text-xl md:text-3xl font-bold leading-snug text-white">
                 {title}
               </h1>
             )}
 
-            <span className="bg-primary text-white text-xs md:text-xl font-semibold px-6 py-1.5 rounded-full shadow-md">
+            <span className="bg-primary text-white text-md md:text-xl font-bold px-12 py-1.5 rounded-full shadow-md">
               {property.property_type === "apartment"
                 ? t("common.apartment")
                 : t("common.studio")}
             </span>
           </div>
 
-          <div className="flex items-center text-sm md:text-base text-hints">
-            <LocationEdit className="h-4 w-4 md:h-5 me-2 text-hints" />
+          <div className="flex items-center text-sm md:text-base text-white">
+            <LocationEdit className="h-4 w-4 md:h-5 me-2 text-white" />
             <span className="truncate">
               {CITY_LABELS[property.city][language]},{" "}
               {COUNTRY_LABELS[property.country][language]}
@@ -477,20 +477,6 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
               <MapPreview lat={location.lat} lon={location.lon} />
             </div>
           )}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gray-50 rounded p-2">
-              <label className="text-xs font-medium text-secondary">
-                {t("property.locationOnMap.latitude")}:
-              </label>
-              <p className="text-sm text-gray-700">{location.lat}</p>
-            </div>
-            <div className="bg-gray-50 rounded p-2">
-              <label className="text-xs font-medium text-secondary">
-                {t("property.locationOnMap.longitude")}:
-              </label>
-              <p className="text-sm text-gray-700">{location.lon}</p>
-            </div>
-          </div>
         </div>
         <div className="flex justify-end mt-4 gap-2">
           {!editMode ? (

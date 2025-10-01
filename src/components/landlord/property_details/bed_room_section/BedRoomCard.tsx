@@ -111,7 +111,7 @@ export default function BedRoomCard({ room, index }: Props) {
   };
 
   return (
-    <div className="bedroom-card border border-gray-200 rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow duration-200">
+    <div className="bg-cards-background border border-placeholders rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow duration-200">
       {/* Header */}
       <div className="p-4 bg-gray-50 flex justify-between items-center">
         <h3 className="font-semibold text-gray-800">
@@ -121,7 +121,7 @@ export default function BedRoomCard({ room, index }: Props) {
           {!isEditing ? (
             <>
               <button
-                className="text-indigo-600 hover:text-indigo-800 font-medium"
+                className="text-white bg-secondary hover:bg-hints font-medium cursor-pointer text-xl border py-1 px-3"
                 onClick={() => setIsEditing(true)}
                 disabled={isDeleting}
               >
@@ -129,7 +129,7 @@ export default function BedRoomCard({ room, index }: Props) {
               </button>
 
               <button
-                className="text-red-600 hover:text-red-800 font-medium"
+                className="text-white hover:bg-red-400 font-medium cursor-pointer text-xl border py-1 px-3 bg-red-600"
                 onClick={handleDelete}
                 disabled={isDeleting}
                 title={isDeleting ? t("common.deleting") : t("common.delete")}

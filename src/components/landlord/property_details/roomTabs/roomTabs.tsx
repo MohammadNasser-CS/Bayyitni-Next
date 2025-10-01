@@ -19,7 +19,7 @@ export default function RoomTabs({ property_id, bedRooms }: Props) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+    <div className="bg-gray-50 rounded-xl shadow-md overflow-hidden mb-6">
       <div className="border-b-2 border-secondary">
         <p className="w-full py-4 px-1 text-center font-medium text-md text-secondary">
           {t("property.rooms")}
