@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function StudentTopActionsBar() {
   const { t } = useLanguage();
   return (
-    <div className="flex justify-between items-center mb-8 sticky top-3 z-50 border w-fit px-3 bg-secondary/30 backdrop-blur-xl hover:bg-placeholders">
+    <div className="flex justify-between items-center mb-8 border w-fit px-3 bg-secondary/30 backdrop-blur-xl hover:bg-placeholders">
       <Link
         href="/student"
         className="flex items-center text-labels hover:text-secondary"

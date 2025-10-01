@@ -31,6 +31,7 @@ export default function AddNewPropertyRoomPage() {
     number_of_available_beds: 1,
     number_of_beds: 1,
     available_from: today,
+    is_available: true,
   });
 
   const handleChange = (field: keyof CreateRoomRequest, value: any) => {
@@ -39,6 +40,7 @@ export default function AddNewPropertyRoomPage() {
 
   const handleSubmit = async () => {
     try {
+      console.log("Room added:", roomData);
       const result = await addNewRoom(propertyId, roomData);
       console.log("Room added:", result);
       router.push(`/landlord/manage-listings/property-details/${propertyId}`);

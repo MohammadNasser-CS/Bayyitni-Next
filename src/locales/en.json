@@ -6,6 +6,7 @@
     "logout": "Logout",
     "submit": "Submit",
     "cancel": "Cancel",
+    "processing": "Processing...",
     "save": "Save",
     "edit": "Edit",
     "delete": "Delete",
@@ -17,6 +18,7 @@
     "getStarted": "Get Started",
     "signUp": "Sign Up",
     "back": "Back",
+    "finish": "Finish",
     "next": "Next",
     "previous": "Previous",
     "close": "Close",
@@ -276,6 +278,35 @@
         "parking": "Parking",
         "ac": "AC"
       }
+    },
+    "bookings": {
+      "loading": "Loading bookings...",
+      "noBookings": "No Bookings Found",
+      "noBookingsMessage": "You haven’t made any bookings yet. Explore properties and book your next stay.",
+      "title": "My Bookings",
+      "subtitle": "Track your accommodation bookings and payments",
+      "propertyRoom": "Property #{{propertyId}} – Room #{{roomId}}",
+      "propertyId": "Property ID: {{id}}",
+      "bookingInfo": "Booking ID: {{id}} • Type: {{type}}",
+      "monthlyPrice": "Monthly: {{price}} NIS",
+      "roomDetailsTitle": "Room Details:",
+      "beds": "Beds: {{count}}",
+      "contactWhatsapp": "Contact via WhatsApp",
+      "viewDetails": "View Details",
+      "viewProperty": "View Property",
+      "status": {
+        "PENDING": "Pending",
+        "CONFIRMED": "Confirmed",
+        "ACTIVE": "Active",
+        "CANCELLED": "Cancelled"
+      },
+      "payment": {
+        "PAID": "Paid",
+        "UNPAID": "Unpaid"
+      }
+    },
+    "propertyDetails": {
+      "loading": "Loading property details..."
     },
     "exploreTitle": "Explore Accommodations",
     "searchPlaceholder": "Search by location, university, or property name...",
@@ -552,7 +583,11 @@
       "completedDesc": "Your stay has been completed successfully.",
       "cancelled": "Cancelled",
       "cancelledDesc": "This booking has been cancelled."
-    }
+    },
+    "confirmTitle": "Confirm Booking",
+    "confirmMessage": "Are you sure you want to confirm this booking? A booking record will be created and WhatsApp will open to contact the team of",
+    "confirmAction": "Confirm & Continue",
+    "error": "Something went wrong while booking."
   },
   "whatsapp": {
     "supportTitle": "Need Help?",
@@ -560,7 +595,8 @@
     "generalInquiry": "Hi! I need help with Bayyitni platform.",
     "hide": "Hide WhatsApp button",
     "show": "Show WhatsApp button",
-    "studentBookingWhatsappMessage": "Hello, I’m interested in booking Room {{roomNumber}}. Can you guide me through the next steps to complete the booking?"
+    "studentBookingWhatsappMessage": "Hello, I’m interested in booking Room {{roomNumber}}. Can you guide me through the next steps to complete the booking?",
+    "studentBookingAskWhatsappMessage": "Hello, I would like to inquire about my booking #{{bookingNumber}} for Room {{roomNumber}}. Could you provide me with more details and the status?"
   },
   "legal": {
     "backButton": "Go Back",

@@ -15,6 +15,11 @@ import { ROOM_TYPE_LABELS } from "@/lib/enum/room_enums";
 import { WhatsAppButton } from "@/components/whatsapp/WhatsAppButton";
 import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
+import { CreateBooking } from "@/types/booking/booking";
+import { BookingType } from "@/lib/enum/booking_enums";
+import { BookingStatus } from "@/lib/enum/booking_enums";
+import { useAuth } from "@/context/AuthContext";
+import { PaymentStatus } from "@/lib/enum/payment_enums";
 
 const FALLBACK_IMAGE = "/default-fallback-room-image.png";
 
@@ -24,9 +29,19 @@ interface Props {
 }
 
 export default function BedRoomCard({ room, index }: Props) {
+  const { user } = useAuth(); // Custom AuthContext (wraps Clerk)
   const { t, language } = useLanguage();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
+  const [bookingPayload, setBookingPayload] = useState<CreateBooking | null>({
+    student_id: user!.id,
+    room_id: room.id,
+    booking_type:
+      room.number_of_beds > 1 ? BookingType.BED : BookingType.EXCLUSIVE,
+    booking_status: BookingStatus.PENDING,
+    start_date: new Date().toISOString(),
+    end_date: new Date().toISOString(),
+    payment_status: PaymentStatus.UNPAID,
+  });
   const handlePrev = () => {
     if (selectedIndex === null) return;
     setSelectedIndex((selectedIndex - 1 + images.length) % images.length);
@@ -54,52 +69,54 @@ export default function BedRoomCard({ room, index }: Props) {
       <div className="p-3 sm:p-4 space-y-4">
         {/* Status + Price */}
         <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 sm:gap-4">
-          <div className="flex items-center gap-2 text-sm sm:text-base">
+          <div className="flex flex-col gap-2 text-sm sm:text-base border border-gray-200 rounded-md p-2 w-full items-center justify-center">
             <span className="font-semibold">{t("room.status.title")}:</span>
             <span
-              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                room.is_active
+              className={`inline-flex items-center px-2.5 py-0.5 rounded-lg w-fit text-md font-bold ${
+                room.is_available
                   ? "bg-green-100 text-green-800"
                   : "bg-red-100 text-red-800"
               }`}
             >
-              {room.is_active ? t("common.active") : t("common.inactive")}
+              {room.is_available ? t("common.available") : t("common.occupied")}
             </span>
           </div>
 
-          <div>
-            <p className="text-xs sm:text-sm text-gray-500 mb-0.5 sm:mb-1">
+          <div className="flex flex-col border border-gray-200 rounded-md p-2 w-full items-center justify-center">
+            <p className="text-sm sm:text-sm mb-0.5 sm:mb-1">
               {t("room.monthlyRent")}
             </p>
-            <p className="font-semibold text-sm sm:text-base">
-              ${room.price_of_bed_per_month}
+            <p className="font-bold text-primary text-xl sm:text-2xl">
+              ₪ {room.price_of_bed_per_month}
             </p>
           </div>
         </div>
 
         {/* Beds & Room Type */}
         <div className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
-          <div className="flex flex-col">
-            <span className="font-semibold text-sm">
+          <div className="flex flex-col border border-gray-200 rounded-md p-2 w-full items-center justify-center">
+            <span className="font-semibold text-sm text-blue-600">
               {t("room.totalBeds")}:
             </span>
-            <span className="text-gray-700 text-sm sm:text-base">
+            <span className="text-sm sm:text-base font-bold text-blue-700">
               {room.number_of_beds}
             </span>
           </div>
 
-          <div className="flex flex-col">
-            <span className="font-semibold text-sm">
+          <div className="flex flex-col  border border-gray-200 rounded-md p-2 w-full items-center justify-center">
+            <span className="font-semibold text-sm text-green-600">
               {t("room.availableBeds")}:
             </span>
-            <span className="text-gray-700 text-sm sm:text-base">
+            <span className="text-sm sm:text-base font-bold text-green-700">
               {room.number_of_available_beds}
             </span>
           </div>
 
-          <div className="flex flex-col">
-            <span className="font-semibold text-sm">{t("room.roomType")}:</span>
-            <span className="text-gray-700 text-sm sm:text-base">
+          <div className="flex flex-col border border-gray-200 rounded-md p-2 w-full items-center justify-center">
+            <span className="font-semibold text-sm text-yellow-600">
+              {t("room.roomType")}:
+            </span>
+            <span className="text-sm sm:text-base font-bold text-yellow-700">
               {ROOM_TYPE_LABELS[room.room_type][language]}
             </span>
           </div>
@@ -227,6 +244,7 @@ export default function BedRoomCard({ room, index }: Props) {
             message={t("whatsapp.studentBookingWhatsappMessage", {
               roomNumber: room.id,
             })}
+            bookingPayload={bookingPayload || undefined}
           />
         </div>
       </div>

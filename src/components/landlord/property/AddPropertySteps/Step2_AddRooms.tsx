@@ -58,6 +58,7 @@ export default function Step2({
         number_of_available_beds: 1,
         number_of_beds: 1,
         available_from: today, // <- default value
+        is_available: true,
       },
     ]);
 
@@ -293,16 +294,16 @@ export default function Step2({
         <button
           onClick={onBack}
           type="button"
-          className="px-6 py-2 rounded-lg font-medium text-gray-700 border border-gray-300 hover:bg-gray-100 transition"
+          className="px-6 py-2 rounded-lg font-medium text-gray-700 border border-gray-300 hover:bg-gray-100 transition cursor-pointer"
         >
-          Back
+          {t("common.back")}
         </button>
         <button
           onClick={onNext}
           type="button"
-          className="px-6 py-2 rounded-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
+          className="px-6 py-2 rounded-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition cursor-pointer"
         >
-          Finish
+          {t("common.finish")}
         </button>
       </div>
     </div>

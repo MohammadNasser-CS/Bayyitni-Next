@@ -29,7 +29,7 @@ export async function getAllProperties(landlord_id: string, filters?: PropertyFi
       }
 
       // Price range
-      if (filters?.max_price) params.append("max_price", String(filters.max_price));
+      if (filters?.max_price && filters.max_price > 0) params.append("max_price", String(filters.max_price));
 
       // Gender preference ✅
       if (filters?.gender_preference && filters.gender_preference !== PropertyGenderPreference.All) {

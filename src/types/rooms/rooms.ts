@@ -29,6 +29,7 @@ export interface CreateRoomRequest {
   number_of_beds: number;
   is_active?: boolean;
   room_type: RoomType;
+  is_available?: boolean;
   available_from?: string; // YYYY-MM-DD
   number_of_available_beds: number;
   has_internal_bathroom?: boolean;

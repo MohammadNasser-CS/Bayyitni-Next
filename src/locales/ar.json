@@ -6,6 +6,7 @@
     "logout": "تسجيل الخروج",
     "submit": "إرسال",
     "cancel": "إلغاء",
+    "processing": "جاري المعالجة...",
     "save": "حفظ",
     "edit": "تعديل",
     "delete": "حذف",
@@ -17,6 +18,7 @@
     "getStarted": "ابدأ الآن",
     "signUp": "إنشاء حساب",
     "back": "رجوع",
+    "finish": "إنهاء",
     "next": "التالي",
     "previous": "السابق",
     "close": "إغلاق",
@@ -276,6 +278,35 @@
         "parking": "موقف سيارات",
         "ac": "مكيف"
       }
+    },
+    "bookings": {
+      "loading": "جارٍ تحميل الحجوزات...",
+      "noBookings": "لا توجد حجوزات",
+      "noBookingsMessage": "لم تقم بأي حجوزات بعد. استكشف العقارات واحجز إقامتك القادمة.",
+      "title": "حجوزاتي",
+      "subtitle": "تتبع حجوزاتك ودفع الإيجار",
+      "propertyRoom": "السكن رقم {{propertyId}} – الغرفة رقم {{roomId}}",
+      "propertyId": "رقم السكن: {{id}}",
+      "bookingInfo": "رقم الحجز: {{id}} • النوع: {{type}}",
+      "monthlyPrice": "شهريًا: {{price}} شيكل",
+      "roomDetailsTitle": "تفاصيل الغرفة:",
+      "beds": "عدد الأسرة: {{count}}",
+      "contactWhatsapp": "تواصل عبر واتساب",
+      "viewDetails": "عرض التفاصيل",
+      "viewProperty": "عرض العقار",
+      "status": {
+        "PENDING": "قيد الانتظار",
+        "CONFIRMED": "مؤكد",
+        "ACTIVE": "نشط",
+        "CANCELLED": "ملغي"
+      },
+      "payment": {
+        "PAID": "مدفوع",
+        "UNPAID": "غير مدفوع"
+      }
+    },
+    "propertyDetails": {
+      "loading": "جارٍ تحميل تفاصيل السكن..."
     },
     "searchPlaceholder": "ابحث بالموقع أو الجامعة أو اسم العقار...",
     "filters": "المرشحات",
@@ -551,7 +582,11 @@
       "completedDesc": "تمت إقامتك بنجاح.",
       "cancelled": "ملغي",
       "cancelledDesc": "تم إلغاء هذا الحجز."
-    }
+    },
+    "confirmTitle": "تأكيد الحجز",
+    "confirmMessage": "هل أنت متأكد أنك تريد تأكيد هذا الحجز؟ سيتم إنشاء سجل حجز وسيتم فتح الواتساب للتواصل مع فريق",
+    "confirmAction": "تأكيد ومتابعة",
+    "error": "حدث خطأ أثناء عملية الحجز."
   },
   "whatsapp": {
     "supportTitle": "تحتاج مساعدة؟",
@@ -559,7 +594,8 @@
     "generalInquiry": "مرحباً! أحتاج مساعدة مع منصة بيتني.",
     "hide": "إخفاء زر الواتساب",
     "show": "إظهار زر الواتساب",
-    "studentBookingWhatsappMessage": "مرحبًا، أنا مهتم بحجز الغرفة {{roomNumber}}. هل يمكنك إرشادي حول الخطوات التالية لإتمام الحجز؟"
+    "studentBookingWhatsappMessage": "مرحبًا، أنا مهتم بحجز الغرفة {{roomNumber}}. هل يمكنك إرشادي حول الخطوات التالية لإتمام الحجز؟",
+    "studentBookingAskWhatsappMessage": "مرحبًا، أود أن أستفسر عن حجزي رقم {{bookingNumber}} للغرفة {{roomNumber}}. هل يمكنك إخباري عن التفاصيل وحالة الحجز؟"
   },
   "legal": {
     "backButton": "العودة",

@@ -104,7 +104,7 @@ export default function HomePage() {
                 className="bg-primary hover:scale-105 hover:bg-hints transform transition duration-200 text-white font-semibold rounded-lg px-8 py-3 text-lg cursor-pointer"
               >
                 {buttonLoading === "sign-in"
-                  ? "Loading..."
+                  ? t("common.loading")
                   : t("homepage.getStarted")}
               </button>
 
@@ -117,7 +117,7 @@ export default function HomePage() {
                 className="border border-gray-300 hover:scale-105 hover:bg-gray-100 transform transition duration-200 text-gray-700 font-semibold rounded-lg px-8 py-3 text-lg cursor-pointer"
               >
                 {buttonLoading === "sign-up"
-                  ? "Loading..."
+                  ? t("common.loading")
                   : t("homepage.signUp")}
               </button>
             </div>

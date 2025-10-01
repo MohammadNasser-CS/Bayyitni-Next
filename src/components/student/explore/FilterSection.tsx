@@ -38,8 +38,8 @@ export default function FilterSection({
   // State
   const [search, setSearch] = useState<string>("");
   const [debouncedSearch, setDebouncedSearch] = useState(""); // ✅ only this is sent to API
-  const [maxPrice, setMaxPrice] = useState<number>(1000);
-  const [debouncedPrice, setDebouncedPrice] = useState<number>(1000); // ✅ only this is sent to API
+  const [maxPrice, setMaxPrice] = useState<string>("");
+  const [debouncedPrice, setDebouncedPrice] = useState<string>(""); // ✅ only this is sent to API
   const [gender, setGender] = useState(
     defaultGender as PropertyGenderPreference
   );
@@ -72,7 +72,7 @@ export default function FilterSection({
   useEffect(() => {
     onFilterChange({
       search: debouncedSearch,
-      max_price: debouncedPrice, // use debounced price instead of raw one
+      max_price: debouncedPrice ? Number(debouncedPrice) : 0, // use debounced price instead of raw one
       gender_preference: gender,
       property_type: propertyType,
       has_internet: amenities[PropertyAmenity.Internet],
@@ -99,7 +99,7 @@ export default function FilterSection({
 
   const clearAll = () => {
     setSearch("");
-    setMaxPrice(1000);
+    setMaxPrice("");
     setGender(PropertyGenderPreference.Any);
     setPropertyType(PropertyType.All);
     setAmenities({
@@ -177,13 +177,10 @@ export default function FilterSection({
                   })}
                 </label>
                 <input
-                  type="number"
-                  min={100}
+                  type="text"
                   value={maxPrice}
                   onChange={(e) =>
-                    setMaxPrice(
-                      e.target.value ? Number(e.target.value) : maxPrice
-                    )
+                    setMaxPrice(e.target.value ? String(e.target.value) : "")
                   }
                   className="w-full rounded-md border px-3 py-2"
                   placeholder={t("student.explore.filters.maxPrice")}
