@@ -1,11 +1,16 @@
-// src/app/student/page.tsx
-import { currentUser } from "@clerk/nextjs/server";
+"use client";
 
-export default async function AdminPage() {
-  const user = await currentUser();
-  if (user?.publicMetadata.role !== "bayyitni_admin") {
-    return <div>Unauthorized</div>;
-  }
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useLanguage } from "@/context/LanguageContext";
 
-  return <div>Welcome Admin {user.firstName}</div>;
+export default function AdminPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Redirect to /admin/dashboard when user opens /admin
+    router.replace("/admin/dashboard");
+  }, [router]);
+
+  return null; // nothing is rendered since we immediately redirect
 }

@@ -48,36 +48,34 @@ export function LandlordNavbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-6">
-            <Link href="/landlord" className="flex items-center space-x-2">
-              <Image
-                src="/images/branding/Bayyitni_logo_transparent_1.png"
-                alt="Bayyitni Logo"
-                width={120}
-                height={40}
-              />
-            </Link>
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition ${
-                      isActive
-                        ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-primary hover:border-b-2 hover:border-primary"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
+          <Link href="/landlord" className="flex items-center space-x-2">
+            <Image
+              src="/images/branding/Bayyitni_logo_transparent_1.png"
+              alt="Bayyitni Logo"
+              width={120}
+              height={40}
+            />
+          </Link>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition ${
+                    isActive
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-primary hover:border-b-2 hover:border-primary"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right side */}
@@ -93,7 +91,7 @@ export function LandlordNavbar() {
             </Link>
 
             {/* User (Clerk built-in component) */}
-            <UserButton/>
+            <UserButton />
 
             {/* Mobile menu toggle */}
             <button

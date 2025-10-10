@@ -70,7 +70,7 @@
     "addListing": "Add Listing",
     "manageListings": "Manage Listings",
     "tenantRequests": "Tenant Requests",
-    "verification": "Verification",
+    "verification": "Listing Verification",
     "bookingManagement": "Booking Management",
     "step_1": "Add Property Details",
     "step_2": "Add Rooms",
@@ -486,6 +486,57 @@
           }
         }
       }
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "subtitle": "Monitor platform performance and manage operations",
+      "reviewListings": "Review {{count}} Pending Listings",
+      "managePayments": "Manage Payments"
+    },
+    "stats": {
+      "totalListings": {
+        "title": "Total Listings",
+        "description": "{{verified}} verified, {{pending}} pending"
+      },
+      "platformUsers": {
+        "title": "Platform Users",
+        "description": "Registered landlords and tenants"
+      },
+      "monthlyRevenue": {
+        "title": "Monthly Revenue",
+        "value": "{{value}} NIS",
+        "description": "Total revenue generated this month"
+      },
+      "pendingReviews": {
+        "title": "Pending Reviews",
+        "description": "Listings and bookings awaiting review"
+      }
+    },
+    "verificationQueue": {
+      "title": "Listing Verification Queue",
+      "subtitle": "Review and approve new property listings",
+      "empty": "No pending listings for review.",
+      "pending": "Pending",
+      "reviewAll": "Review All ({{count}})"
+    },
+    "platformStats": {
+      "title": "Platform Statistics",
+      "subtitle": "Overall summary of current platform data",
+      "totalProperties": "Total Properties",
+      "totalRooms": "Total Rooms",
+      "totalBeds": "Total Beds",
+      "occupancyRate": "Occupancy Rate",
+      "activeBookings": "Active Bookings",
+      "pendingBookings": "Pending Bookings"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "subtitle": "Latest updates on platform activity",
+      "newListing": "New listing submitted for approval",
+      "payment": "Payment received for booking",
+      "newUser": "New user registration"
     }
   },
   "property": {

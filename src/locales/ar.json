@@ -70,7 +70,7 @@
     "addListing": "إضافة عقار",
     "manageListings": "إدارة العقارات",
     "tenantRequests": "طلبات المستأجرين",
-    "verification": "التحقق",
+    "verification": "التحقق من السكنات",
     "bookingManagement": "إدارة الحجوزات",
     "addNewPropertyStep1": "إضافة تفاصيل السكن",
     "addNewPropertyStep2": "إضافة غرف",
@@ -485,6 +485,57 @@
           }
         }
       }
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "لوحة تحكم المشرف",
+      "subtitle": "راقب أداء المنصة وقم بإدارة العمليات",
+      "reviewListings": "مراجعة {{count}} عقارات معلقة",
+      "managePayments": "إدارة المدفوعات"
+    },
+    "stats": {
+      "totalListings": {
+        "title": "إجمالي العقارات",
+        "description": "{{verified}} تم التحقق منها، {{pending}} قيد الانتظار"
+      },
+      "platformUsers": {
+        "title": "مستخدمي المنصة",
+        "description": "المالكون والمستأجرون المسجلون"
+      },
+      "monthlyRevenue": {
+        "title": "الإيرادات الشهرية",
+        "value": "{{value}} شيكل",
+        "description": "إجمالي الإيرادات لهذا الشهر"
+      },
+      "pendingReviews": {
+        "title": "المراجعات المعلقة",
+        "description": "العقارات والحجوزات قيد المراجعة"
+      }
+    },
+    "verificationQueue": {
+      "title": "قائمة مراجعة العقارات",
+      "subtitle": "قم بمراجعة واعتماد العقارات الجديدة",
+      "empty": "لا توجد عقارات قيد المراجعة حالياً.",
+      "pending": "قيد الانتظار",
+      "reviewAll": "عرض جميع المعلقات ({{count}})"
+    },
+    "platformStats": {
+      "title": "إحصائيات المنصة",
+      "subtitle": "ملخص عام لبيانات المنصة الحالية",
+      "totalProperties": "إجمالي العقارات",
+      "totalRooms": "إجمالي الغرف",
+      "totalBeds": "إجمالي الأسرّة",
+      "occupancyRate": "نسبة الإشغال",
+      "activeBookings": "الحجوزات النشطة",
+      "pendingBookings": "الحجوزات المعلقة"
+    },
+    "recentActivity": {
+      "title": "الأنشطة الأخيرة",
+      "subtitle": "آخر التحديثات في المنصة",
+      "newListing": "تمت إضافة عقار جديد للمراجعة",
+      "payment": "تم استلام دفعة لحجز",
+      "newUser": "تسجيل مستخدم جديد"
     }
   },
   "property": {
