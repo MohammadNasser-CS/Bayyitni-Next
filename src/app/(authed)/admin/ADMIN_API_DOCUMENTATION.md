@@ -18,130 +18,125 @@ Get dashboard summary with preview data (limited results for quick overview).
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"statistics": {
-"listings": {
-"total": 45,
-"verified": 38,
-"pending": 5,
-"rejected": 2
-},
-"rooms": {
-"total": 120,
-"totalBeds": 450,
-"availableBeds": 180,
-"occupiedBeds": 270,
-"occupancyRate": 60
-},
-"bookings": {
-"total": 150,
-"pending": 12,
-"approved": 8,
-"active": 85,
-"completed": 40,
-"cancelled": 5
-},
-"revenue": {
-"monthly": 27000,
-"total": 324000,
-"currency": "SAR"
-},
-"users": {
-"total": 150,
-"students": 120,
-"landlords": 28,
-"admins": 2
+  "statistics": {
+    "listings": {
+      "total": 45,
+      "verified": 38,
+      "pending": 5,
+      "rejected": 2
+    },
+    "rooms": {
+      "total": 120,
+      "totalBeds": 450,
+      "availableBeds": 180,
+      "occupiedBeds": 270,
+      "occupancyRate": 60
+    },
+    "bookings": {
+      "total": 150,
+      "pending": 12,
+      "approved": 8,
+      "active": 85,
+      "completed": 40,
+      "cancelled": 5
+    },
+    "revenue": {
+      "monthly": 27000,
+      "total": 324000,
+      "currency": "SAR"
+    },
+    "users": {
+      "total": 150,
+      "students": 120,
+      "landlords": 28,
+      "admins": 2
+    }
+  },
+  "pendingListings": [
+    {
+      "id": "list_123",
+      "landlordId": "user_456",
+      "landlord": {
+        "id": "user_456",
+        "name": "Ahmed Al-Rashid",
+        "email": "ahmed@example.com"
+      },
+      "buildingName": "Al-Noor Residence",
+      "title": "Modern Student Accommodation near KSU",
+      "location": {
+        "city": "Riyadh",
+        "country": "Saudi Arabia"
+      },
+      "numberOfRooms": 4,
+      "verificationStatus": "pending",
+      "createdAt": "2025-01-03T10:00:00Z"
+    },
+    {
+      "id": "list_124",
+      "landlordId": "user_457",
+      "landlord": {
+        "id": "user_457",
+        "name": "Mohammed Hassan",
+        "email": "mohammed@example.com"
+      },
+      "buildingName": "Green Valley Apartments",
+      "title": "Comfortable Student Housing",
+      "location": {
+        "city": "Jeddah",
+        "country": "Saudi Arabia"
+      },
+      "numberOfRooms": 6,
+      "verificationStatus": "pending",
+      "createdAt": "2025-01-03T08:30:00Z"
+    },
+    {
+      "id": "list_125",
+      "landlordId": "user_458",
+      "landlord": {
+        "id": "user_458",
+        "name": "Fatima Ali",
+        "email": "fatima@example.com"
+      },
+      "buildingName": "University Heights",
+      "title": "Female Student Accommodation",
+      "location": {
+        "city": "Riyadh",
+        "country": "Saudi Arabia"
+      },
+      "numberOfRooms": 3,
+      "verificationStatus": "pending",
+      "createdAt": "2025-01-02T16:45:00Z"
+    }
+  ],
+  "recentActivity": [
+    {
+      "id": "act_123",
+      "type": "listing",
+      "message": "New listing submitted for verification",
+      "details": {
+        "listingId": "list_456",
+        "listingTitle": "Al-Noor Residence",
+        "landlordId": "user_789"
+      },
+      "timestamp": "2025-01-04T10:30:00Z",
+      "priority": "normal"
+    },
+    {
+      "id": "act_124",
+      "type": "payment",
+      "message": "Payment confirmation required",
+      "details": {
+        "paymentId": "pay_321",
+        "bookingId": "book_654",
+        "amount": 1200
+      },
+      "timestamp": "2025-01-04T08:15:00Z",
+      "priority": "high"
+    }
+  ]
 }
-},
-"pendingListings": [
-{
-"id": "list_123",
-"landlordId": "user_456",
-"landlord": {
-"id": "user_456",
-"name": "Ahmed Al-Rashid",
-"email": "ahmed@example.com"
-},
-"buildingName": "Al-Noor Residence",
-"title": "Modern Student Accommodation near KSU",
-"location": {
-"city": "Riyadh",
-"country": "Saudi Arabia"
-},
-"numberOfRooms": 4,
-"verificationStatus": "pending",
-"createdAt": "2025-01-03T10:00:00Z"
-},
-{
-"id": "list_124",
-"landlordId": "user_457",
-"landlord": {
-"id": "user_457",
-"name": "Mohammed Hassan",
-"email": "mohammed@example.com"
-},
-"buildingName": "Green Valley Apartments",
-"title": "Comfortable Student Housing",
-"location": {
-"city": "Jeddah",
-"country": "Saudi Arabia"
-},
-"numberOfRooms": 6,
-"verificationStatus": "pending",
-"createdAt": "2025-01-03T08:30:00Z"
-},
-{
-"id": "list_125",
-"landlordId": "user_458",
-"landlord": {
-"id": "user_458",
-"name": "Fatima Ali",
-"email": "fatima@example.com"
-},
-"buildingName": "University Heights",
-"title": "Female Student Accommodation",
-"location": {
-"city": "Riyadh",
-"country": "Saudi Arabia"
-},
-"numberOfRooms": 3,
-"verificationStatus": "pending",
-"createdAt": "2025-01-02T16:45:00Z"
-}
-],
-"recentActivity": [
-{
-"id": "act_123",
-"type": "listing",
-"message": "New listing submitted for verification",
-"details": {
-"listingId": "list_456",
-"listingTitle": "Al-Noor Residence",
-"landlordId": "user_789"
-},
-"timestamp": "2025-01-04T10:30:00Z",
-"priority": "normal"
-},
-{
-"id": "act_124",
-"type": "payment",
-"message": "Payment confirmation required",
-"details": {
-"paymentId": "pay_321",
-"bookingId": "book_654",
-"amount": 1200
-},
-"timestamp": "2025-01-04T08:15:00Z",
-"priority": "high"
-}
-]
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Notes:**
@@ -162,40 +157,35 @@ Get recent platform activities.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"activities": [
-{
-"id": "act_123",
-"type": "listing",
-"message": "New listing submitted for verification",
-"details": {
-"listingId": "list_456",
-"listingTitle": "Al-Noor Residence",
-"landlordId": "user_789"
-},
-"timestamp": "2025-01-04T10:30:00Z",
-"priority": "normal"
-},
-{
-"id": "act_124",
-"type": "payment",
-"message": "Payment confirmation required",
-"details": {
-"paymentId": "pay_321",
-"bookingId": "book_654",
-"amount": 1200
-},
-"timestamp": "2025-01-04T08:15:00Z",
-"priority": "high"
+  "activities": [
+    {
+      "id": "act_123",
+      "type": "listing",
+      "message": "New listing submitted for verification",
+      "details": {
+        "listingId": "list_456",
+        "listingTitle": "Al-Noor Residence",
+        "landlordId": "user_789"
+      },
+      "timestamp": "2025-01-04T10:30:00Z",
+      "priority": "normal"
+    },
+    {
+      "id": "act_124",
+      "type": "payment",
+      "message": "Payment confirmation required",
+      "details": {
+        "paymentId": "pay_321",
+        "bookingId": "book_654",
+        "amount": 1200
+      },
+      "timestamp": "2025-01-04T08:15:00Z",
+      "priority": "high"
+    }
+  ]
 }
-]
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ---
@@ -214,57 +204,52 @@ Get all listings with optional filtering.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"listings": [
-{
-"id": "list_123",
-"landlordId": "user_456",
-"landlord": {
-"id": "user_456",
-"name": "Ahmed Al-Rashid",
-"email": "ahmed@example.com",
-"phone": "+966501234567"
-},
-"buildingName": "Al-Noor Residence",
-"buildingNumber": "123",
-"title": "Modern Student Accommodation near KSU",
-"description": "Fully furnished rooms with all amenities...",
-"floorNumber": 3,
-"numberOfRooms": 4,
-"location": {
-"lat": 24.7136,
-"lon": 46.6753,
-"city": "Riyadh",
-"country": "Saudi Arabia"
-},
-"isActive": true,
-"verificationStatus": "pending",
-"genderPreference": "male",
-"amenities": {
-"hasGas": true,
-"hasElectricity": true,
-"hasWater": true,
-"hasInternet": true
-},
-"propertyType": "apartment",
-"primaryImageUrl": "https://example.com/images/listing_123.jpg",
-"createdAt": "2025-01-03T10:00:00Z",
-"updatedAt": "2025-01-03T10:00:00Z"
+  "listings": [
+    {
+      "id": "list_123",
+      "landlordId": "user_456",
+      "landlord": {
+        "id": "user_456",
+        "name": "Ahmed Al-Rashid",
+        "email": "ahmed@example.com",
+        "phone": "+966501234567"
+      },
+      "buildingName": "Al-Noor Residence",
+      "buildingNumber": "123",
+      "title": "Modern Student Accommodation near KSU",
+      "description": "Fully furnished rooms with all amenities...",
+      "floorNumber": 3,
+      "numberOfRooms": 4,
+      "location": {
+        "lat": 24.7136,
+        "lon": 46.6753,
+        "city": "Riyadh",
+        "country": "Saudi Arabia"
+      },
+      "isActive": true,
+      "verificationStatus": "pending",
+      "genderPreference": "male",
+      "amenities": {
+        "hasGas": true,
+        "hasElectricity": true,
+        "hasWater": true,
+        "hasInternet": true
+      },
+      "propertyType": "apartment",
+      "primaryImageUrl": "https://example.com/images/listing_123.jpg",
+      "createdAt": "2025-01-03T10:00:00Z",
+      "updatedAt": "2025-01-03T10:00:00Z"
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 3,
+    "totalItems": 45,
+    "itemsPerPage": 20
+  }
 }
-],
-"pagination": {
-"currentPage": 1,
-"totalPages": 3,
-"totalItems": 45,
-"itemsPerPage": 20
-}
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### GET /api/admin/listings/:id
@@ -273,50 +258,45 @@ Get detailed information about a specific listing.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"listing": {
-"id": "list_123",
-"landlordId": "user_456",
-"landlord": {
-"id": "user_456",
-"name": "Ahmed Al-Rashid",
-"email": "ahmed@example.com",
-"phone": "+966501234567",
-"profileImageUrl": "https://example.com/profiles/user_456.jpg"
-},
-"buildingName": "Al-Noor Residence",
-"buildingNumber": "123",
-"title": "Modern Student Accommodation near KSU",
-"description": "Fully furnished rooms with all amenities...",
-"floorNumber": 3,
-"numberOfRooms": 4,
-"location": {
-"lat": 24.7136,
-"lon": 46.6753,
-"city": "Riyadh",
-"country": "Saudi Arabia"
-},
-"isActive": true,
-"verificationStatus": "pending",
-"genderPreference": "male",
-"amenities": {
-"hasGas": true,
-"hasElectricity": true,
-"hasWater": true,
-"hasInternet": true
-},
-"propertyType": "apartment",
-"primaryImageUrl": "https://example.com/images/listing_123.jpg",
-"createdAt": "2025-01-03T10:00:00Z",
-"updatedAt": "2025-01-03T10:00:00Z"
+  "listing": {
+    "id": "list_123",
+    "landlordId": "user_456",
+    "landlord": {
+      "id": "user_456",
+      "name": "Ahmed Al-Rashid",
+      "email": "ahmed@example.com",
+      "phone": "+966501234567",
+      "profileImageUrl": "https://example.com/profiles/user_456.jpg"
+    },
+    "buildingName": "Al-Noor Residence",
+    "buildingNumber": "123",
+    "title": "Modern Student Accommodation near KSU",
+    "description": "Fully furnished rooms with all amenities...",
+    "floorNumber": 3,
+    "numberOfRooms": 4,
+    "location": {
+      "lat": 24.7136,
+      "lon": 46.6753,
+      "city": "Riyadh",
+      "country": "Saudi Arabia"
+    },
+    "isActive": true,
+    "verificationStatus": "pending",
+    "genderPreference": "male",
+    "amenities": {
+      "hasGas": true,
+      "hasElectricity": true,
+      "hasWater": true,
+      "hasInternet": true
+    },
+    "propertyType": "apartment",
+    "primaryImageUrl": "https://example.com/images/listing_123.jpg",
+    "createdAt": "2025-01-03T10:00:00Z",
+    "updatedAt": "2025-01-03T10:00:00Z"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### GET /api/admin/listings/:id/rooms
@@ -325,48 +305,43 @@ Get all rooms for a specific listing.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"rooms": [
-{
-"id": "room_789",
-"propertyListingId": "list_123",
-"description": "Spacious room with private bathroom",
-"pricePerMonth": 1200,
-"availableFrom": "2025-02-01T00:00:00Z",
-"isActive": true,
-"isAvailable": true,
-"roomType": "private",
-"numberOfBeds": 2,
-"numberOfAvailableBeds": 1,
-"amenities": {
-"hasInternalBathroom": true,
-"hasInternalBalcony": false,
-"hasAC": true,
-"hasOffice": true
-},
-"images": [
-{
-"id": "img_001",
-"imageUrl": "https://example.com/rooms/room_789_1.jpg",
-"sortOrder": 1
-},
-{
-"id": "img_002",
-"imageUrl": "https://example.com/rooms/room_789_2.jpg",
-"sortOrder": 2
+  "rooms": [
+    {
+      "id": "room_789",
+      "propertyListingId": "list_123",
+      "description": "Spacious room with private bathroom",
+      "pricePerMonth": 1200,
+      "availableFrom": "2025-02-01T00:00:00Z",
+      "isActive": true,
+      "isAvailable": true,
+      "roomType": "private",
+      "numberOfBeds": 2,
+      "numberOfAvailableBeds": 1,
+      "amenities": {
+        "hasInternalBathroom": true,
+        "hasInternalBalcony": false,
+        "hasAC": true,
+        "hasOffice": true
+      },
+      "images": [
+        {
+          "id": "img_001",
+          "imageUrl": "https://example.com/rooms/room_789_1.jpg",
+          "sortOrder": 1
+        },
+        {
+          "id": "img_002",
+          "imageUrl": "https://example.com/rooms/room_789_2.jpg",
+          "sortOrder": 2
+        }
+      ],
+      "createdAt": "2025-01-03T10:00:00Z",
+      "updatedAt": "2025-01-03T10:00:00Z"
+    }
+  ]
 }
-],
-"createdAt": "2025-01-03T10:00:00Z",
-"updatedAt": "2025-01-03T10:00:00Z"
-}
-]
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/listings/:id/approve
@@ -375,35 +350,25 @@ Approve a listing for publication.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"adminNotes": "All documentation verified. Property meets standards."
+  "adminNotes": "All documentation verified. Property meets standards."
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Listing approved successfully",
-"listing": {
-"id": "list_123",
-"verificationStatus": "verified",
-"verifiedAt": "2025-01-04T12:00:00Z",
-"verifiedBy": "admin_001"
+  "success": true,
+  "message": "Listing approved successfully",
+  "listing": {
+    "id": "list_123",
+    "verificationStatus": "verified",
+    "verifiedAt": "2025-01-04T12:00:00Z",
+    "verifiedBy": "admin_001"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/listings/:id/reject
@@ -412,37 +377,27 @@ Reject a listing with a reason.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"reason": "Incomplete documentation. Missing property ownership proof.",
-"adminNotes": "Requested additional documents from landlord."
+  "reason": "Incomplete documentation. Missing property ownership proof.",
+  "adminNotes": "Requested additional documents from landlord."
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Listing rejected",
-"listing": {
-"id": "list_123",
-"verificationStatus": "rejected",
-"rejectionReason": "Incomplete documentation. Missing property ownership proof.",
-"rejectedAt": "2025-01-04T12:00:00Z",
-"rejectedBy": "admin_001"
+  "success": true,
+  "message": "Listing rejected",
+  "listing": {
+    "id": "list_123",
+    "verificationStatus": "rejected",
+    "rejectionReason": "Incomplete documentation. Missing property ownership proof.",
+    "rejectedAt": "2025-01-04T12:00:00Z",
+    "rejectedBy": "admin_001"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ---
@@ -462,51 +417,46 @@ Get all bookings with optional filtering.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"bookings": [
-{
-"id": "book_123",
-"student": {
-"id": "user_789",
-"name": "Sara Ahmed",
-"email": "sara@example.com",
-"phone": "+966501234567",
-"university": "King Saud University"
-},
-"listing": {
-"id": "list_456",
-"title": "Modern Student Accommodation",
-"buildingName": "Al-Noor Residence",
-"city": "Riyadh"
-},
-"room": {
-"id": "room_789",
-"description": "Spacious room with private bathroom",
-"pricePerMonth": 1200
-},
-"bedIndex": 1,
-"status": "pending",
-"startDate": "2025-02-01T00:00:00Z",
-"endDate": "2025-08-31T00:00:00Z",
-"paymentStatus": "unpaid",
-"totalAmount": 8400,
-"createdAt": "2025-01-03T10:00:00Z",
-"updatedAt": "2025-01-03T10:00:00Z"
+  "bookings": [
+    {
+      "id": "book_123",
+      "student": {
+        "id": "user_789",
+        "name": "Sara Ahmed",
+        "email": "sara@example.com",
+        "phone": "+966501234567",
+        "university": "King Saud University"
+      },
+      "listing": {
+        "id": "list_456",
+        "title": "Modern Student Accommodation",
+        "buildingName": "Al-Noor Residence",
+        "city": "Riyadh"
+      },
+      "room": {
+        "id": "room_789",
+        "description": "Spacious room with private bathroom",
+        "pricePerMonth": 1200
+      },
+      "bedIndex": 1,
+      "status": "pending",
+      "startDate": "2025-02-01T00:00:00Z",
+      "endDate": "2025-08-31T00:00:00Z",
+      "paymentStatus": "unpaid",
+      "totalAmount": 8400,
+      "createdAt": "2025-01-03T10:00:00Z",
+      "updatedAt": "2025-01-03T10:00:00Z"
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 8,
+    "totalItems": 150,
+    "itemsPerPage": 20
+  }
 }
-],
-"pagination": {
-"currentPage": 1,
-"totalPages": 8,
-"totalItems": 150,
-"itemsPerPage": 20
-}
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### GET /api/admin/bookings/:id
@@ -515,54 +465,49 @@ Get detailed information about a specific booking.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"booking": {
-"id": "book_123",
-"student": {
-"id": "user_789",
-"name": "Sara Ahmed",
-"email": "sara@example.com",
-"phone": "+966501234567",
-"profileImageUrl": "https://example.com/profiles/user_789.jpg",
-"university": "King Saud University",
-"college": "Engineering",
-"degree": "Bachelor"
-},
-"listing": {
-"id": "list_456",
-"title": "Modern Student Accommodation",
-"buildingName": "Al-Noor Residence",
-"buildingNumber": "123",
-"city": "Riyadh",
-"landlord": {
-"id": "user_456",
-"name": "Ahmed Al-Rashid",
-"phone": "+966501234567"
+  "booking": {
+    "id": "book_123",
+    "student": {
+      "id": "user_789",
+      "name": "Sara Ahmed",
+      "email": "sara@example.com",
+      "phone": "+966501234567",
+      "profileImageUrl": "https://example.com/profiles/user_789.jpg",
+      "university": "King Saud University",
+      "college": "Engineering",
+      "degree": "Bachelor"
+    },
+    "listing": {
+      "id": "list_456",
+      "title": "Modern Student Accommodation",
+      "buildingName": "Al-Noor Residence",
+      "buildingNumber": "123",
+      "city": "Riyadh",
+      "landlord": {
+        "id": "user_456",
+        "name": "Ahmed Al-Rashid",
+        "phone": "+966501234567"
+      }
+    },
+    "room": {
+      "id": "room_789",
+      "description": "Spacious room with private bathroom",
+      "roomType": "private",
+      "pricePerMonth": 1200
+    },
+    "bedIndex": 1,
+    "status": "pending",
+    "startDate": "2025-02-01T00:00:00Z",
+    "endDate": "2025-08-31T00:00:00Z",
+    "paymentStatus": "unpaid",
+    "totalAmount": 8400,
+    "adminNotes": [],
+    "createdAt": "2025-01-03T10:00:00Z",
+    "updatedAt": "2025-01-03T10:00:00Z"
+  }
 }
-},
-"room": {
-"id": "room_789",
-"description": "Spacious room with private bathroom",
-"roomType": "private",
-"pricePerMonth": 1200
-},
-"bedIndex": 1,
-"status": "pending",
-"startDate": "2025-02-01T00:00:00Z",
-"endDate": "2025-08-31T00:00:00Z",
-"paymentStatus": "unpaid",
-"totalAmount": 8400,
-"adminNotes": [],
-"createdAt": "2025-01-03T10:00:00Z",
-"updatedAt": "2025-01-03T10:00:00Z"
-}
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### PUT /api/admin/bookings/:id/status
@@ -571,36 +516,26 @@ Update booking status.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"status": "approved",
-"notes": "Payment verified. Booking approved for move-in on Feb 1st."
+  "status": "approved",
+  "notes": "Payment verified. Booking approved for move-in on Feb 1st."
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Booking status updated successfully",
-"booking": {
-"id": "book_123",
-"status": "approved",
-"updatedAt": "2025-01-04T12:00:00Z",
-"updatedBy": "admin_001"
+  "success": true,
+  "message": "Booking status updated successfully",
+  "booking": {
+    "id": "book_123",
+    "status": "approved",
+    "updatedAt": "2025-01-04T12:00:00Z",
+    "updatedBy": "admin_001"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/bookings/:id/notes
@@ -609,37 +544,27 @@ Add admin notes to a booking.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"note": "Contacted student to confirm move-in date. Awaiting response."
+  "note": "Contacted student to confirm move-in date. Awaiting response."
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Note added successfully",
-"note": {
-"id": "note_123",
-"bookingId": "book_123",
-"adminId": "admin_001",
-"adminName": "Admin User",
-"content": "Contacted student to confirm move-in date. Awaiting response.",
-"createdAt": "2025-01-04T12:00:00Z"
+  "success": true,
+  "message": "Note added successfully",
+  "note": {
+    "id": "note_123",
+    "bookingId": "book_123",
+    "adminId": "admin_001",
+    "adminName": "Admin User",
+    "content": "Contacted student to confirm move-in date. Awaiting response.",
+    "createdAt": "2025-01-04T12:00:00Z"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ---
@@ -659,46 +584,41 @@ Get all payments with optional filtering.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"payments": [
-{
-"id": "pay_123",
-"booking": {
-"id": "book_456",
-"student": {
-"id": "user_789",
-"name": "Sara Ahmed",
-"email": "sara@example.com"
-},
-"listing": {
-"id": "list_321",
-"title": "Modern Student Accommodation",
-"buildingName": "Al-Noor Residence"
+  "payments": [
+    {
+      "id": "pay_123",
+      "booking": {
+        "id": "book_456",
+        "student": {
+          "id": "user_789",
+          "name": "Sara Ahmed",
+          "email": "sara@example.com"
+        },
+        "listing": {
+          "id": "list_321",
+          "title": "Modern Student Accommodation",
+          "buildingName": "Al-Noor Residence"
+        }
+      },
+      "amount": 1200,
+      "method": "iban_transfer",
+      "status": "pending",
+      "referenceNote": "Transfer from Sara Ahmed - Booking #456",
+      "proofImageUrl": "https://example.com/payments/proof_123.jpg",
+      "timestamp": "2025-01-03T14:30:00Z",
+      "createdAt": "2025-01-03T14:30:00Z",
+      "updatedAt": "2025-01-03T14:30:00Z"
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 5,
+    "totalItems": 95,
+    "itemsPerPage": 20
+  }
 }
-},
-"amount": 1200,
-"method": "iban_transfer",
-"status": "pending",
-"referenceNote": "Transfer from Sara Ahmed - Booking #456",
-"proofImageUrl": "https://example.com/payments/proof_123.jpg",
-"timestamp": "2025-01-03T14:30:00Z",
-"createdAt": "2025-01-03T14:30:00Z",
-"updatedAt": "2025-01-03T14:30:00Z"
-}
-],
-"pagination": {
-"currentPage": 1,
-"totalPages": 5,
-"totalItems": 95,
-"itemsPerPage": 20
-}
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### GET /api/admin/payments/:id
@@ -707,50 +627,45 @@ Get detailed information about a specific payment.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"payment": {
-"id": "pay_123",
-"booking": {
-"id": "book_456",
-"student": {
-"id": "user_789",
-"name": "Sara Ahmed",
-"email": "sara@example.com",
-"phone": "+966501234567"
-},
-"listing": {
-"id": "list_321",
-"title": "Modern Student Accommodation",
-"buildingName": "Al-Noor Residence"
-},
-"room": {
-"id": "room_654",
-"description": "Spacious room with private bathroom"
-},
-"startDate": "2025-02-01T00:00:00Z",
-"endDate": "2025-08-31T00:00:00Z"
-},
-"amount": 1200,
-"method": "iban_transfer",
-"status": "pending",
-"referenceNote": "Transfer from Sara Ahmed - Booking #456",
-"proofImageUrl": "https://example.com/payments/proof_123.jpg",
-"bankDetails": {
-"accountName": "Bayyitni Platform",
-"iban": "SA1234567890123456789012",
-"bankName": "Al Rajhi Bank"
-},
-"timestamp": "2025-01-03T14:30:00Z",
-"createdAt": "2025-01-03T14:30:00Z",
-"updatedAt": "2025-01-03T14:30:00Z"
+  "payment": {
+    "id": "pay_123",
+    "booking": {
+      "id": "book_456",
+      "student": {
+        "id": "user_789",
+        "name": "Sara Ahmed",
+        "email": "sara@example.com",
+        "phone": "+966501234567"
+      },
+      "listing": {
+        "id": "list_321",
+        "title": "Modern Student Accommodation",
+        "buildingName": "Al-Noor Residence"
+      },
+      "room": {
+        "id": "room_654",
+        "description": "Spacious room with private bathroom"
+      },
+      "startDate": "2025-02-01T00:00:00Z",
+      "endDate": "2025-08-31T00:00:00Z"
+    },
+    "amount": 1200,
+    "method": "iban_transfer",
+    "status": "pending",
+    "referenceNote": "Transfer from Sara Ahmed - Booking #456",
+    "proofImageUrl": "https://example.com/payments/proof_123.jpg",
+    "bankDetails": {
+      "accountName": "Bayyitni Platform",
+      "iban": "SA1234567890123456789012",
+      "bankName": "Al Rajhi Bank"
+    },
+    "timestamp": "2025-01-03T14:30:00Z",
+    "createdAt": "2025-01-03T14:30:00Z",
+    "updatedAt": "2025-01-03T14:30:00Z"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/payments/:id/confirm
@@ -759,35 +674,25 @@ Confirm a payment.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"adminNotes": "Payment verified in bank account. Transfer ID: TXN123456"
+  "adminNotes": "Payment verified in bank account. Transfer ID: TXN123456"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Payment confirmed successfully",
-"payment": {
-"id": "pay_123",
-"status": "confirmed",
-"confirmedAt": "2025-01-04T12:00:00Z",
-"confirmedBy": "admin_001"
+  "success": true,
+  "message": "Payment confirmed successfully",
+  "payment": {
+    "id": "pay_123",
+    "status": "confirmed",
+    "confirmedAt": "2025-01-04T12:00:00Z",
+    "confirmedBy": "admin_001"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/payments/:id/reject
@@ -796,37 +701,27 @@ Reject a payment.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"reason": "Transfer amount does not match booking amount",
-"adminNotes": "Requested student to submit correct payment proof"
+  "reason": "Transfer amount does not match booking amount",
+  "adminNotes": "Requested student to submit correct payment proof"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Payment rejected",
-"payment": {
-"id": "pay_123",
-"status": "rejected",
-"rejectionReason": "Transfer amount does not match booking amount",
-"rejectedAt": "2025-01-04T12:00:00Z",
-"rejectedBy": "admin_001"
+  "success": true,
+  "message": "Payment rejected",
+  "payment": {
+    "id": "pay_123",
+    "status": "rejected",
+    "rejectionReason": "Transfer amount does not match booking amount",
+    "rejectedAt": "2025-01-04T12:00:00Z",
+    "rejectedBy": "admin_001"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/payments
@@ -835,44 +730,34 @@ Create a manual payment record.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"bookingId": "book_456",
-"amount": 1200,
-"method": "cash",
-"referenceNote": "Cash payment received at office",
-"timestamp": "2025-01-04T10:00:00Z"
+  "bookingId": "book_456",
+  "amount": 1200,
+  "method": "cash",
+  "referenceNote": "Cash payment received at office",
+  "timestamp": "2025-01-04T10:00:00Z"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Payment record created successfully",
-"payment": {
-"id": "pay_789",
-"bookingId": "book_456",
-"amount": 1200,
-"method": "cash",
-"status": "confirmed",
-"referenceNote": "Cash payment received at office",
-"timestamp": "2025-01-04T10:00:00Z",
-"createdBy": "admin_001",
-"createdAt": "2025-01-04T12:00:00Z"
+  "success": true,
+  "message": "Payment record created successfully",
+  "payment": {
+    "id": "pay_789",
+    "bookingId": "book_456",
+    "amount": 1200,
+    "method": "cash",
+    "status": "confirmed",
+    "referenceNote": "Cash payment received at office",
+    "timestamp": "2025-01-04T10:00:00Z",
+    "createdBy": "admin_001",
+    "createdAt": "2025-01-04T12:00:00Z"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### GET /api/admin/payments/stats
@@ -886,35 +771,30 @@ Get payment statistics.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"stats": {
-"totalPayments": 95,
-"totalAmount": 114000,
-"confirmedPayments": 78,
-"confirmedAmount": 93600,
-"pendingPayments": 12,
-"pendingAmount": 14400,
-"rejectedPayments": 5,
-"rejectedAmount": 6000,
-"byMethod": {
-"cash": {
-"count": 25,
-"amount": 30000
-},
-"iban_transfer": {
-"count": 70,
-"amount": 84000
+  "stats": {
+    "totalPayments": 95,
+    "totalAmount": 114000,
+    "confirmedPayments": 78,
+    "confirmedAmount": 93600,
+    "pendingPayments": 12,
+    "pendingAmount": 14400,
+    "rejectedPayments": 5,
+    "rejectedAmount": 6000,
+    "byMethod": {
+      "cash": {
+        "count": 25,
+        "amount": 30000
+      },
+      "iban_transfer": {
+        "count": 70,
+        "amount": 84000
+      }
+    },
+    "currency": "SAR"
+  }
 }
-},
-"currency": "SAR"
-}
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ---
@@ -934,47 +814,42 @@ Get admin notifications.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"notifications": [
-{
-"id": "notif_123",
-"userId": "admin_001",
-"message": "New listing submitted for verification: Al-Noor Residence",
-"type": "listing",
-"isRead": false,
-"metadata": {
-"listingId": "list_456",
-"landlordId": "user_789"
-},
-"createdAt": "2025-01-04T10:00:00Z"
-},
-{
-"id": "notif_124",
-"userId": "admin_001",
-"message": "Payment confirmation required for booking #123",
-"type": "payment",
-"isRead": false,
-"metadata": {
-"paymentId": "pay_456",
-"bookingId": "book_123",
-"amount": 1200
-},
-"createdAt": "2025-01-04T09:30:00Z"
+  "notifications": [
+    {
+      "id": "notif_123",
+      "userId": "admin_001",
+      "message": "New listing submitted for verification: Al-Noor Residence",
+      "type": "listing",
+      "isRead": false,
+      "metadata": {
+        "listingId": "list_456",
+        "landlordId": "user_789"
+      },
+      "createdAt": "2025-01-04T10:00:00Z"
+    },
+    {
+      "id": "notif_124",
+      "userId": "admin_001",
+      "message": "Payment confirmation required for booking #123",
+      "type": "payment",
+      "isRead": false,
+      "metadata": {
+        "paymentId": "pay_456",
+        "bookingId": "book_123",
+        "amount": 1200
+      },
+      "createdAt": "2025-01-04T09:30:00Z"
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 3,
+    "totalItems": 45,
+    "itemsPerPage": 20
+  }
 }
-],
-"pagination": {
-"currentPage": 1,
-"totalPages": 3,
-"totalItems": 45,
-"itemsPerPage": 20
-}
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### GET /api/admin/notifications/unread
@@ -983,21 +858,16 @@ Get count of unread notifications.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"unreadCount": 12,
-"byType": {
-"system": 2,
-"booking": 3,
-"payment": 5,
-"listing": 2
+  "unreadCount": 12,
+  "byType": {
+    "system": 2,
+    "booking": 3,
+    "payment": 5,
+    "listing": 2
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### PUT /api/admin/notifications/:id/read
@@ -1006,21 +876,16 @@ Mark a notification as read.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Notification marked as read",
-"notification": {
-"id": "notif_123",
-"isRead": true,
-"readAt": "2025-01-04T12:00:00Z"
+  "success": true,
+  "message": "Notification marked as read",
+  "notification": {
+    "id": "notif_123",
+    "isRead": true,
+    "readAt": "2025-01-04T12:00:00Z"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### PUT /api/admin/notifications/mark-all-read
@@ -1029,17 +894,12 @@ Mark all notifications as read.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "All notifications marked as read",
-"updatedCount": 12
+  "success": true,
+  "message": "All notifications marked as read",
+  "updatedCount": 12
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### DELETE /api/admin/notifications/:id
@@ -1048,16 +908,11 @@ Delete a notification.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Notification deleted successfully"
+  "success": true,
+  "message": "Notification deleted successfully"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ---
@@ -1070,34 +925,29 @@ Get admin profile information.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"admin": {
-"id": "admin_001",
-"name": "Admin User",
-"email": "admin@bayyitni.com",
-"phone": "+966501234567",
-"role": "admin",
-"profileImageUrl": "https://example.com/profiles/admin_001.jpg",
-"department": "Platform Administration",
-"bio": "Platform administrator managing listings and payments",
-"permissions": {
-"listingManagement": true,
-"paymentManagement": true,
-"userManagement": true,
-"systemAnalytics": true
-},
-"isActive": true,
-"emailVerified": true,
-"createdAt": "2024-01-01T00:00:00Z",
-"updatedAt": "2025-01-04T12:00:00Z"
+  "admin": {
+    "id": "admin_001",
+    "name": "Admin User",
+    "email": "admin@bayyitni.com",
+    "phone": "+966501234567",
+    "role": "admin",
+    "profileImageUrl": "https://example.com/profiles/admin_001.jpg",
+    "department": "Platform Administration",
+    "bio": "Platform administrator managing listings and payments",
+    "permissions": {
+      "listingManagement": true,
+      "paymentManagement": true,
+      "userManagement": true,
+      "systemAnalytics": true
+    },
+    "isActive": true,
+    "emailVerified": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2025-01-04T12:00:00Z"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### PUT /api/admin/profile
@@ -1106,40 +956,30 @@ Update admin profile.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"name": "Admin User",
-"phone": "+966501234567",
-"department": "Platform Administration",
-"bio": "Platform administrator managing listings and payments"
+  "name": "Admin User",
+  "phone": "+966501234567",
+  "department": "Platform Administration",
+  "bio": "Platform administrator managing listings and payments"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Profile updated successfully",
-"admin": {
-"id": "admin_001",
-"name": "Admin User",
-"phone": "+966501234567",
-"department": "Platform Administration",
-"bio": "Platform administrator managing listings and payments",
-"updatedAt": "2025-01-04T12:00:00Z"
+  "success": true,
+  "message": "Profile updated successfully",
+  "admin": {
+    "id": "admin_001",
+    "name": "Admin User",
+    "phone": "+966501234567",
+    "department": "Platform Administration",
+    "bio": "Platform administrator managing listings and payments",
+    "updatedAt": "2025-01-04T12:00:00Z"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/profile/avatar
@@ -1153,17 +993,12 @@ Upload profile avatar.
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Avatar uploaded successfully",
-"profileImageUrl": "https://example.com/profiles/admin_001.jpg"
+  "success": true,
+  "message": "Avatar uploaded successfully",
+  "profileImageUrl": "https://example.com/profiles/admin_001.jpg"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/profile/password
@@ -1172,31 +1007,21 @@ Change admin password.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"currentPassword": "oldPassword123",
-"newPassword": "newSecurePassword456",
-"confirmPassword": "newSecurePassword456"
+  "currentPassword": "oldPassword123",
+  "newPassword": "newSecurePassword456",
+  "confirmPassword": "newSecurePassword456"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "Password changed successfully"
+  "success": true,
+  "message": "Password changed successfully"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### POST /api/admin/profile/2fa
@@ -1205,36 +1030,22 @@ Setup two-factor authentication.
 
 **Request Body:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"enable": true
+  "enable": true
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 **Response:**
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"success": true,
-"message": "2FA setup initiated",
-"qrCode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
-"secret": "JBSWY3DPEHPK3PXP",
-"backupCodes": [
-"12345678",
-"87654321",
-"11223344"
-]
+  "success": true,
+  "message": "2FA setup initiated",
+  "qrCode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+  "secret": "JBSWY3DPEHPK3PXP",
+  "backupCodes": ["12345678", "87654321", "11223344"]
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ---
@@ -1243,51 +1054,36 @@ Some color-syntaxing enrichment can be applied with the following blockcode synt
 
 ### 400 Bad Request
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"error": "Bad Request",
-"message": "Invalid request parameters",
-"details": {
-"field": "status",
-"issue": "Invalid status value"
+  "error": "Bad Request",
+  "message": "Invalid request parameters",
+  "details": {
+    "field": "status",
+    "issue": "Invalid status value"
+  }
 }
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### 404 Not Found
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"error": "Not Found",
-"message": "Resource not found",
-"resourceType": "listing",
-"resourceId": "list_123"
+  "error": "Not Found",
+  "message": "Resource not found",
+  "resourceType": "listing",
+  "resourceId": "list_123"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### 500 Internal Server Error
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```json
 {
-"error": "Internal Server Error",
-"message": "An unexpected error occurred",
-"requestId": "req_abc123"
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred",
+  "requestId": "req_abc123"
 }
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ---
@@ -1295,8 +1091,6 @@ Some color-syntaxing enrichment can be applied with the following blockcode synt
 ## Data Models
 
 ### User
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
 
 ```typescript
 {
@@ -1312,13 +1106,11 @@ createdAt: Date
 updatedAt: Date
 }
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
+
 
 ```
 
 ### PropertyListing
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
 
 ```typescript
 {
@@ -1351,43 +1143,36 @@ createdAt: Date
 updatedAt: Date
 }
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
+
 
 ```
 
 ### Room
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```typescript
 {
-id: string
-propertyListingId: string
-description: string
-pricePerMonth: number
-availableFrom: Date
-isActive: boolean
-isAvailable: boolean
-roomType: string
-numberOfBeds: number
-numberOfAvailableBeds: number
-amenities: {
-hasInternalBathroom: boolean
-hasInternalBalcony: boolean
-hasAC: boolean
-hasOffice: boolean
+  id: string;
+  propertyListingId: string;
+  description: string;
+  pricePerMonth: number;
+  availableFrom: Date;
+  isActive: boolean;
+  isAvailable: boolean;
+  roomType: string;
+  numberOfBeds: number;
+  numberOfAvailableBeds: number;
+  amenities: {
+    hasInternalBathroom: boolean;
+    hasInternalBalcony: boolean;
+    hasAC: boolean;
+    hasOffice: boolean;
+  }
+  createdAt: Date;
+  updatedAt: Date;
 }
-createdAt: Date
-updatedAt: Date
-}
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
-
 ```
 
 ### Booking
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
 
 ```typescript
 {
@@ -1404,13 +1189,11 @@ createdAt: Date
 updatedAt: Date
 }
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
+
 
 ```
 
 ### Payment
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
 
 ```typescript
 {
@@ -1426,13 +1209,11 @@ createdAt: Date
 updatedAt: Date
 }
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
+
 
 ```
 
 ### Notification
-
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
 
 ```typescript
 {
@@ -1445,7 +1226,7 @@ metadata?: object
 createdAt: Date
 }
 
-Some color-syntaxing enrichment can be applied with the following blockcode syntax
+
 
 ```
 
