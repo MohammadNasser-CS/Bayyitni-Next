@@ -501,7 +501,9 @@
       },
       "platformUsers": {
         "title": "مستخدمي المنصة",
-        "description": "المالكون والمستأجرون المسجلون"
+        "description": "إجمالي المستخدمين المسجلين",
+        "landlords": "المالكون",
+        "students": "الطلاب"
       },
       "monthlyRevenue": {
         "title": "الإيرادات الشهرية",

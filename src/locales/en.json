@@ -502,7 +502,9 @@
       },
       "platformUsers": {
         "title": "Platform Users",
-        "description": "Registered landlords and tenants"
+        "description": "Total registered users",
+        "landlords": "Landlords",
+        "students": "Students"
       },
       "monthlyRevenue": {
         "title": "Monthly Revenue",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   Building,
   Users,
@@ -11,78 +12,62 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { fetchDashboardSummary } from "@/utils/admin/dashboard/fetchDashboardSummary";
+import { DashboardSummary } from "@/types/admin/statistics";
 
 export default function AdminDashboard() {
   const router = useRouter();
   const { t } = useLanguage();
 
-  // Mock data
-  const mockListings = [
-    {
-      id: 1,
-      title: "Al Noor Residence",
-      city: "Riyadh",
-      building_name: "Al Noor",
-      verification_status: "pending",
-    },
-    {
-      id: 2,
-      title: "Sunset Apartments",
-      city: "Jeddah",
-      building_name: "Sunset",
-      verification_status: "verified",
-    },
-    {
-      id: 3,
-      title: "Palm Towers",
-      city: "Dammam",
-      building_name: "Palm",
-      verification_status: "rejected",
-    },
-  ];
+  // Redirect to dashboard route if not already there
+  useEffect(() => {
+    if (window.location.pathname === "/admin") {
+      router.replace("/admin/dashboard");
+    }
+  }, [router]);
 
-  const mockBookings = [
-    { id: 1, status: "active" },
-    { id: 2, status: "pending" },
-    { id: 3, status: "active" },
-  ];
+  const [data, setData] = useState<DashboardSummary | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const mockRooms = [
-    { number_of_beds: 4, number_of_available_beds: 1 },
-    { number_of_beds: 3, number_of_available_beds: 1 },
-    { number_of_beds: 5, number_of_available_beds: 2 },
-  ];
+  // Fetch dashboard summary
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const summary = await fetchDashboardSummary();
+        setData(summary);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Statistics
-  const totalListings = mockListings.length;
-  const verifiedListings = mockListings.filter(
-    (l) => l.verification_status === "verified"
-  ).length;
-  const pendingListings = mockListings.filter(
-    (l) => l.verification_status === "pending"
-  ).length;
-  const rejectedListings = mockListings.filter(
-    (l) => l.verification_status === "rejected"
-  ).length;
+    loadData();
+  }, []);
 
-  const totalRooms = mockRooms.length;
-  const totalBeds = mockRooms.reduce((sum, r) => sum + r.number_of_beds, 0);
-  const availableBeds = mockRooms.reduce(
-    (sum, r) => sum + r.number_of_available_beds,
-    0
-  );
-  const occupiedBeds = totalBeds - availableBeds;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
+        <p className="mt-6 text-gray-500 font-medium animate-pulse">
+          {t("common.loading")}
+        </p>
+      </div>
+    );
+  }
 
-  const totalBookings = mockBookings.length;
-  const pendingBookings = mockBookings.filter(
-    (b) => b.status === "pending"
-  ).length;
-  const activeBookings = mockBookings.filter(
-    (b) => b.status === "active"
-  ).length;
+  if (error || !data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-600">
+        {t("errorFetchingData")}: {error}
+      </div>
+    );
+  }
 
-  const totalRevenue = occupiedBeds * 100;
-  const monthlyRevenue = totalRevenue;
+  const stats = data.statistics;
+  const pendingListings = data.pendingListings || [];
+  const recentActivity = data.recentActivity || [];
 
   return (
     <div className="min-h-screen w-full">
@@ -102,7 +87,9 @@ export default function AdminDashboard() {
             className="flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-white hover:bg-orange-500 cursor-pointer"
           >
             <CheckCircle className="h-4 w-4" />
-            {t("admin.dashboard.reviewListings", { count: pendingListings })}
+            {t("admin.dashboard.reviewListings", {
+              count: stats.listings.pending,
+            })}
           </button>
           <button
             onClick={() => router.push("/admin/payments")}
@@ -115,67 +102,48 @@ export default function AdminDashboard() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Total Listings */}
-          <div className="p-4 rounded-lg bg-cards-background shadow-md border border-placeholders">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-sm font-medium text-labels">
-                {t("admin.stats.totalListings.title")}
-              </h3>
-              <Building className="h-5 w-5 text-primary" />
-            </div>
-            <div className="text-2xl font-bold">{totalListings}</div>
-            <p className="text-xs text-hints">
-              {t("admin.stats.totalListings.description", {
-                verified: verifiedListings,
-                pending: pendingListings,
-              })}
-            </p>
-          </div>
+          <StatCard
+            icon={<Building className="h-5 w-5 text-primary" />}
+            title={t("admin.stats.totalListings.title")}
+            value={stats.listings.total}
+            description={t("admin.stats.totalListings.description", {
+              verified: stats.listings.verified,
+              pending: stats.listings.pending,
+            })}
+          />
 
           {/* Platform Users */}
-          <div className="p-4 rounded-lg bg-cards-background shadow-md border border-placeholders">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-sm font-medium text-labels">
-                {t("admin.stats.platformUsers.title")}
-              </h3>
-              <Users className="h-5 w-5 text-primary" />
-            </div>
-            <div className="text-2xl font-bold">150+</div>
-            <p className="text-xs text-hints">
-              {t("admin.stats.platformUsers.description")}
-            </p>
-          </div>
+          <StatCard
+            icon={<Users className="h-5 w-5 text-primary" />}
+            title={t("admin.stats.platformUsers.title")}
+            value={stats.users.total}
+            description={
+              <>
+                {t("admin.stats.platformUsers.description")}
+                <br />
+                {t("admin.stats.platformUsers.landlords")}:{" "}
+                <strong>{stats.users.landlords}</strong> •{" "}
+                {t("admin.stats.platformUsers.students")}:{" "}
+                <strong>{stats.users.tenants}</strong>
+              </>
+            }
+          />
 
           {/* Monthly Revenue */}
-          <div className="p-4 rounded-lg bg-cards-background shadow-md border border-placeholders">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-sm font-medium text-labels">
-                {t("admin.stats.monthlyRevenue.title")}
-              </h3>
-              <DollarSign className="h-5 w-5 text-primary" />
-            </div>
-            <div className="text-2xl font-bold">
-              {t("admin.stats.monthlyRevenue.value", { value: monthlyRevenue })}
-            </div>
-            <p className="text-xs text-hints">
-              {t("admin.stats.monthlyRevenue.description")}
-            </p>
-          </div>
+          <StatCard
+            icon={<DollarSign className="h-5 w-5 text-primary" />}
+            title={t("admin.stats.monthlyRevenue.title")}
+            value={`${stats.revenue.monthly} ${stats.revenue.currency}`}
+            description={t("admin.stats.monthlyRevenue.description")}
+          />
 
           {/* Pending Reviews */}
-          <div className="p-4 rounded-lg bg-cards-background shadow-md border border-placeholders">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-sm font-medium text-labels">
-                {t("admin.stats.pendingReviews.title")}
-              </h3>
-              <AlertTriangle className="h-5 w-5 text-primary" />
-            </div>
-            <div className="text-2xl font-bold">
-              {pendingListings + pendingBookings}
-            </div>
-            <p className="text-xs text-hints">
-              {t("admin.stats.pendingReviews.description")}
-            </p>
-          </div>
+          <StatCard
+            icon={<AlertTriangle className="h-5 w-5 text-primary" />}
+            title={t("admin.stats.pendingReviews.title")}
+            value={stats.listings.pending + stats.bookings.pending}
+            description={t("admin.stats.pendingReviews.description")}
+          />
         </div>
 
         {/* Management Sections */}
@@ -190,7 +158,7 @@ export default function AdminDashboard() {
               {t("admin.verificationQueue.subtitle")}
             </p>
 
-            {pendingListings === 0 ? (
+            {pendingListings.length === 0 ? (
               <div className="text-center py-8">
                 <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
                 <p className="text-hints">
@@ -198,35 +166,32 @@ export default function AdminDashboard() {
                 </p>
               </div>
             ) : (
-              mockListings
-                .filter((l) => l.verification_status === "pending")
-                .slice(0, 3)
-                .map((listing) => (
-                  <div
-                    key={listing.id}
-                    className="flex items-center justify-between p-3 border border-placeholders shadow rounded-md mb-2"
-                  >
-                    <div>
-                      <h4 className="font-medium">{listing.title}</h4>
-                      <p className="text-sm text-hints">
-                        {listing.building_name}, {listing.city}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 text-primary text-sm">
-                      <Clock className="h-3 w-3" />
-                      {t("admin.verificationQueue.pending")}
-                    </div>
+              pendingListings.slice(0, 3).map((listing: any) => (
+                <div
+                  key={listing.id}
+                  className="flex items-center justify-between p-3 border border-placeholders shadow rounded-md mb-2"
+                >
+                  <div>
+                    <h4 className="font-medium">{listing.title}</h4>
+                    <p className="text-sm text-hints">
+                      {listing.buildingName}, {listing.location.city}
+                    </p>
                   </div>
-                ))
+                  <div className="flex items-center gap-2 text-primary text-sm">
+                    <Clock className="h-3 w-3" />
+                    {t("admin.verificationQueue.pending")}
+                  </div>
+                </div>
+              ))
             )}
 
-            {pendingListings > 0 && (
+            {pendingListings.length > 0 && (
               <button
                 onClick={() => router.push("/admin/verification")}
                 className="mt-4 w-full py-2 border rounded-md text-sm text-white bg-primary hover:bg-orange-500 cursor-pointer"
               >
                 {t("admin.verificationQueue.reviewAll", {
-                  count: pendingListings,
+                  count: pendingListings.length,
                 })}
               </button>
             )}
@@ -243,47 +208,30 @@ export default function AdminDashboard() {
             </p>
 
             <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-hints">
-                  {t("admin.platformStats.totalProperties")}
-                </span>
-                <span className="font-medium">{totalListings}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-hints">
-                  {t("admin.platformStats.totalRooms")}
-                </span>
-                <span className="font-medium">{totalRooms}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-hints">
-                  {t("admin.platformStats.totalBeds")}
-                </span>
-                <span className="font-medium">{totalBeds}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-hints">
-                  {t("admin.platformStats.occupancyRate")}
-                </span>
-                <span className="font-medium">
-                  {totalBeds > 0
-                    ? Math.round((occupiedBeds / totalBeds) * 100)
-                    : 0}
-                  %
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-hints">
-                  {t("admin.platformStats.activeBookings")}
-                </span>
-                <span className="font-medium">{activeBookings}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-hints">
-                  {t("admin.platformStats.pendingBookings")}
-                </span>
-                <span className="font-medium">{pendingBookings}</span>
-              </div>
+              <StatLine
+                label={t("admin.platformStats.totalProperties")}
+                value={stats.listings.total}
+              />
+              <StatLine
+                label={t("admin.platformStats.totalRooms")}
+                value={stats.rooms.total}
+              />
+              <StatLine
+                label={t("admin.platformStats.totalBeds")}
+                value={stats.rooms.totalBeds}
+              />
+              <StatLine
+                label={t("admin.platformStats.occupancyRate")}
+                value={`${stats.rooms.occupancyRate}%`}
+              />
+              <StatLine
+                label={t("admin.platformStats.activeBookings")}
+                value={stats.bookings.active}
+              />
+              <StatLine
+                label={t("admin.platformStats.pendingBookings")}
+                value={stats.bookings.pending}
+              />
             </div>
           </div>
         </div>
@@ -298,36 +246,66 @@ export default function AdminDashboard() {
           </p>
 
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-              <div className="flex-1">
-                <p className="text-sm font-medium">
-                  {t("admin.recentActivity.newListing")}
-                </p>
-                <p className="text-xs text-hints">Al-Noor Residence - 2h ago</p>
+            {recentActivity.slice(0, 5).map((act: any) => (
+              <div
+                key={act.id}
+                className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg"
+              >
+                <div
+                  className={`w-2 h-2 rounded-full ${
+                    act.type === "payment"
+                      ? "bg-green-500"
+                      : act.type === "booking"
+                      ? "bg-blue-500"
+                      : "bg-orange-500"
+                  }`}
+                ></div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">
+                    {t(`admin.recentActivity.${act.type}`)}
+                  </p>
+                  <p className="text-xs text-hints">
+                    {JSON.stringify(act.details)}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <div className="flex-1">
-                <p className="text-sm font-medium">
-                  {t("admin.recentActivity.payment")}
-                </p>
-                <p className="text-xs text-hints">Booking #1234 - 4h ago</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <div className="flex-1">
-                <p className="text-sm font-medium">
-                  {t("admin.recentActivity.newUser")}
-                </p>
-                <p className="text-xs text-hints">Student from KSU - 6h ago</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </main>
+    </div>
+  );
+}
+
+// 🔹 Reusable components
+function StatCard({
+  icon,
+  title,
+  value,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  value: any;
+  description: React.ReactNode; // ✅ now accepts JSX or string
+}) {
+  return (
+    <div className="p-4 rounded-lg bg-cards-background shadow-md border border-placeholders">
+      <div className="flex justify-between items-center mb-2">
+        <h3 className="text-sm font-medium text-labels">{title}</h3>
+        {icon}
+      </div>
+      <div className="text-2xl font-bold">{value}</div>
+      <div className="text-xs text-hints mt-1">{description}</div>
+    </div>
+  );
+}
+
+function StatLine({ label, value }: { label: string; value: any }) {
+  return (
+    <div className="flex justify-between items-center">
+      <span className="text-sm text-hints">{label}</span>
+      <span className="font-medium">{value}</span>
     </div>
   );
 }
