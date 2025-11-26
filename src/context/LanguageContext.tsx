@@ -19,7 +19,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const { i18n, t } = useTranslation();
-  const [language, setLanguageState] = useState("en");
+  const [language, setLanguageState] = useState("ar");
   const [isRTL, setIsRTL] = useState(false);
 
   const setLanguage = (lang: string) => {
@@ -45,7 +45,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Load saved language from localStorage
-    const savedLanguage = localStorage.getItem("language") || "en";
+    const savedLanguage = localStorage.getItem("language") || "ar";
     setLanguage(savedLanguage);
   }, []);
 

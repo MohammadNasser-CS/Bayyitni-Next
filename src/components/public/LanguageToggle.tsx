@@ -18,7 +18,7 @@ export function LanguageToggle() {
     >
       <Globe className="w-5 h-5 text-primary" />
       <span className="font-medium">
-        {language === "en" ? "العربية" : "English"}
+        {language === "en" ? "Arabic" : "الإنجليزية"}
       </span>
     </button>
   );
