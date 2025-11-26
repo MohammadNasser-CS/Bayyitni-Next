@@ -30,13 +30,128 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: isAR
-      ? "بيتتني – منصّة السكن الطلابي"
-      : "Bayyitni – Student Housing & Rentals",
+      ? "بيتني | منصة السكن الطلابي في فلسطين"
+      : "Bayyitni | Student Housing Platform In Palestine",
 
     description: isAR
-      ? "بيتتني هي المنصة الأولى لسكن الطلاب في فلسطين والمنطقة العربية. اعثر على غرف وشقق قريبة من الجامعات مع معلومات كاملة وصور وحجز سهل."
-      : "Bayyitni is the leading platform for student housing, rentals, and verified listings across Palestine and the Arab region.",
+      ? "بيتتني هي المنصة الأولى لسكن الطلاب في فلسطين. اعثر على غرف وشقق قريبة من الجامعات مع معلومات كاملة وصور وحجز سهل."
+      : "Bayyitni is the leading platform for student housing, rentals, and verified listings across Palestine",
+    keywords: [
+      // -------------------------------------------------------
+      // 🔵 Brand Keywords
+      // -------------------------------------------------------
+      "Bayyitni",
+      "Bayyitni platform",
+      "Bayyitni housing",
+      "بيتتني",
+      "منصة بيتتني",
 
+      // -------------------------------------------------------
+      // 🔵 General Student Housing Keywords (Arabic)
+      // -------------------------------------------------------
+      "فلسطين سكن طلاب",
+      "سكن للطلاب",
+      "سكن طلاب",
+      "سكن",
+      "طلاب",
+      "طالبات",
+      "سكن للطالبات",
+      "سكن طالبات",
+      "سكنات طالبات",
+      "سكن جامعي",
+      "سكن جامعات",
+      "سكن مشترك",
+      "سكن شبابي",
+      "سكن بنات",
+      "سكن قريب من الجامعة",
+      "غرف للإيجار",
+      "غرف مفروشة",
+      "استوديو",
+      "استوديو للطالبات",
+      "استوديو للإيجار",
+      "تأجير شقق",
+      "سكن مفروش",
+      "سكن رخيص للطلاب",
+      "شقق مفروشة",
+      "غرفة طلابية",
+      "سكن طلابي في فلسطين",
+      "أفضل سكن طلاب",
+      "سكن طلاب آمن",
+      "سكن طلاب جديد",
+      "سكن خاص للطلاب",
+
+      // -------------------------------------------------------
+      // 🔵 General Student Housing Keywords (English)
+      // -------------------------------------------------------
+      "student housing Palestine",
+      "student accommodation",
+      "student rooms",
+      "student apartments",
+      "student rentals Palestine",
+      "shared accommodation",
+      "rent rooms near university",
+      "affordable student rooms",
+      "girls student housing Palestine",
+      "boys housing Palestine",
+      "furnished student rooms",
+      "student private rooms",
+      "off-campus housing Palestine",
+      "student dorm alternatives",
+      "Arab housing marketplace",
+      "MENA student housing",
+
+      // -------------------------------------------------------
+      // 🔵 An-Najah University Keywords (HIGH VALUE)
+      // -------------------------------------------------------
+      "جامعة النجاح",
+      "جامعة النجاح الوطنية",
+      "سكنات النجاح",
+      "سكن النجاح",
+      "سكن جامعة النجاح",
+      "سكنات جامعة النجاح",
+      "غرف لطلاب جامعة النجاح",
+      "سكن للطالبات قرب النجاح",
+
+      // Campus-specific
+      "الحرم القديم",
+      "سكن الحرم القديم",
+      "سكنات الحرم القديم",
+      "الحرم الجديد",
+      "سكن الحرم الجديد",
+      "سكنات الحرم الجديد",
+      "الأكاديمية",
+      "سكن الأكاديمية",
+      "سكنات الأكاديمية",
+
+      // -------------------------------------------------------
+      // 🔵 City-Specific Keywords (Arabic)
+      // -------------------------------------------------------
+      "سكن نابلس",
+      "نابلس سكن طلاب",
+      "سكن رام الله",
+      "سكن القدس",
+      "سكن الخليل",
+      "سكن طولكرم",
+      "سكن جنين",
+      "سكن قلقيلية",
+      "سكن سلفيت",
+      "سكن غزة",
+      "سكن رفح",
+      "سكن خان يونس",
+      "سكن بيت لحم",
+
+      // -------------------------------------------------------
+      // 🔵 City-Specific Keywords (English)
+      // -------------------------------------------------------
+      "student housing Nablus",
+      "student housing Ramallah",
+      "student housing Hebron",
+      "student housing Jerusalem",
+      "student housing Gaza",
+      "rooms for rent Nablus",
+      "rooms for rent Palestine",
+    ]
+    ,
     icons: {
       icon: [
         {
@@ -54,11 +169,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
     openGraph: {
       title: isAR
-        ? "بيتتني – اعثر على سكنك الطلابي المثالي"
-        : "Bayyitni – Find Your Perfect Student Housing",
+        ? "بيتني | منصة السكن الطلابي في فلسطين"
+        : "Bayyitni | Student Housing Platform In Palestine",
       description: isAR
-        ? "اكتشف غرف وشقق طلابية موثوقة وقريبة من الجامعات في فلسطين والمنطقة العربية."
-        : "Discover verified student housing, affordable rooms, and university-near rentals across Palestine and the Arab world.",
+        ? "بيتتني هي المنصة الأولى لسكن الطلاب في فلسطين. اعثر على غرف وشقق قريبة من الجامعات مع معلومات كاملة وصور وحجز سهل."
+        : "Bayyitni is the leading platform for student housing, rentals, and verified listings across Palestine",
       url: "https://bayyitni.com",
       siteName: isAR ? "بيتتني" : "Bayyitni",
       locale: isAR ? "ar_PS" : "en_US",
@@ -68,11 +183,11 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: isAR
-        ? "بيتتني – منصة السكن الطلابي"
-        : "Bayyitni – Student Housing Platform",
+        ? "بيتني | منصة السكن الطلابي في فلسطين"
+        : "Bayyitni | Student Housing Platform In Palestine",
       description: isAR
-        ? "اعثر على غرف وشقق طلابية موثوقة عبر فلسطين والمنطقة العربية."
-        : "Find student rooms, apartments, and verified landlords across Palestine.",
+        ? "بيتتني هي المنصة الأولى لسكن الطلاب في فلسطين. اعثر على غرف وشقق قريبة من الجامعات مع معلومات كاملة وصور وحجز سهل."
+        : "Bayyitni is the leading platform for student housing, rentals, and verified listings across Palestine",
       creator: "@Bayyitni",
     },
   };
