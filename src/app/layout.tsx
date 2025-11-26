@@ -18,7 +18,6 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bayyitni | Student Housing & Rentals Platform in Palestine and MENA",
   description:
     "Bayyitni is the leading platform for student housing, room rentals, apartments, and shared accommodation in Palestine and the Arab world. Find verified landlords, trusted listings, affordable rooms, university-near apartments, female-only housing, and fully detailed property info with reviews, photos, maps, and online booking.",
   keywords: [
@@ -140,6 +139,21 @@ export const metadata: Metadata = {
   authors: [{ name: "Senwan Devs Team" }],
   generator: "Senwan Devs Team",
   applicationName: "Bayyitni",
+  icons: {
+    icon: [
+      {
+        url: "/images/branding/Bayyitni_logo_master.png",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "/images/branding/Bayyitni_logo_master.png",
+        type: "image/png",
+      },
+    ],
+  },
+
   openGraph: {
     title: "Bayyitni – Find Your Perfect Student Housing",
     description:

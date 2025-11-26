@@ -32,6 +32,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = lang;
+    // Update tab title dynamically
+    document.title =
+      lang === "ar"
+        ? "بيتني | منصة السكن الطلابي في فلسطين"
+        : "Bayyitni | Student Housing Platform In Palestine";
+
 
     // Add RTL class to body for additional styling hooks
     if (lang === "ar") {
