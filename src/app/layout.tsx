@@ -6,7 +6,9 @@ import { AuthProvider } from "@/context/AuthContext";
 import { WhatsAppFloat } from "@/components/whatsapp/WhatsAppFloat";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { Toaster } from "react-hot-toast";
-import "react-datepicker/dist/react-datepicker.css"; // <-- important, global import
+import "react-datepicker/dist/react-datepicker.css";
+import { cookies } from "next/headers";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -17,166 +19,74 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  description:
-    "Bayyitni is the leading platform for student housing, room rentals, apartments, and shared accommodation in Palestine and the Arab world. Find verified landlords, trusted listings, affordable rooms, university-near apartments, female-only housing, and fully detailed property info with reviews, photos, maps, and online booking.",
-  keywords: [
-    // -------------------------------------------------------
-    // 🔵 Brand Keywords
-    // -------------------------------------------------------
-    "Bayyitni",
-    "Bayyitni platform",
-    "Bayyitni housing",
-    "بيتتني",
-    "منصة بيتتني",
+/* ------------------------------
+   ⭐ DYNAMIC BILINGUAL METADATA
+--------------------------------*/
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("lang")?.value || "ar";
 
-    // -------------------------------------------------------
-    // 🔵 General Student Housing Keywords (Arabic)
-    // -------------------------------------------------------
-    "فلسطين سكن طلاب",
-    "سكن للطلاب",
-    "سكن طلاب",
-    "سكن",
-    "طلاب",
-    "طالبات",
-    "سكن للطالبات",
-    "سكن طالبات",
-    "سكنات طالبات",
-    "سكن جامعي",
-    "سكن جامعات",
-    "سكن مشترك",
-    "سكن شبابي",
-    "سكن بنات",
-    "سكن قريب من الجامعة",
-    "غرف للإيجار",
-    "غرف مفروشة",
-    "استوديو",
-    "استوديو للطالبات",
-    "استوديو للإيجار",
-    "تأجير شقق",
-    "سكن مفروش",
-    "سكن رخيص للطلاب",
-    "شقق مفروشة",
-    "غرفة طلابية",
-    "سكن طلابي في فلسطين",
-    "أفضل سكن طلاب",
-    "سكن طلاب آمن",
-    "سكن طلاب جديد",
-    "سكن خاص للطلاب",
+  const isAR = lang === "ar";
 
-    // -------------------------------------------------------
-    // 🔵 General Student Housing Keywords (English)
-    // -------------------------------------------------------
-    "student housing Palestine",
-    "student accommodation",
-    "student rooms",
-    "student apartments",
-    "student rentals Palestine",
-    "shared accommodation",
-    "rent rooms near university",
-    "affordable student rooms",
-    "girls student housing Palestine",
-    "boys housing Palestine",
-    "furnished student rooms",
-    "student private rooms",
-    "off-campus housing Palestine",
-    "student dorm alternatives",
-    "Arab housing marketplace",
-    "MENA student housing",
+  return {
+    title: isAR
+      ? "بيتتني – منصّة السكن الطلابي"
+      : "Bayyitni – Student Housing & Rentals",
 
-    // -------------------------------------------------------
-    // 🔵 An-Najah University Keywords (HIGH VALUE)
-    // -------------------------------------------------------
-    "جامعة النجاح",
-    "جامعة النجاح الوطنية",
-    "سكنات النجاح",
-    "سكن النجاح",
-    "سكن جامعة النجاح",
-    "سكنات جامعة النجاح",
-    "غرف لطلاب جامعة النجاح",
-    "سكن للطالبات قرب النجاح",
+    description: isAR
+      ? "بيتتني هي المنصة الأولى لسكن الطلاب في فلسطين والمنطقة العربية. اعثر على غرف وشقق قريبة من الجامعات مع معلومات كاملة وصور وحجز سهل."
+      : "Bayyitni is the leading platform for student housing, rentals, and verified listings across Palestine and the Arab region.",
 
-    // Campus-specific
-    "الحرم القديم",
-    "سكن الحرم القديم",
-    "سكنات الحرم القديم",
-    "الحرم الجديد",
-    "سكن الحرم الجديد",
-    "سكنات الحرم الجديد",
-    "الأكاديمية",
-    "سكن الأكاديمية",
-    "سكنات الأكاديمية",
+    icons: {
+      icon: [
+        {
+          url: "/images/branding/Bayyitni_logo_master.png",
+          type: "image/png",
+        },
+      ],
+      apple: [
+        {
+          url: "/images/branding/Bayyitni_logo_master.png",
+          type: "image/png",
+        },
+      ],
+    },
 
-    // -------------------------------------------------------
-    // 🔵 City-Specific Keywords (Arabic)
-    // -------------------------------------------------------
-    "سكن نابلس",
-    "نابلس سكن طلاب",
-    "سكن رام الله",
-    "سكن القدس",
-    "سكن الخليل",
-    "سكن طولكرم",
-    "سكن جنين",
-    "سكن قلقيلية",
-    "سكن سلفيت",
-    "سكن غزة",
-    "سكن رفح",
-    "سكن خان يونس",
-    "سكن بيت لحم",
+    openGraph: {
+      title: isAR
+        ? "بيتتني – اعثر على سكنك الطلابي المثالي"
+        : "Bayyitni – Find Your Perfect Student Housing",
+      description: isAR
+        ? "اكتشف غرف وشقق طلابية موثوقة وقريبة من الجامعات في فلسطين والمنطقة العربية."
+        : "Discover verified student housing, affordable rooms, and university-near rentals across Palestine and the Arab world.",
+      url: "https://bayyitni.com",
+      siteName: isAR ? "بيتتني" : "Bayyitni",
+      locale: isAR ? "ar_PS" : "en_US",
+      type: "website",
+    },
 
-    // -------------------------------------------------------
-    // 🔵 City-Specific Keywords (English)
-    // -------------------------------------------------------
-    "student housing Nablus",
-    "student housing Ramallah",
-    "student housing Hebron",
-    "student housing Jerusalem",
-    "student housing Gaza",
-    "rooms for rent Nablus",
-    "rooms for rent Palestine",
-  ]
-  ,
-  authors: [{ name: "Senwan Devs Team" }],
-  generator: "Senwan Devs Team",
-  applicationName: "Bayyitni",
-  icons: {
-    icon: [
-      {
-        url: "/images/branding/Bayyitni_logo_master.png",
-        type: "image/png",
-      },
-    ],
-    apple: [
-      {
-        url: "/images/branding/Bayyitni_logo_master.png",
-        type: "image/png",
-      },
-    ],
-  },
+    twitter: {
+      card: "summary_large_image",
+      title: isAR
+        ? "بيتتني – منصة السكن الطلابي"
+        : "Bayyitni – Student Housing Platform",
+      description: isAR
+        ? "اعثر على غرف وشقق طلابية موثوقة عبر فلسطين والمنطقة العربية."
+        : "Find student rooms, apartments, and verified landlords across Palestine.",
+      creator: "@Bayyitni",
+    },
+  };
+}
 
-  openGraph: {
-    title: "Bayyitni – Find Your Perfect Student Housing",
-    description:
-      "Discover verified student housing, affordable rental rooms, and university-near apartments. The trusted platform for students in Palestine and the Arab region.",
-    url: "https://bayyitni.com",
-    siteName: "Bayyitni",
-    locale: "ar_PS",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Bayyitni – Student Housing Platform",
-    description:
-      "Find student rooms, apartments, and verified landlords across Palestine and the Arab world.",
-    creator: "@Bayyitni",
-  },
-};
-
+/* ------------------------------ 
+  ⭐ ROOT LAYOUT 
+--------------------------------*/
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  // NOTE: <html lang> will be controlled by the client LanguageProvider
   return (
     <html lang="en" dir="rtl">
       <ClerkProvider afterSignOutUrl="/">
@@ -189,6 +99,7 @@ export default function RootLayout({
               {children}
               <WhatsAppFloat />
             </LanguageProvider>
+
             <Toaster position="top-right" reverseOrder={false} />
           </body>
         </AuthProvider>

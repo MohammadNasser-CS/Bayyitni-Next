@@ -29,7 +29,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
     // Save to localStorage
     localStorage.setItem("language", lang);
-
+    document.cookie = `lang=${lang}; path=/; max-age=31536000`;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = lang;
     // Update tab title dynamically
